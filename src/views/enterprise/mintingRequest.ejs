@@ -1,0 +1,93 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar") %>
+<!-- Section: Design Block -->
+<section class="text-center">
+  <!-- Background image -->
+  <div class="p-5 bg-image" style="
+    background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+    height: 300px;
+    ">
+  </div>
+  <!-- Background image -->
+
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+    margin-top: -100px;
+    background: hsla(0, 0%, 100%, 0.8);
+    backdrop-filter: blur(30px);
+  ">
+    <div class="card-body py-5 px-md-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="fw-bold mb-5">Submit pertinent documentation to probe you've done an unplastify process</h2>
+          <form method="POST" action="/enterprise/mintingRequest">
+
+            <!-- Before pic inpmut -->
+            <div class="form-outline mb-4">
+                <input name="before_pic" type="file" class="custom-file-input form-control form-control-lg" lang="es">
+              <label class="form-label" for="customFileLang">Upload a picture showing the before situation</label>
+            </div>
+            <!-- After pic inpmut -->
+            <div class="form-outline mb-4">
+                <input name="after_pic" type="file" class="custom-file-input form-control form-control-lg" lang="es">
+              <label class="form-label" for="customFileLang">Upload a picture showing the after situation</label>
+            </div>
+            <!-- Video inpmut -->
+            <div class="form-outline mb-4">
+                <input name="video" type="file" class="custom-file-input form-control form-control-lg" lang="es">
+              <label class="form-label" for="customFileLang">Upload a video showing the unplastify process</label>
+            </div>
+            <!-- Technical inpmut -->
+            <div class="form-outline mb-4">
+                <input name="technical_file" type="file" class="custom-file-input form-control form-control-lg" lang="es">
+              <label class="form-label" for="customFileLang">Upload the technical file</label>
+            </div>
+            <!-- Additional pics inpmut -->
+            <div class="form-outline mb-4">
+                <input name="additional_pics" type="file" class="custom-file-input form-control form-control-lg" multiple lang="es">
+              <label class="form-label" for="customFileLang">Upload additional pics if necesary</label>
+            </div>
+            <!-- Proof of purchase inpmut -->
+            <div class="form-outline mb-4">
+                <input  name="proof_of_purchase" type="file" class="custom-file-input form-control form-control-lg" lang="es">
+              <label class="form-label" for="customFileLang">Upload the proof of purchase</label>
+            </div>
+            <!-- Dispatch note of purchase inpmut -->
+            <div class="form-outline mb-4">
+              <input name="dispatch_note" type="file" class="custom-file-input form-control form-control-lg" lang="es">
+              <label class="form-label" for="customFileLang">Upload a pertinent dispatch note</label>
+            </div>
+            <label class="form-label" for="plastic-item-before">Select the plastic item avoided</label>
+            <select name ="plastic-item-before" class="form-select mb-4" aria-label="Default select example">
+                <option value="12">
+                  asd
+                </option>
+                <option value="12">
+                  asd
+                </option>
+                <option value="12">
+                  asd
+                </option>
+              </select>
+            <div class="form-outline mb-4">
+              
+              <input type="email" id="form3Example3" class="form-control form-control-lg"
+                placeholder="Enter a valid email address" name="email"/>
+              <label class="form-label" for="form3Example3">Email address</label>
+            </div>
+            <div class="form-outline mb-4">
+              <input type="email" id="form3Example3" class="form-control form-control-lg"
+                placeholder="Enter a valid email address" name="email"/>
+              <label class="form-label" for="form3Example3">Email address</label>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include("../partials/footer") %>

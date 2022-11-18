@@ -8,19 +8,20 @@ const cookies = require('cookie-parser');
 const cors = require('cors');
 app.use(cors())
 
+const mainRoutes = require('./routes/mainRoutes');
+const userRoutes = require('./routes/userRoutes');
+const enterpriseRoutes = require('./routes/enterpriseRoutes');
 // const userLogged = require('./middlewares/userLogged');
-// const mainRoutes = require('./routes/mainRoutes');
 // const productRoutes = require('./routes/productRoutes');
-// const userRoutes = require('./routes/userRoutes');
 // const apiRoutes = require('./routes/apiRoutes');
-
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(session({
-  secret: 'es un secreo',
+  secret: 'upf secret',
   resave: false,
   saveUninitialized: false
 }));
 app.use(cookies());
-app.use(userLogged);
+// app.use(userLogged);
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }));
@@ -32,7 +33,5 @@ app.listen(PORT, ()=>{
 });
 
 app.use('/', mainRoutes);
-app.use('/products', productRoutes);
 app.use('/users', userRoutes);
-app.use('/cart', mainRoutes);
-app.use('/api', apiRoutes);
+app.use('/enterprise', enterpriseRoutes);

@@ -1,0 +1,77 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar") %>
+<!-- Section: Design Block -->
+<section class="text-center">
+  <!-- Background image -->
+  <div class="p-5 bg-image" style="
+    background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+    height: 300px;
+    ">
+  </div>
+  <!-- Background image -->
+
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+    margin-top: -100px;
+    background: hsla(0, 0%, 100%, 0.8);
+    backdrop-filter: blur(30px);
+  ">
+    <div class="card-body py-5 px-md-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="fw-bold mb-5">Sign up now</h2>
+          <form method="POST" action="/users/register">
+            <!-- Name inpmut -->
+              <div class="form-outline mb-4">
+                <input name ="name" type="text" id="form3Example1" class="form-control" />
+                <label class="form-label" for="form3Example1">Name</label>
+              </div>
+            
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input name ="email" type="email" id="form3Example3" class="form-control" />
+                <label class="form-label" for="form3Example3">Email address</label>
+              </div>
+
+            <!-- ETH Address input -->
+              <div class="form-outline mb-4">
+                <input type="text" name ="address" id="form3Example1" class="form-control" />
+                <label class="form-label" for="form3Example1">ETH Address</label>
+              </div>
+
+            <!-- Select User Category-->
+              <select name ="category" class="form-select mb-4" aria-label="Default select example">
+                <% for(i = 0; i < userCategory.length; i++) {%>
+                  <option value="<%= userCategory[i].id %>">
+                    <%= userCategory[i].user_category %>
+                  </option>
+                  <% } %> 
+              </select>
+              <label class="form-label" for="form3Example3">Condition</label>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <input name ="password" type="password" id="form3Example4" class="form-control" />
+              <label class="form-label" for="form3Example4">Password</label>
+            </div>
+
+            <!-- Newsletter Checkbox -->
+            <div class="form-check d-flex justify-content-center mb-4">
+              <input name ="suscription" class="form-check-input me-2" type="checkbox" id="form2Example33" checked />
+              <label class="form-check-label" for="form2Example33">
+                Subscribe to our newsletter
+              </label>
+            </div> 
+        
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">
+              Sign up
+            </button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Already member? <a href="/users/login"
+              class="link-danger">Log in</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include("../partials/footer") %>
