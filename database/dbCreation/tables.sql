@@ -22,7 +22,7 @@ create table `user` (
   `registered` integer DEFAULT 0,
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  primary key (id),
+  primary key (user_id),
   foreign key (user_category_id) REFERENCES user_category(id)
 )
 
@@ -37,7 +37,7 @@ create table enterprise_details (
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   primary key (id),
-  foreign key (id) REFERENCES user(id)
+  foreign key (id) REFERENCES user(user_id)
 )
 
 create table treace_type(
@@ -182,7 +182,7 @@ create table minting_request (
   `additional_pics` text,
   `proof_of_purchase` text,
   `dispatch_note` text,
-  `id_plastic_item_before` text,
+  `id_plastic_item_before` integer,
   `id_treace_type` integer,
   `id_product_category` integer,
   `id_desplastified_activity` integer,
@@ -192,13 +192,14 @@ create table minting_request (
   `id_alternative_plastic_item` integer,
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  primary key (id),
-  FOREIGN KEY (`user_id`) REFERENCES user(id),
-  FOREIGN KEY (id_treace_type) REFERENCES treace_type(id_treace_type),
+  primary key (`minting_request_id`),
+  FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
+  FOREIGN KEY (`id_treace_type`) REFERENCES treace_type(id_treace_type),
   FOREIGN KEY (id_product_category) REFERENCES product_category(id_product_category),
   FOREIGN KEY (id_desplastified_activity) REFERENCES desplastified_activity(id_desplastified_activity),
   FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
-  FOREIGN KEY (id_plastic_item) REFERENCES plastic_item(id_plastic_item),
+  FOREIGN KEY (id_plastic_item_before) REFERENCES plastic_item(id_plastic_item),
+  FOREIGN KEY (id_plastic_item_after) REFERENCES plastic_item(id_plastic_item),
   FOREIGN KEY (id_source_change) REFERENCES source_change(id_source_change),
   FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
 )

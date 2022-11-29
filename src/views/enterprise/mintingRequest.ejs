@@ -22,52 +22,116 @@
           <form method="POST" action="/enterprise/mintingRequest">
 
             <!-- Before pic inpmut -->
-            <div class="form-outline mb-4">
-                <input name="before_pic" type="file" class="custom-file-input form-control form-control-lg" lang="es">
-              <label class="form-label" for="customFileLang">Upload a picture showing the before situation</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="before_pic">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
+            <label class="form-label" for="customFileLang">Upload a picture showing the before situation</label>
             <!-- After pic inpmut -->
-            <div class="form-outline mb-4">
-                <input name="after_pic" type="file" class="custom-file-input form-control form-control-lg" lang="es">
-              <label class="form-label" for="customFileLang">Upload a picture showing the after situation</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="after_pic">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
+            <label class="form-label" for="customFileLang">Upload a picture showing the after situation</label>
+
             <!-- Video inpmut -->
-            <div class="form-outline mb-4">
-                <input name="video" type="file" class="custom-file-input form-control form-control-lg" lang="es">
-              <label class="form-label" for="customFileLang">Upload a video showing the unplastify process</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="video">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
+            <label class="form-label" for="customFileLang">Upload a video showing the unplastify process</label>
             <!-- Technical inpmut -->
-            <div class="form-outline mb-4">
-                <input name="technical_file" type="file" class="custom-file-input form-control form-control-lg" lang="es">
-              <label class="form-label" for="customFileLang">Upload the technical file</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="technical_file">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
+            <label class="form-label" for="customFileLang">Upload the technical file</label>
+
             <!-- Additional pics inpmut -->
-            <div class="form-outline mb-4">
-                <input name="additional_pics" type="file" class="custom-file-input form-control form-control-lg" multiple lang="es">
-              <label class="form-label" for="customFileLang">Upload additional pics if necesary</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="additional_pics">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
+            <label class="form-label" for="customFileLang">Upload additional pics if necesary</label>
             <!-- Proof of purchase inpmut -->
-            <div class="form-outline mb-4">
-                <input  name="proof_of_purchase" type="file" class="custom-file-input form-control form-control-lg" lang="es">
-              <label class="form-label" for="customFileLang">Upload the proof of purchase</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="proof_of_purchase">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
+            <label class="form-label" for="customFileLang">Upload the proof of purchase</label>
             <!-- Dispatch note of purchase inpmut -->
-            <div class="form-outline mb-4">
-              <input name="dispatch_note" type="file" class="custom-file-input form-control form-control-lg" lang="es">
-              <label class="form-label" for="customFileLang">Upload a pertinent dispatch note</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="dispatch_note">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
-            <label class="form-label" for="plastic-item-before">Select the plastic item avoided</label>
+            <label class="form-label" for="customFileLang">Upload a pertinent dispatch note</label>
+            <!-- Plastic item -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="text" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01" name="plasticItem">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
+            </div>
+            <label class="form-label" for="customFileLang">Specify the description of the product or desplastified operation</label>
+
             <select name ="plastic-item-before" class="form-select mb-4" aria-label="Default select example">
-                <option value="12">
-                  asd
-                </option>
-                <option value="12">
-                  asd
-                </option>
-                <option value="12">
-                  asd
-                </option>
-              </select>
+              <option value="12">
+                asd
+              </option>
+              <option value="12">
+                asd
+              </option>
+              <option value="12">
+                asd
+              </option>
+            </select>
+            <label class="form-label" for="plastic-item-before">Select the plastic item avoided</label>
             <div class="form-outline mb-4">
               
               <input type="email" id="form3Example3" class="form-control form-control-lg"
