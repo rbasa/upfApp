@@ -11,6 +11,7 @@ app.use(cors())
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
 const enterpriseRoutes = require('./routes/enterpriseRoutes');
+const unplastifyRoutes = require('./routes/unplastifyRoutes');
 // const userLogged = require('./middlewares/userLogged');
 // const productRoutes = require('./routes/productRoutes');
 // const apiRoutes = require('./routes/apiRoutes');
@@ -22,9 +23,9 @@ app.use(session({
 }));
 app.use(cookies());
 // app.use(userLogged);
-app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'/views'));
@@ -35,3 +36,4 @@ app.listen(PORT, ()=>{
 app.use('/', mainRoutes);
 app.use('/users', userRoutes);
 app.use('/enterprise', enterpriseRoutes);
+app.use('/unplastify', unplastifyRoutes);
