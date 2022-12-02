@@ -43,7 +43,14 @@ module.exports = (sequelize, dataTypes) => {
     User.belongsTo(models.user_category, {
       as: 'category',
       foreignKey: 'user_category_id'
+    }),
+    User.belongsTo(models.enterprise_detail, {
+      as: 'enterprise_detail',
+      foreignKey: 'user_id'
     })
   }
+  // User.associate = function(models){
+    
+  // }
   return User;
 }

@@ -4,6 +4,13 @@ const User = {
   list: async() => {
     return await db.User.findAll();
   },
+  unregisteredList: async() => {
+    return await db.User.findAll({
+      where:{registered:0},
+      include: [{association:'category'}],
+      attributes: ['user_id', 'name', 'email','address', 'createdAt']
+    });
+  },
   listCategory: async () => {
     return await db.user_category.findAll()
   },
@@ -16,6 +23,26 @@ const User = {
   })},
   getDetails: async (id) => {
     return await db.enterprise_detail.findByPk(id)
+  },
+  getCategory: async (id) => {
+    return await db.User.findByPk(id,{
+      include: [{association:'category'}],
+      attributes: ['user_id']
+    })
+  },
+  getFullEnterpriseDetails: async (id) => {
+    return await db.User.findByPk(id,{
+      where:{user_category_id:2},
+      include: [{ association:'enterprise_detail' }]
+    })
+  },
+  approveEnterprise: async (id) => {
+    await db.User.update({
+      registered: 1,
+    },
+    {
+      where: { user_id: id },
+    })
   },
   userLogged: async (id) => {
     return await db.User.findByPk(id,{

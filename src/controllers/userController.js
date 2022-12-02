@@ -16,7 +16,7 @@ const controller = {
         case 2:
           return res.redirect('/enterprise/home')
         case 3:
-          return res.send('view de unplastify');
+          return res.redirect('/unplastify/home')
         default:
           return res.redirect('/users/login')
       }
@@ -52,7 +52,7 @@ const controller = {
         case 2:
           return res.redirect('/enterprise/home')
         case 3:
-          return res.send('view de unplastify');
+          return res.redirect('/unplastify/home');
         default:
           return res.redirect('users/login')
       }
