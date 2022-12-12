@@ -9,9 +9,9 @@ const userIsLogged = require('../middlewares/userIsLogged');
 
 router.get('/login', userIsLogged, userController.login);
 router.post('/login', userController.loginProcess);
+router.get('/logout', userController.logout);
 router.get('/register', userIsLogged, userController.register);
 router.post('/register', userController.processRegister);
 router.get('/redirectUser', userController.redirectUser);
-// router.get('/logout', userController.logout);
 
 module.exports = router

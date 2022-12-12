@@ -1,7 +1,9 @@
 const path = require('path');
 const Users = require('../models/Users');
+const Minting_Request = require('../models/Minting_Request');
 // const Minting_request = require('../models/Minting_Request');
-const bcryptjs = require('bcryptjs')
+const bcryptjs = require('bcryptjs');
+const Plastic_item = require('../../database/models/Plastic_item');
 
 
 const controller = {
@@ -15,11 +17,23 @@ const controller = {
     return res.render('enterprise/details', { submitedDetails });
   },
   submitDetails: async(req, res) => {
+    
     await Users.submitDetails(req.body, req.session.userLogged.id);
     return res.redirect('/enterprise/home');
   },
   mintingRequest: async(req, res) => {
-    return res.render('enterprise/mintingRequest');
+    const plasticItem = await Minting_Request.listPlasticItems();
+    return res.render('enterprise/mintingRequest', { plasticItem });
+  },
+  processMintingRequest: async(req, res) => {
+    if(req.file){
+      const filex = req.file.path;
+      const fileNamex = req.file.filename;
+    }
+    a=req.session.userLogged.user_id
+    return res.send(req.file)
+    await Minting_Request.submit(req.session.userLogged, req.body, req.file)
+    return res.send(req.file);
   }
 };
 module.exports = controller;

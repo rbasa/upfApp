@@ -19,7 +19,7 @@
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
           <h2 class="fw-bold mb-5">Submit pertinent documentation to probe you've done an unplastify process</h2>
-          <form method="POST" action="/enterprise/mintingRequest">
+          <form method="POST" action="/enterprise/mintingRequest" enctype="multipart/form-data">
 
             <!-- Before pic inpmut -->
             <div class="input-group">
@@ -27,11 +27,12 @@
                 <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
               </div>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                <input type="file" class="custom-file-input"
                 aria-describedby="inputGroupFileAddon01" name="before_pic">
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
               </div>
             </div>
+
             <label class="form-label" for="customFileLang">Upload a picture showing the before situation</label>
             <!-- After pic inpmut -->
             <div class="input-group">
@@ -39,7 +40,7 @@
                 <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
               </div>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                <input type="file" class="custom-file-input"
                 aria-describedby="inputGroupFileAddon01" name="after_pic">
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
               </div>
@@ -83,6 +84,7 @@
               </div>
             </div>
             <label class="form-label" for="customFileLang">Upload additional pics if necesary</label>
+
             <!-- Proof of purchase inpmut -->
             <div class="input-group">
               <div class="input-group-prepend">
@@ -95,6 +97,7 @@
               </div>
             </div>
             <label class="form-label" for="customFileLang">Upload the proof of purchase</label>
+
             <!-- Dispatch note of purchase inpmut -->
             <div class="input-group">
               <div class="input-group-prepend">
@@ -107,7 +110,16 @@
               </div>
             </div>
             <label class="form-label" for="customFileLang">Upload a pertinent dispatch note</label>
+
             <!-- Plastic item -->
+            <select name ="plastic-item-before" class="form-select mb-4" aria-label="Default select example">
+              <% plasticItem.forEach( e => { %>
+                <option value="<%= e.id_plastic_item %>">
+                  <%= e.plastic_item %> 
+                </option>
+              <% }) %>
+            </select>
+
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -120,17 +132,7 @@
             </div>
             <label class="form-label" for="customFileLang">Specify the description of the product or desplastified operation</label>
 
-            <select name ="plastic-item-before" class="form-select mb-4" aria-label="Default select example">
-              <option value="12">
-                asd
-              </option>
-              <option value="12">
-                asd
-              </option>
-              <option value="12">
-                asd
-              </option>
-            </select>
+            
             <label class="form-label" for="plastic-item-before">Select the plastic item avoided</label>
             <div class="form-outline mb-4">
               
@@ -143,7 +145,6 @@
                 placeholder="Enter a valid email address" name="email"/>
               <label class="form-label" for="form3Example3">Email address</label>
             </div>
-
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4">
               Submit
