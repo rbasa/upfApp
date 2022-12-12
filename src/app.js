@@ -12,7 +12,7 @@ const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
 const enterpriseRoutes = require('./routes/enterpriseRoutes');
 const unplastifyRoutes = require('./routes/unplastifyRoutes');
-// const userLogged = require('./middlewares/userLogged');
+const userLogged = require('./middlewares/userLogged');
 // const productRoutes = require('./routes/productRoutes');
 // const apiRoutes = require('./routes/apiRoutes');
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
@@ -22,7 +22,7 @@ app.use(session({
   saveUninitialized: false
 }));
 app.use(cookies());
-// app.use(userLogged);
+app.use(userLogged);
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

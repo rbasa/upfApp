@@ -44,9 +44,11 @@ const User = {
       where: { user_id: id },
     })
   },
-  userLogged: async (id) => {
-    return await db.User.findByPk(id,{
-    attributes: ['user_id', 'name', 'email','address', 'user_category_id', 'registered']
+  userLogged: async (email) => {
+    console.log('corre esta fn')
+    return await db.User.findOne({ 
+      where: {email: email},
+      attributes: ['user_id', 'name', 'email','address', 'user_category_id', 'registered']
   })},
   create: async function(userData){
     await db.User.create({

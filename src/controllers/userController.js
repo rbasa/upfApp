@@ -1,14 +1,13 @@
 const path = require('path');
 const Users = require('../models/Users');
-const bcryptjs = require('bcryptjs')
+const bcryptjs = require('bcryptjs');
+const { userLogged } = require('../models/Users');
 
 const controller = {
   login:(req, res) => {
     return res.render('users/login');
   },
   redirectUser:(req,res)=>{
-    console.log('se ejecuta redireccion con userLogged: ')
-    console.log(req.session.userLogged)
     if(req.session.userLogged){
       switch (req.session.userLogged.user_category_id) {
         case 1:
@@ -44,7 +43,10 @@ const controller = {
         }
       });
     }
-    req.session.userLogged = await Users.userLogged(userToLogin.user_id);
+    req.session.userLogged = await Users.userLogged(userToLogin.email);
+    if(req.body.remember){
+      res.cookie('userEmail', req.body.email, {maxAge: 1000*60*60})
+    }
     if(req.session.userLogged){
       switch (req.session.userLogged.user_category_id) {
         case 1:
@@ -57,7 +59,11 @@ const controller = {
           return res.redirect('users/login')
       }
     }
-    return res.redirect('users/login')
+  },
+  logout: (req, res) => {
+    res.clearCookie('userEmail');
+    req.session.destroy();
+    return res.redirect('/')
   },
   register: async(req, res) =>{
     const userCategory = await Users.listCategory()
