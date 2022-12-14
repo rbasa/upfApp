@@ -11,7 +11,9 @@
           </div>
           <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <form method="POST" action="/users/login">
-
+              <% if (locals.errors && errors.login) { %>
+                <div class="error"><%= errors.login.msg %> </div>
+              <% } %>
               <!-- Email input -->
               <div class="form-outline mb-4">
                 <input type="email" id="form3Example3" class="form-control form-control-lg"

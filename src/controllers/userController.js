@@ -38,7 +38,7 @@ const controller = {
       return res.render('users/login', {
         errors: {
           login: {
-            msg: 'Las contraseña es inválida'
+            msg: 'Las credenciales son inválidas'
           }
         }
       });
