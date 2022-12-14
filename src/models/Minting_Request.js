@@ -14,8 +14,28 @@ const Minting_request = {
   listPlasticItems: async()=>{
     return await db.plastic_item.findAll();
   },
+  listTraceType: async()=>{
+    return await db.treace_type.findAll();
+  },
+  listProductCategory: async()=>{
+    return await db.product_category.findAll();
+  },
+  listDesplastifiedActivity: async()=>{
+    return await db.desplastified_activity.findAll();
+  },
+  listProductMeasurementUnit: async()=>{
+    return await db.product_measurement_unit.findAll();
+  },
+  listAlternativePlasticItems: async()=>{
+    return await db.alternative_plastic_item.findAll();
+  },
+  listSourceChange: async()=>{
+    return await db.source_change.findAll();
+  },
+  listimpactApproach: async()=>{
+    return await db.impact_approach.findAll();
+  },
   submit: async function(id,userData){
-    // falta establecer campos de cantidad en la tabla
     await db.Minting_request.create({
     user_id: id,
     before_pic: userData.before_pic

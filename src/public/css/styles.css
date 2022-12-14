@@ -22575,3 +22575,8 @@ body.sidebar-toggled footer.sticky-footer {
   .table-wrapper-scroll-y {
   display: block;
   }
+.error{
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  color: #cb4e05;
+}
