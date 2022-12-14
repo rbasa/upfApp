@@ -31,11 +31,17 @@ module.exports = (sequelize, dataTypes) => {
     dispatch_note:{
       type: dataTypes.TEXT,
     },
-    id_plastic_item_before:{
-      type: dataTypes.INTEGER,
+    sku:{
+      type: dataTypes.TEXT,
     },
     id_treace_type:{
       type: dataTypes.INTEGER,
+    },
+    plastic_item:{
+      type: dataTypes.TEXT,
+    },
+    graduality_category:{
+      type: dataTypes.TEXT,
     },
     id_product_category:{
       type: dataTypes.INTEGER,
@@ -46,17 +52,44 @@ module.exports = (sequelize, dataTypes) => {
     id_product_measurement_unit:{
       type: dataTypes.INTEGER,
     },
-    id_plastic_item_after:{
+    id_plastic_item_before:{
       type: dataTypes.INTEGER,
     },
-    id_alternative_plastic_item:{
-      type: dataTypes.INTEGER,
+    previous_plastic_weight:{
+      type: dataTypes.DECIMAL(30,18),
+    },
+    previous_cuantity:{
+      type: dataTypes.DECIMAL(30,18),
     },
     id_source_change:{
       type: dataTypes.INTEGER,
     },
-    id_treace_type:{
+    id_source_change:{
+      type: dataTypes.DATE,
+    },
+    id_alternative_plastic_item:{
       type: dataTypes.INTEGER,
+    },
+    actual_plastic_weight:{
+      type: dataTypes.DECIMAL(30,18),
+    },
+    actual_cuantity:{
+      type: dataTypes.DECIMAL(30,18),
+    },
+    plastic_ratio:{
+      type: dataTypes.DECIMAL(30,18),
+    },
+    id_impact_approach:{
+      type: dataTypes.INTEGER,
+    },
+    impact_approach_quantity:{
+      type: dataTypes.DECIMAL(30,18),
+    },
+    id_impact_approach:{
+      type: dataTypes.INTEGER,
+    },
+    impact_approach_files:{
+      type: dataTypes.TEXT,
     },
     createdAt:{
       type: dataTypes.DATE
@@ -121,6 +154,18 @@ module.exports = (sequelize, dataTypes) => {
     Minting_request.belongsTo(models.alternative_plastic_item, {
       as: 'alternative_plastic_item',
       foreignKey: 'id_alternative_plastic_item'
+    })
+  };
+  Minting_request.associate = function(models){
+    Minting_request.belongsTo(models.impact_approach, {
+      as: 'impact_approach',
+      foreignKey: 'id_impact_approach'
+    })
+  };
+  Minting_request.associate = function(models){
+    Minting_request.belongsTo(models.minting_request_status, {
+      as: 'minting_request_status',
+      foreignKey: 'id_minting_request_status'
     })
   };
   return Minting_request;

@@ -172,6 +172,31 @@ values
 ('Reusable Plastic'),
 ('Digital')
 
+create table impact_approach (
+  `id_impact_approach` integer not null auto_increment,
+  `impact_approach` text,
+  primary key (id_impact_approach)
+)
+insert into impact_approach (impact_approach)
+values
+('Purchases'),
+('Sales')
+
+create table minting_request_status (
+  `id_status` integer not null auto_increment,
+  `status` text,
+  primary key (id_status)
+)
+insert into minting_request_status (`status`)
+values
+('Posted'),
+('In Review'),
+('Further documentation requested'),
+('Approved'),
+('Rejected'),
+('Stand-by')
+
+
 create table minting_request (
   `minting_request_id` integer not null auto_increment,
   `user_id` integer not null,
@@ -182,22 +207,39 @@ create table minting_request (
   `additional_pics` text,
   `proof_of_purchase` text,
   `dispatch_note` text,
-  `id_plastic_item_before` integer,
+  `sku` text,
   `id_treace_type` integer,
+  `plastic_item` text,
+  `graduality_category` text,
   `id_product_category` integer,
   `id_desplastified_activity` integer,
   `id_product_measurement_unit` integer,
-  `id_plastic_item_after` integer,
+  `id_plastic_item_before` integer,
+  `previous_plastic_weight` decimal(30,18),
+  `previous_cuantity` decimal(30,18),
   `id_source_change` integer,
+  `implementation_date` date,
   `id_alternative_plastic_item` integer,
+  `actual_plastic_weight` decimal(30,18),
+  `actual_cuantity` decimal(30,18),
+  `plastic_ratio` decimal(30,18),
+  `id_impact_approach` integer,
+  `impact_approach_quantity` decimal(30,18),
+  `id_impact_approach_measurement_unit` integer,
+  `impact_approach_files` text,
+  `id_minting_request_status` integer,
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   primary key (`minting_request_id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`id_treace_type`) REFERENCES treace_type(id_treace_type),
   FOREIGN KEY (id_product_category) REFERENCES product_category(id_product_category),
+  FOREIGN KEY (id_minting_request_status) REFERENCES minting_request_status(id_status),
   FOREIGN KEY (id_desplastified_activity) REFERENCES desplastified_activity(id_desplastified_activity),
   FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
+  FOREIGN KEY (id_impact_approach) REFERENCES impact_approach(id_impact_approach),
+  FOREIGN KEY (id_impact_approach_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
+  FOREIGN KEY (id_purchaseSale_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
   FOREIGN KEY (id_plastic_item_before) REFERENCES plastic_item(id_plastic_item),
   FOREIGN KEY (id_plastic_item_after) REFERENCES plastic_item(id_plastic_item),
   FOREIGN KEY (id_source_change) REFERENCES source_change(id_source_change),

@@ -1,7 +1,7 @@
 module.exports = (sequelize, dataTypes) => {
   
   const Alternative_plastic_item = sequelize.define('alternative_plastic_item', {
-    id_source_change: {
+    id_alternative_plastic_item: {
       type: dataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
