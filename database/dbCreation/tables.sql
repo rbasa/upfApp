@@ -239,9 +239,7 @@ create table minting_request (
   FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
   FOREIGN KEY (id_impact_approach) REFERENCES impact_approach(id_impact_approach),
   FOREIGN KEY (id_impact_approach_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
-  FOREIGN KEY (id_purchaseSale_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
   FOREIGN KEY (id_plastic_item_before) REFERENCES plastic_item(id_plastic_item),
-  FOREIGN KEY (id_plastic_item_after) REFERENCES plastic_item(id_plastic_item),
   FOREIGN KEY (id_source_change) REFERENCES source_change(id_source_change),
   FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
 )
