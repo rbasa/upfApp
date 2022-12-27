@@ -1,6 +1,36 @@
 let db = require("../../database/models");
 
 const Minting_request = {
+  getFileArray: (fieldname, req) => {
+    return req.files.some(file => file.fieldname === fieldname)
+      ? JSON.stringify(
+          req.files
+            .filter(file => file.fieldname === fieldname)
+            .map(file => file.path)
+        )
+      : JSON.stringify([]);
+  },
+  submit: async function(req) {
+    await db.Minting_request.create({
+      user_id: req.session.userLogged.user_id,
+      before_pic: this.getFileArray('before_pic', req),
+      after_pic: this.getFileArray('after_pic', req),
+      video: this.getFileArray('video', req),
+      technical_file: this.getFileArray('technical_file', req),
+      additional_pics: this.getFileArray('additional_pics', req),
+      sku: req.body.sku,
+      plastic_item: req.body.plastic_item,
+      implemented_change: req.body.implemented_change,
+      implementation_date: req.body.implementation_date ? req.body.implementation_date : null,
+      id_plastic_item_before: req.body.id_plastic_item_before,
+      id_alternative_plastic_item: req.body.id_plastic_item_after,
+      id_impact_approach: req.body.impact_approach,
+      id_product_measurement_unit: req.body.id_product_measurement_unit,
+      impact_approach_quantity: req.body.impact_approach_quantity ? req.body.impact_approach_quantity : null,
+      dir_name: req.dirName,
+      id_minting_request_status: 1
+    });
+  },
   list: async() => {
     return await db.Minting_request.findAll();
   },
@@ -34,61 +64,6 @@ const Minting_request = {
   },
   listimpactApproach: async()=>{
     return await db.impact_approach.findAll();
-  },
-  submit: async function(req){
-    const beforePic = req.files.some(file => file.fieldname === 'before_pic')
-    ? JSON.stringify(
-        req.files
-          .filter(file => file.fieldname === 'before_pic')
-          .map(file => file.filename)
-      )
-    : JSON.stringify([]);
-    const afterPic = req.files.some(file => file.fieldname === 'after_pic')
-      ? JSON.stringify(
-          req.files
-            .filter(file => file.fieldname === 'after_pic')
-            .map(file => file.filename)
-        )
-      : JSON.stringify([]);
-    const video = req.files.some(file => file.fieldname === 'video')
-      ? JSON.stringify(
-          req.files
-            .filter(file => file.fieldname === 'video')
-            .map(file => file.filename)
-        )
-      : JSON.stringify([]);
-    const technicalFile = req.files.some(file => file.fieldname === 'technical_file')
-      ? JSON.stringify(
-          req.files
-            .filter(file => file.fieldname === 'technical_file')
-            .map(file => file.filename)
-        )
-      : JSON.stringify([]);
-    const additionalPics = req.files.some(file => file.fieldname === 'additional_pics')
-      ? JSON.stringify(
-          req.files
-            .filter(file => file.fieldname === 'additional_pics')
-            .map(file => file.filename)
-        )
-      : JSON.stringify([]);
-    await db.Minting_request.create({
-    user_id: req.session.userLogged.user_id,
-    before_pic: beforePic,
-    after_pic: afterPic,
-    video: video,
-    technical_file: technicalFile,
-    additional_pics: additionalPics,
-    sku: req.body.sku,
-    plastic_item: req.body.plastic_item,
-    implemented_change: req.body.implemented_change,
-    implementation_date: req.body.implementation_date ? req.body.implementation_date : null,
-    id_plastic_item_before: req.body.id_plastic_item_before,
-    id_alternative_plastic_item: req.body.id_plastic_item_after,
-    id_impact_approach: req.body.impact_approach,
-    id_product_measurement_unit: req.body.id_product_measurement_unit,
-    impact_approach_quantity: req.body.impact_approach_quantity ? req.body.impact_approach_quantity : null,
-    id_minting_request_status: 1
-    });
   },
   listPlasticItem: async () => {
     return await db.plastic_item.findAll()

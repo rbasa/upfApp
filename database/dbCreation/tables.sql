@@ -214,6 +214,7 @@ create table minting_request (
   `id_product_measurement_unit` integer,
   `impact_approach_quantity` decimal(30,18),
   `id_minting_request_status` integer,
+  `dir_name` text,
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   primary key (`minting_request_id`),

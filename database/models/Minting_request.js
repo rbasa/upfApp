@@ -53,6 +53,9 @@ module.exports = (sequelize, dataTypes) => {
     impact_approach_quantity:{
       type: dataTypes.DECIMAL(30,18),
     },
+    dir_name:{
+      type: dataTypes.TEXT,
+    },
     minting_reques_status:{
       type: dataTypes.INTEGER,
     },
