@@ -18,16 +18,16 @@
             <h1 class="h3 mb-0 text-gray-800 mt-4">Pending Registration details</h1>
           </div>
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h2 class="h3 mb-0 text-gray-800 mt-4"><%= enterprise.name %></h2>
+            <h2 class="h3 mb-0 text-gray-800 mt-4"><%= enterprise.name ? enterprise.name : "Enterprise name is not defined"%></h2>
           </div>
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Enterprise mail contact <%= enterprise.email ? enterprise.email :  %></h5>
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Address <%= enterprise.address %></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Enterprise mail contact <%= enterprise.email ? enterprise.email : "Enterprise mail is not defined" %></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Address <%= enterprise.address ? enterprise.address : "Enterprise address is not defined"%></h5>
             <h5 class="h3 mb-0 text-gray-800 mt-4">Profile created at <%= enterprise.createdAt %></h5>
             
           </div>
           <!-- u.category.dataValues.user_category  -->
-          <h5 class="h3 mb-0 text-gray-800 mt-4">detallles <%= enterprise.enterprise_detail.dataValues.cuit %></h5>
+          <h5 class="h3 mb-0 text-gray-800 mt-4">detallles <%= enterprise.enterprise_detail && enterprise.enterprise_detail.dataValues.cuit ? enterprise.enterprise_detail.dataValues.cuit : "Cuit is not defined" %></h5>
         </div>
         <form method="POST" action="/unplastify/approveEnterprise/<%= enterprise.user_id %>?_method=PUT">
           <div class="">
