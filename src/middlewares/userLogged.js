@@ -4,7 +4,6 @@ userLoggedMiddleware = async (req, res, next) => {
 	res.locals.isLogged = false;
 	let emailInCookie = req.cookies.userEmail;
 	if (emailInCookie && !req.session.userLogged){
-		console.log('se relogue con cookie')
 		req.session.userLogged = await User.userLogged(emailInCookie);
 	} 
 
