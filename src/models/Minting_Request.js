@@ -35,24 +35,93 @@ const Minting_request = {
   listimpactApproach: async()=>{
     return await db.impact_approach.findAll();
   },
-  submit: async function(id,userData){
+  submit: async function(req){
+    const beforePic = req.files.some(file => file.fieldname === 'before_pic')
+    ? JSON.stringify(
+        req.files
+          .filter(file => file.fieldname === 'before_pic')
+          .map(file => file.filename)
+      )
+    : JSON.stringify([]);
+    const afterPic = req.files.some(file => file.fieldname === 'after_pic')
+      ? JSON.stringify(
+          req.files
+            .filter(file => file.fieldname === 'after_pic')
+            .map(file => file.filename)
+        )
+      : JSON.stringify([]);
+    const video = req.files.some(file => file.fieldname === 'video')
+      ? JSON.stringify(
+          req.files
+            .filter(file => file.fieldname === 'video')
+            .map(file => file.filename)
+        )
+      : JSON.stringify([]);
+    const technicalFile = req.files.some(file => file.fieldname === 'technical_file')
+      ? JSON.stringify(
+          req.files
+            .filter(file => file.fieldname === 'technical_file')
+            .map(file => file.filename)
+        )
+      : JSON.stringify([]);
+    const additionalPics = req.files.some(file => file.fieldname === 'additional_pics')
+      ? JSON.stringify(
+          req.files
+            .filter(file => file.fieldname === 'additional_pics')
+            .map(file => file.filename)
+        )
+      : JSON.stringify([]);
+    // const beforePic = req.files.some(file => file.fieldname === 'before_pic')
+    //   ? JSON.stringify(
+    //       req.files
+    //         .filter(file => file.fieldname === 'before_pic')
+    //         .map(file => file.filename)
+    //     )
+    //   : 'image not included';
+    // const beforePic = req.files
+    //   .filter(file => file.fieldname === 'before_pic')
+    //   .map(file => file.filename) || ['image not included'];
+    // const afterPic = req.files.some(file => file.fieldname === 'after_pic')
+    // ? req.files
+    //   .filter(file => file.fieldname === 'after_pic')
+    //   .map(file => file.filename)
+    //   .join(',')
+    // : 'image not included';
+    // const video = req.files.some(file => file.fieldname === 'video')
+    // ? req.files
+    //   .filter(file => file.fieldname === 'video')
+    //   .map(file => file.filename)
+    //   .join(',')
+    // : 'video not included';
+    // const technicalFile = req.files.some(file => file.technical_file === 'video')
+    // ? req.files
+    //   .filter(file => file.fieldname === 'technical_file')
+    //   .map(file => file.filename)
+    //   .join(',')
+    // : 'technical file not included';
+    // const additionalPics = req.files.some(file => file.additional_pics === 'video')
+    // ? req.files
+    //   .filter(file => file.fieldname === 'additional_pics')
+    //   .map(file => file.filename)
+    //   .join(',')
+    // : 'additional pics not included';
     await db.Minting_request.create({
-    user_id: id,
-    before_pic: userData.before_pic
-    // after_pic: userData.after_pic,
-    // video: userData.video,
-    // technical_file: userData.technical_file,
-    // additional_pics: userData.additional_pics,
-    // proof_of_purchase: userData.proof_of_purchase,
-    // dispatch_note: userData.dispatch_note,
-    // id_plastic_item_before: userData.id_plastic_item_before,
-    // id_treace_type: userData.id_treace_type,
-    // id_product_category: userData.id_product_category,
-    // id_desplastified_activity: userData.id_desplastified_activity,
-    // id_product_measurement_unit: userData.id_product_measurement_unit,
-    // id_plastic_item_after: userData.id_plastic_item_after,
-    // id_alternative_plastic_item: userData.id_alternative_plastic_item,
-    // id_source_change: userData.id_source_change
+    user_id: req.session.userLogged.user_id,
+    before_pic: beforePic,
+    after_pic: afterPic,
+    video: video,
+    technical_file: technicalFile,
+    additional_pics: additionalPics,
+    sku: req.body.sku,
+    plastic_item: req.body.plastic_item,
+    implemented_change: req.body.implemented_change,
+    implementation_date: req.body.implementation_date ? req.body.implementation_date : null,
+    id_plastic_item_before: req.body.id_plastic_item_before,
+    id_alternative_plastic_item: req.body.id_plastic_item_after,
+    id_impact_approach: req.body.impact_approach,
+    id_product_measurement_unit: req.body.id_product_measurement_unit,
+    impact_approach_quantity: req.body.impact_approach_quantity ? req.body.impact_approach_quantity : null,
+    id_minting_request_status: 1
     });
   },
   listPlasticItem: async () => {

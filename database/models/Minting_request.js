@@ -25,71 +25,36 @@ module.exports = (sequelize, dataTypes) => {
     additional_pics:{
       type: dataTypes.TEXT,
     },
-    proof_of_purchase:{
-      type: dataTypes.TEXT,
-    },
-    dispatch_note:{
-      type: dataTypes.TEXT,
-    },
     sku:{
       type: dataTypes.TEXT,
-    },
-    id_treace_type:{
-      type: dataTypes.INTEGER,
     },
     plastic_item:{
       type: dataTypes.TEXT,
     },
-    graduality_category:{
+    implemented_change:{
       type: dataTypes.TEXT,
     },
-    id_product_category:{
+    implementation_date:{
+      type: dataTypes.DATE,
+      allowNull: true
+    },
+    id_plastic_item_before:{
       type: dataTypes.INTEGER,
     },
-    id_desplastified_activity:{
+    id_alternative_plastic_item:{
+      type: dataTypes.INTEGER,
+    },
+    id_impact_approach:{
       type: dataTypes.INTEGER,
     },
     id_product_measurement_unit:{
       type: dataTypes.INTEGER,
     },
-    id_plastic_item_before:{
-      type: dataTypes.INTEGER,
-    },
-    previous_plastic_weight:{
-      type: dataTypes.DECIMAL(30,18),
-    },
-    previous_cuantity:{
-      type: dataTypes.DECIMAL(30,18),
-    },
-    id_source_change:{
-      type: dataTypes.INTEGER,
-    },
-    id_source_change:{
-      type: dataTypes.DATE,
-    },
-    id_alternative_plastic_item:{
-      type: dataTypes.INTEGER,
-    },
-    actual_plastic_weight:{
-      type: dataTypes.DECIMAL(30,18),
-    },
-    actual_cuantity:{
-      type: dataTypes.DECIMAL(30,18),
-    },
-    plastic_ratio:{
-      type: dataTypes.DECIMAL(30,18),
-    },
-    id_impact_approach:{
-      type: dataTypes.INTEGER,
-    },
     impact_approach_quantity:{
       type: dataTypes.DECIMAL(30,18),
     },
-    id_impact_approach:{
+    minting_reques_status:{
       type: dataTypes.INTEGER,
-    },
-    impact_approach_files:{
-      type: dataTypes.TEXT,
     },
     createdAt:{
       type: dataTypes.DATE
@@ -102,30 +67,6 @@ module.exports = (sequelize, dataTypes) => {
     tableName: 'minting_request',
     timestamps: true
   });
-  Minting_request.associate = function(models){
-    Minting_request.belongsTo(models.treace_type, {
-      as: 'treace_type',
-      foreignKey: 'id_treace_type'
-    })
-  };
-  Minting_request.associate = function(models){
-    Minting_request.belongsTo(models.product_category, {
-      as: 'product_category',
-      foreignKey: 'id_product_category'
-    })
-  };
-  Minting_request.associate = function(models){
-    Minting_request.belongsTo(models.desplastified_activity, {
-      as: 'desplastified_activity',
-      foreignKey: 'id_desplastified_activity'
-    })
-  };
-  Minting_request.associate = function(models){
-    Minting_request.belongsTo(models.desplastified_activity, {
-      as: 'desplastified_activity',
-      foreignKey: 'id_desplastified_activity'
-    })
-  };
   Minting_request.associate = function(models){
     Minting_request.belongsTo(models.product_measurement_unit, {
       as: 'product_measurement_unit',
@@ -142,12 +83,6 @@ module.exports = (sequelize, dataTypes) => {
     Minting_request.belongsTo(models.plastic_item, {
       as: 'plastic_item_after',
       foreignKey: 'id_plastic_item'
-    })
-  };
-  Minting_request.associate = function(models){
-    Minting_request.belongsTo(models.source_change, {
-      as: 'source_change',
-      foreignKey: 'id_source_change'
     })
   };
   Minting_request.associate = function(models){

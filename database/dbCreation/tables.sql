@@ -189,15 +189,42 @@ create table minting_request_status (
 )
 insert into minting_request_status (`status`)
 values
-('Posted'),
+('Submited'),
 ('In Review'),
 ('Further documentation requested'),
 ('Approved'),
 ('Rejected'),
 ('Stand-by')
 
-
 create table minting_request (
+  `minting_request_id` integer not null auto_increment,
+  `user_id` integer not null,
+  `before_pic` text,
+  `after_pic` text,
+  `video` text,
+  `technical_file` text,
+  `additional_pics` text,
+  `sku` text,
+  `plastic_item` text,
+  `implemented_change` text,
+  `implementation_date` date,
+  `id_plastic_item_before` integer,
+  `id_alternative_plastic_item` integer,
+  `id_impact_approach` integer,
+  `id_product_measurement_unit` integer,
+  `impact_approach_quantity` decimal(30,18),
+  `id_minting_request_status` integer,
+  `createdAt` timestamp default CURRENT_TIMESTAMP,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  primary key (`minting_request_id`),
+  FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
+  FOREIGN KEY (id_minting_request_status) REFERENCES minting_request_status(id_status),
+  FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
+  FOREIGN KEY (id_impact_approach) REFERENCES impact_approach(id_impact_approach),
+  FOREIGN KEY (id_plastic_item_before) REFERENCES plastic_item(id_plastic_item),
+  FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
+)
+create table minting_request_old (
   `minting_request_id` integer not null auto_increment,
   `user_id` integer not null,
   `before_pic` text,
