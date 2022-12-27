@@ -3,19 +3,8 @@ const router = express.Router();
 const path = require('path');
 const enterpriseController = require('../controllers/enterpriseController');
 const userNotLogged = require('../middlewares/userNotLoggedAsEnterprise');
-const multer = require('multer');
+const upload = require('../middlewares/mintingUpload');
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) =>{
-    cb(null, path.join(__dirname, '/../public/enterpriseDocumentation'))
-  },
-  filename: (req, file, cb)=>{
-
-    const newFileName='user-'+req.session.userLogged.user_id+'-'+file.fieldname+Date.now()+path.extname(file.originalname);
-    cb(null, newFileName)
-  }
-})
-const upload = multer({storage: storage})
 // const registerValidations = require('../middlewares/registerMiddleware');
 // const guestMiddleware = require('../middlewares/guestMiddleware');
 // const userMiddleware = require('../middlewares/enterpriseMiddleware');
@@ -23,15 +12,7 @@ const upload = multer({storage: storage})
 router.get('/home', userNotLogged, enterpriseController.dashboard);
 router.get('/details', userNotLogged, enterpriseController.details);
 router.get('/mintingRequest', userNotLogged, enterpriseController.mintingRequest);
-// router.post('/mintingRequest', userNotLogged, (req,res)=>{
-//   const respuesta =(req)
-//   res.send(req.file)});
-const mintingUpload=upload.fields([{
-  name:'before_pic'
-  },{
-  name:'after_pic'
-  }])
-router.post('/mintingRequest', userNotLogged, mintingUpload,enterpriseController.processMintingRequest);
+router.post('/mintingRequest', userNotLogged, upload.any('before_pic','after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.processMintingRequest);
 router.put('/details', userNotLogged, enterpriseController.details);
 // router.post('/login', userController.loginProcess);
 // router.get('/register', userController.register);

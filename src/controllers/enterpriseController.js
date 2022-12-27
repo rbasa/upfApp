@@ -23,25 +23,14 @@ const controller = {
   },
   mintingRequest: async(req, res) => {
     const plasticItem = await Minting_Request.listPlasticItems();
-    const treaceType = await Minting_Request.listTraceType();
-    const productCategory = await Minting_Request.listProductCategory();
-    const desplastifiedActivity = await Minting_Request.listDesplastifiedActivity();
-    const productMeasurementUnit = await Minting_Request.listProductMeasurementUnit();
     const alternativePlasticItem = await Minting_Request.listAlternativePlasticItems();
-    const sourceChange = await Minting_Request.listSourceChange();
+    const productMeasurementUnit = await Minting_Request.listProductMeasurementUnit();
     const impactApproach = await Minting_Request.listimpactApproach();
-
-    return res.render('enterprise/mintingRequest', { plasticItem, treaceType, productCategory, desplastifiedActivity, productMeasurementUnit, alternativePlasticItem, sourceChange, impactApproach });
+    return res.render('enterprise/mintingRequest', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach });
   },
   processMintingRequest: async(req, res) => {
-    if(req.file){
-      const filex = req.file.path;
-      const fileNamex = req.file.filename;
-    }
-    a=req.session.userLogged.user_id
-    return res.send(req.file)
-    await Minting_Request.submit(req.session.userLogged, req.body, req.file)
-    return res.send(req.file);
+    await Minting_Request.submit(req)
+    return res.redirect('/')
   }
 };
 module.exports = controller;
