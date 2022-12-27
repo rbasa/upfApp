@@ -71,40 +71,6 @@ const Minting_request = {
             .map(file => file.filename)
         )
       : JSON.stringify([]);
-    // const beforePic = req.files.some(file => file.fieldname === 'before_pic')
-    //   ? JSON.stringify(
-    //       req.files
-    //         .filter(file => file.fieldname === 'before_pic')
-    //         .map(file => file.filename)
-    //     )
-    //   : 'image not included';
-    // const beforePic = req.files
-    //   .filter(file => file.fieldname === 'before_pic')
-    //   .map(file => file.filename) || ['image not included'];
-    // const afterPic = req.files.some(file => file.fieldname === 'after_pic')
-    // ? req.files
-    //   .filter(file => file.fieldname === 'after_pic')
-    //   .map(file => file.filename)
-    //   .join(',')
-    // : 'image not included';
-    // const video = req.files.some(file => file.fieldname === 'video')
-    // ? req.files
-    //   .filter(file => file.fieldname === 'video')
-    //   .map(file => file.filename)
-    //   .join(',')
-    // : 'video not included';
-    // const technicalFile = req.files.some(file => file.technical_file === 'video')
-    // ? req.files
-    //   .filter(file => file.fieldname === 'technical_file')
-    //   .map(file => file.filename)
-    //   .join(',')
-    // : 'technical file not included';
-    // const additionalPics = req.files.some(file => file.additional_pics === 'video')
-    // ? req.files
-    //   .filter(file => file.fieldname === 'additional_pics')
-    //   .map(file => file.filename)
-    //   .join(',')
-    // : 'additional pics not included';
     await db.Minting_request.create({
     user_id: req.session.userLogged.user_id,
     before_pic: beforePic,
