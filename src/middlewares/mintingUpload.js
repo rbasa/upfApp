@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
       const dirName = crypto.randomBytes(8).toString('hex')
       req.dirName = dirName;
     }
-    const dir = path.join(__dirname, `../private/enterpriseDocumentation/${userId}/${req.dirName}`);
+    const dir = path.join(`../private/enterpriseDocumentation/${userId}/${req.dirName}`);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
