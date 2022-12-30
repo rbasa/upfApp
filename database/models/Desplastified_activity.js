@@ -20,11 +20,11 @@ module.exports = (sequelize, dataTypes) => {
     tableName: 'desplastified_activity',
     timestamps: true
   });
-  Desplastified_activity.associate = function(modelName){
-    Desplastified_activity.hasMany(modelName.Minting_request, {
-      as: 'minting_request',
-      foreignKey: 'id_desplastified_activity'
-    })
-  }
+  // Desplastified_activity.associate = function(modelName){
+  //   Desplastified_activity.hasMany(modelName.Minting_request, {
+  //     as: 'minting_request',
+  //     foreignKey: 'id_desplastified_activity'
+  //   })
+  // }
   return Desplastified_activity;
 }

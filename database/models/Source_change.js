@@ -21,11 +21,11 @@ module.exports = (sequelize, dataTypes) => {
     tableName: 'source_change',
     timestamps: true
   });
-  Source_change.associate = function(modelName){
-    Source_change.hasMany(modelName.Minting_request, {
-      as: 'minting_request',
-      foreignKey: 'id_source_change'
-    })
-  }
+  // Source_change.associate = function(modelName){
+  //   Source_change.hasMany(modelName.Minting_request, {
+  //     as: 'minting_request',
+  //     foreignKey: 'id_source_change'
+  //   })
+  // }
   return Source_change;
 }

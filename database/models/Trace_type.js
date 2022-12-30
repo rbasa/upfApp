@@ -14,11 +14,11 @@ module.exports = (sequelize, dataTypes) => {
     tableName: 'treace_type',
     timestamps: false
   });
-  Treace_type.associate = function(modelName){
-    Treace_type.hasMany(modelName.Minting_request, {
-      as: 'minting_request',
-      foreignKey: 'id_treace_type'
-    })
-  }
+  // Treace_type.associate = function(modelName){
+  //   Treace_type.hasMany(modelName.Minting_request, {
+  //     as: 'minting_request',
+  //     foreignKey: 'id_treace_type'
+  //   })
+  // }
   return Treace_type;
 }

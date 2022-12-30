@@ -20,11 +20,11 @@ module.exports = (sequelize, dataTypes) => {
     tableName: 'product_category',
     timestamps: true
   });
-  Product_category.associate = function(modelName){
-    Product_category.hasMany(modelName.Minting_request, {
-      as: 'minting_request',
-      foreignKey: 'id_product_category'
-    })
-  }
+  // Product_category.associate = function(modelName){
+  //   Product_category.hasMany(modelName.Minting_request, {
+  //     as: 'minting_request',
+  //     foreignKey: 'id_product_category'
+  //   })
+  // }
   return Product_category;
 }

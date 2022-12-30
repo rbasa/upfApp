@@ -24,7 +24,7 @@ module.exports = (sequelize, dataTypes) => {
   Alternative_plastic_item.associate = function(modelName){
     Alternative_plastic_item.hasMany(modelName.Minting_request, {
       as: 'minting_request',
-      foreignKey: 'id_source_change'
+      foreignKey: 'id_alternative_plastic_item'
     })
   }
   return Alternative_plastic_item;

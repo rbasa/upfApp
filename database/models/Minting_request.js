@@ -56,7 +56,7 @@ module.exports = (sequelize, dataTypes) => {
     dir_name:{
       type: dataTypes.TEXT,
     },
-    minting_reques_status:{
+    id_minting_request_status:{
       type: dataTypes.INTEGER,
     },
     createdAt:{
