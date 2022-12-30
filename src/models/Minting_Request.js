@@ -31,16 +31,16 @@ const Minting_request = {
       id_minting_request_status: 1
     });
   },
+  findByEnterprise: async (user_id) => {
+    return await db.Minting_request.findAll({
+    where: { user_id: user_id }
+  })},
   list: async() => {
     return await db.Minting_request.findAll();
   },
   findByPk: async (id) => {
     return await db.Minting_request.findByPk(id);
   },
-  findByEnterprise: async (user_id) => {
-    return await db.Minting_request.findAll({
-    where: { user_id: user_id }
-  })},
   listPlasticItems: async()=>{
     return await db.plastic_item.findAll();
   },
