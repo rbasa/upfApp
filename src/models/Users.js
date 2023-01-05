@@ -45,7 +45,6 @@ const User = {
     })
   },
   userLogged: async (email) => {
-    console.log('corre esta fn')
     return await db.User.findOne({ 
       where: {email: email},
       attributes: ['user_id', 'name', 'email','address', 'user_category_id', 'registered']

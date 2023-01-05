@@ -11,6 +11,8 @@ const upload = require('../middlewares/mintingUpload');
 
 router.get('/home', userNotLogged, enterpriseController.dashboard);
 router.get('/details', userNotLogged, enterpriseController.details);
+// hay que hacer un midleware para que solo se pueda renderizar si la mintingRequest del user_id
+router.get('/request/:idMintingRequest', userNotLogged, enterpriseController.request);
 router.get('/mintingRequest', userNotLogged, enterpriseController.mintingRequest);
 router.post('/mintingRequest', userNotLogged, upload.any('before_pic','after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.processMintingRequest);
 router.put('/details', userNotLogged, enterpriseController.details);

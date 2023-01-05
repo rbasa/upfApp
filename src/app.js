@@ -14,8 +14,7 @@ const enterpriseRoutes = require('./routes/enterpriseRoutes');
 const unplastifyRoutes = require('./routes/unplastifyRoutes');
 const privateRoutes = require('./routes/privateRoutes');
 const userLogged = require('./middlewares/userLogged');
-// const productRoutes = require('./routes/productRoutes');
-// const apiRoutes = require('./routes/apiRoutes');
+
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(session({
   secret: 'upf secret',
