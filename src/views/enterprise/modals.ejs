@@ -1,0 +1,171 @@
+<!-- Modal -->
+<% openMintedRequests.forEach(e=>{ %>
+  <div class="modal bd-example-modal-lg <%= `modal-${e.dataValues.minting_request_id}`%>" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><%= e.dataValues.plastic_item %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><%= e.dataValues.implemented_change %></p>
+        </div>
+        <%
+          const beforePicArray = JSON.parse(e.dataValues.before_pic);
+          if (beforePicArray.length > 0) {
+        %>
+          <h4>Before pics</h4>
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <% if (beforePicArray.length > 1) { %>
+              <ol class="carousel-indicators">
+                <% beforePicArray.forEach((pic, index) => { %>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
+                <% }); %>
+              </ol>
+            <% } %>
+            <div class="carousel-inner">
+              <% beforePicArray.forEach((pic, index) => { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                  <img class="d-block w-100" src= "<%= pic %>" alt="<%= pic %> slide">
+                </div>
+              <% }); %>
+            </div>
+            <% if (beforePicArray.length > 1) { %>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            <% } %>
+          </div>
+        <% } %>
+        <%
+          const afterPicArray = JSON.parse(e.dataValues.after_pic);
+          if (afterPicArray.length > 0) {
+        %>
+          <h4>After pics</h4>
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <% if (afterPicArray.length > 1) { %>
+              <ol class="carousel-indicators">
+                <% afterPicArray.forEach((pic, index) => { %>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
+                <% }); %>
+              </ol>
+            <% } %>
+            <div class="carousel-inner">
+              <% afterPicArray.forEach((pic, index) => { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                  <img class="d-block w-100" src= "<%= pic %>" alt="<%= pic %> slide">
+                </div>
+              <% }); %>
+            </div>
+            <% if (afterPicArray.length > 1) { %>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            <% } %>
+          </div>
+        <% } %>
+        <%
+          const videoArray = JSON.parse(e.dataValues.video);
+          if (videoArray.length > 0) {
+        %>
+          <h4>Videos</h4>
+          <div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Videos</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <% videoArray.forEach(video => { %>
+                    <video class="w-100" controls>
+                      <source src="<%= video %>" type="video/mp4">
+                      <source src="<%= video %>" type="video/webm">
+                      <source src="<%= video %>" type="video/ogg">
+                      Your browser does not support the video tag.
+                    </video>
+                    <br>
+                  <% }); %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+        <%
+          const technicalFileArray = JSON.parse(e.dataValues.technical_file);
+          if (technicalFileArray.length > 0) {
+        %>
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-primary" id="downloadAllButton">
+              Download technical files
+            </button>
+          </div>
+          <% technicalFileArray.forEach(file => { %>
+            <a class="d-none" href="<%= file %>" download="<%= file %>" id="downloadLink"></a>
+          <% }); %>
+        <% } %>
+        <%
+          const additionalPics = JSON.parse(e.dataValues.additional_pics);
+          if (additionalPics.length > 0) {
+        %>
+          <h4>Additional pics</h4>
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <% if (additionalPics.length > 1) { %>
+              <ol class="carousel-indicators">
+                <% additionalPics.forEach((pic, index) => { %>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
+                <% }); %>
+              </ol>
+            <% } %>
+            <div class="carousel-inner">
+              <% additionalPics.forEach((pic, index) => { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                  <img class="d-block w-100" src= "<%= pic %>" alt="<%= pic %> slide">
+                </div>
+              <% }); %>
+            </div>
+            <% if (additionalPics.length > 1) { %>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            <% } %>
+          </div>
+        <% } %>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Edit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<% }) %>
+  
+<!-- Modal imports -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<!-- Modal imports -->
+
+<!-- Download Button script -->
+<script src="/js/downloadButton.js"></script>
