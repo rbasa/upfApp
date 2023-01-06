@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
+
 const path = require('path');
 const methodOverride = require('method-override');
 const session = require('express-session');
@@ -30,7 +31,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'/views'));
 app.listen(PORT, ()=>{
-  console.log(`Server running ar port ${PORT}`);
+  console.log(`Server running at port ${PORT}`);
 });
 
 app.use('/', mainRoutes);
