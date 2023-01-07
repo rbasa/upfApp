@@ -12,7 +12,7 @@ module.exports = {
     "database": process.env.DBDB||secrets.db,
     "host": process.env.DBHOSTNAME||secrets.hostname,
     "dialect": "mysql",
-    "port": process.env.PORTDB||secrets.port
+    "port": secrets.port||3306
   },
   "test": {
     "username": "root",
