@@ -1,5 +1,6 @@
 node_modules
 secrets.json
+localDb.json
 secrets.txt
 database/dbCreation/Untitled.sql
 database/modelsNotFinished/
