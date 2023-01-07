@@ -1,4 +1,10 @@
-const secrets = require ('../../secrets.json')||true
+let secrets;
+
+try {
+  secrets = require('../../secrets.json');
+} catch (error) {
+  secrets = {};
+}
 module.exports = {
   "development": {
     "username": process.env.DBUSER||secrets.username,
