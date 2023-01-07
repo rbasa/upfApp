@@ -1,4 +1,4 @@
-const secrets = require ('../../secrets.json')
+const secrets = require ('../../secrets.json')||true
 module.exports = {
   "development": {
     "username": process.env.DBUSER||secrets.username,
