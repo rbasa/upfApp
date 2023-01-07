@@ -37,6 +37,7 @@ const Minting_request = {
   })},
   list: async() => {
     return await db.Minting_request.findAll();
+    // return await db.Minting_request.findAll({ include: [{ association:'minting_request_before'}]});
   },
   findByPk: async (id) => {
     return await db.Minting_request.findByPk(id);

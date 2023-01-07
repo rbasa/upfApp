@@ -10,7 +10,9 @@ const controller = {
     const enterpriseLogged = req.session.userLogged;
     const submitedDetails = await Users.hasSubmitedDetails(req.session.userLogged.user_id);
     const openMintedRequests = await Minting_Request.findByEnterprise(req.session.userLogged.user_id);
-    return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests});
+    const userCategory = req.session.userLogged.user_category_id
+
+    return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory});
   },
   details: async(req, res) => {
     const submitedDetails = await Users.getDetails(req.session.userLogged.id);

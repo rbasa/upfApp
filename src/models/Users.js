@@ -36,7 +36,7 @@ const User = {
       include: [{ association:'enterprise_detail' }]
     })
   },
-  approveEnterprise: async (id) => {
+  approveUser: async (id) => {
     await db.User.update({
       registered: 1,
     },
