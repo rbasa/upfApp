@@ -1,11 +1,12 @@
+const secrets = require ('../../secrets.json')
 module.exports = {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "upfcapp",
-    "host": "127.0.0.1",
+    "username": process.env.DBUSER||secrets.username,
+    "password": process.env.DBPASSWORD||secrets.password,
+    "database": process.env.DBDB||secrets.db,
+    "host": process.env.DBHOSTNAME||secrets.hostname,
     "dialect": "mysql",
-    "port": 8889
+    "port": 3306
   },
   "test": {
     "username": "root",
