@@ -30,3 +30,4 @@ module.exports = {
     "port": 3306
   }
 }
+console.log(module.exports.development)
