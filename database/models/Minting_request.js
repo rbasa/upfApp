@@ -70,6 +70,12 @@ module.exports = (sequelize, dataTypes) => {
     tableName: 'minting_request',
     timestamps: true
   });
+  // Minting_request.associate = function(models){
+  //   Minting_request.belongsTo(modelName.User, {
+  //     as: 'user_request',
+  //     foreignKey: 'user_id'
+  //   })
+  // };
   Minting_request.associate = function(models){
     Minting_request.belongsTo(models.product_measurement_unit, {
       as: 'product_measurement_unit',

@@ -48,9 +48,10 @@ module.exports = (sequelize, dataTypes) => {
       as: 'enterprise_detail',
       foreignKey: 'user_id'
     })
+    // User.belongsTo(models.Minting_request, {
+    //   as: 'user_request',
+    //   foreignKey: 'user_id'
+    // })
   }
-  // User.associate = function(models){
-    
-  // }
   return User;
 }
