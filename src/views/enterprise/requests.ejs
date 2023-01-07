@@ -6,6 +6,12 @@
         <div class="col mb-5">
           <div class="card" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
             <!-- Product image-->
+            <% if (userCategory ==3) { %>
+              <h5 class="fw-bolder">
+                <!-- deberia aparecer el nombre de la empresa -->
+                <%= e.dataValues.user_id %>
+              </h5>
+            <% } %>
             <%
               let userId = e.dataValues.user_id;
               let dirname = e.dataValues.dirname;

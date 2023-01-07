@@ -150,10 +150,32 @@
             <% } %>
           </div>
         <% } %>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Edit</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+       
+        <% if (userCategory ==2) { %>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Edit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        <% } %>
+        <% if (userCategory ==3) { %>
+            <div class="modal-footer">
+              <form method="POST" action="/unplastify/setMintingRequestInReview/ <%= e.dataValues.minting_request_id %>?_method=PUT">
+                <input type="submit" class="btn btn-primary" value="In Review"></input>
+              </form>
+              <form method="POST" action="/unplastify/setMintingRequestAproved/ <%= e.dataValues.minting_request_id %>?_method=PUT">
+                <input type="submit" class="btn btn-success" value="Approve"></input>
+              </form>
+              <form method="POST" action="/unplastify/setMintingRequestRequestFurtherDocumentation/ <%= e.dataValues.minting_request_id %>?_method=PUT">
+                <input type="submit" class="btn btn-warning" value="Request further information"></input>
+              </form>
+              <form method="POST" action="/unplastify/setMintingRequestInStandBy/ <%= e.dataValues.minting_request_id %>?_method=PUT">
+                <input type="submit" class="btn btn-warning" value="Stand by"></input>
+              </form>
+              <form method="POST" action="/unplastify/setMintingRequestDeclined/ <%= e.dataValues.minting_request_id %>?_method=PUT">
+                <input type="submit" class="btn btn-danger" value="Decline"></input>
+              </form>
+            </div>
+        <% } %>
       </div>
     </div>
   </div>

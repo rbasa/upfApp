@@ -29,7 +29,7 @@
           <!-- u.category.dataValues.user_category  -->
           <h5 class="h3 mb-0 text-gray-800 mt-4">detallles <%= enterprise.enterprise_detail && enterprise.enterprise_detail.dataValues.cuit ? enterprise.enterprise_detail.dataValues.cuit : "Cuit is not defined" %></h5>
         </div>
-        <form method="POST" action="/unplastify/approveEnterprise/<%= enterprise.user_id %>?_method=PUT">
+        <form method="POST" action="/unplastify/approveUser/<%= enterprise.user_id %>?_method=PUT">
           <div class="">
             <button type="button submit" class="btn btn-success">Approve</button>
           </div>

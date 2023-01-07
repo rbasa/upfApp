@@ -7,8 +7,6 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-     
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -113,7 +111,7 @@
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12 col-lg-12">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div
@@ -142,6 +140,8 @@
                             <tr>
                               <th scope="col">Name</th>
                               <th scope="col">Category</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Address</th>
                               <th scope="col">Created at</th>
                             </tr>
                           </thead>
@@ -150,6 +150,8 @@
                             <tr>
                               <td><a href="/unplastify/pendingRequest/<%= u.user_id %>"><%= u.name %> </a></td>
                               <td><%= u.category.dataValues.user_category %></td>
+                              <td><%= u.email %></td>
+                              <td><%= u.address %></td>
                               <td><%= u.createdAt %></td>
                             </tr>
                           <%}); %> 
@@ -157,11 +159,12 @@
                         <% } %>
                     </table>
                   </div>
-
               </div>
             </div>
+            <%- include("../enterprise/requests") %>
 
             <!-- Pie Chart -->
+            
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
@@ -203,7 +206,6 @@
               </div>
             </div>
           </div>
-
           <!-- Content Row -->
           <div class="row">
 
