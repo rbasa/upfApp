@@ -1,7 +1,7 @@
 let secrets;
 
 try {
-  secrets = process.env.remoteDB ? require('../../secrets.json') : require('../../localDb.json');
+  secrets = require('../../secrets.json');
 } catch (error) {
   secrets = {};
 }
@@ -29,4 +29,3 @@ module.exports = {
     "dialect": "mysql"
   }
 }
-console.log(module.exports.development)
