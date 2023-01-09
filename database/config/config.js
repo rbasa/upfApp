@@ -1,7 +1,7 @@
 let secrets;
 
 try {
-  secrets = require('../../secrets.json');
+  secrets = process.env.REMOTEDB ? require('../../secrets.json') : require('../../localDb.json');
 } catch (error) {
   secrets = {};
 }
@@ -12,7 +12,7 @@ module.exports = {
     "database": process.env.DBDB||secrets.db,
     "host": process.env.DBHOSTNAME||secrets.hostname,
     "dialect": "mysql",
-    "port": 3306
+    "port": secrets.port||3306
   },
   "test": {
     "username": "root",
