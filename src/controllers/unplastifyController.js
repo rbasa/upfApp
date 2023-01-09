@@ -11,15 +11,16 @@ const controller = {
     return res.render('unplastify/upfDashboard', { users, openMintedRequests, userCategory});
   },
   pendingRegistrations: async (req, res) => {
-    const user = await Users.getCategory(req.params.id)
+    const user = await Users.getUserAndCategory(req.params.id)
+
     switch (user.category.user_category) {
       case 'enterprise':
         const enterprise = await Users.getFullEnterpriseDetails(user.user_id)
-        return res.render('unplastify/upfEnterprisePendingRegistrations', { enterprise });
+        return res.render('unplastify/upfEnterprisePendingRegistrations', { user, enterprise });
       case 'validator':
-        return res.send('el usuario es validator');
+        return res.render('unplastify/upfEnterprisePendingRegistrations', { user });
       case 'unplastify':
-        return res.send('el usuario es upf');
+        return res.render('unplastify/upfEnterprisePendingRegistrations', { user });
       default:
         return res.send('user.category.id')
     }

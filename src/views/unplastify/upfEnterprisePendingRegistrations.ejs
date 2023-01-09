@@ -18,33 +18,34 @@
             <h1 class="h3 mb-0 text-gray-800 mt-4">Pending Registration details</h1>
           </div>
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h2 class="h3 mb-0 text-gray-800 mt-4"><%= enterprise.name ? enterprise.name : "Enterprise name is not defined"%></h2>
+            <h2 class="h3 mb-0 text-gray-800 mt-4"><%= user.name ? user.name : "User name is not defined"%></h2>
           </div>
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Enterprise mail contact <%= enterprise.email ? enterprise.email : "Enterprise mail is not defined" %></h5>
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Address <%= enterprise.address ? enterprise.address : "Enterprise address is not defined"%></h5>
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Profile created at <%= enterprise.createdAt %></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Enterprise mail contact <%= user.email ? user.email : "User mail is not defined" %></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Address <%= user.address ? user.address : "User address is not defined"%></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Profile created at <%= user.createdAt %></h5>
             
           </div>
-          <!-- u.category.dataValues.user_category  -->
-          <h5 class="h3 mb-0 text-gray-800 mt-4">detallles <%= enterprise.enterprise_detail && enterprise.enterprise_detail.dataValues.cuit ? enterprise.enterprise_detail.dataValues.cuit : "Cuit is not defined" %></h5>
-        </div>
-        <form method="POST" action="/unplastify/approveUser/<%= enterprise.user_id %>?_method=PUT">
-          <div class="">
-            <button type="button submit" class="btn btn-success">Approve</button>
+          <% if (user.category.user_category == 'enterprise') { %>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">detallles <%= enterprise.enterprise_detail && enterprise.enterprise_detail.dataValues.cuit ? enterprise.enterprise_detail.dataValues.cuit : "Cuit is not defined" %></h5>
+          <% } %>
           </div>
-        </form>
-        <form method="POST" action="/unplastify/standByEnterprise/<%= enterprise.user_id %>?_method=PUT">
-          <div class="">
-            <button type="button submit" class="btn btn-warning">Stand by</button>
           </div>
-        </form>
-        <form method="POST" action="/unplastify/declineEnterprise/<%= enterprise.user_id %>?_method=PUT">
-          <div class="">
-            <button type="button submit" class="btn btn-danger">Decline</button>
-          </div>
-        </form>       
-      </div>
+          <form method="POST" action="/unplastify/approveUser/<%= user.user_id %>?_method=PUT">
+            <div class="">
+              <button type="button submit" class="btn btn-success">Approve</button>
+            </div>
+          </form>
+          <form method="POST" action="/unplastify/standByUser/<%= user.user_id %>?_method=PUT">
+            <div class="">
+              <button type="button submit" class="btn btn-warning">Stand by</button>
+            </div>
+          </form>
+          <form method="POST" action="/unplastify/declineUser/<%= user.user_id %>?_method=PUT">
+            <div class="">
+              <button type="button submit" class="btn btn-danger">Decline</button>
+            </div>
+          </form>    
       <!-- Footer -->
       <%-include("./../partials/footer")%>
       <!-- End of Footer -->

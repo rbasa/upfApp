@@ -6,6 +6,9 @@ const userNotLogged = require('../middlewares/userNotLoggedAsUnplastify');
 router.get('/home', userNotLogged, unplastifyController.dashboard);
 router.get('/pendingRequest/:id', userNotLogged, unplastifyController.pendingRegistrations);
 router.put('/approveUser/:id', userNotLogged, unplastifyController.aproveUser);
+router.put('/standByUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
+router.put('/declineUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
+
 router.put('/setMintingRequestInReview/:id', userNotLogged, unplastifyController.setMintRequestInReview);
 router.put('/setMintingRequestAproved/:id', userNotLogged, unplastifyController.setMintRequestAsAproved);
 router.put('/setMintingRequestRequestFurtherDocumentation/:id', userNotLogged, unplastifyController.setMintRequestRequestFurtherInfo);

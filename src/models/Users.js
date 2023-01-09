@@ -24,10 +24,9 @@ const User = {
   getDetails: async (id) => {
     return await db.enterprise_detail.findByPk(id)
   },
-  getCategory: async (id) => {
+  getUserAndCategory: async (id) => {
     return await db.User.findByPk(id,{
-      include: [{association:'category'}],
-      attributes: ['user_id']
+      include: [{association:'category'}]
     })
   },
   getFullEnterpriseDetails: async (id) => {
