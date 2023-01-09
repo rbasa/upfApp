@@ -37,7 +37,6 @@ const Minting_request = {
   })},
   list: async() => {
     return await db.Minting_request.findAll();
-    // return await db.Minting_request.findAll({ include: [{ association:'minting_request_before'}]});
   },
   findByPk: async (id) => {
     return await db.Minting_request.findByPk(id);
@@ -45,37 +44,27 @@ const Minting_request = {
   listPlasticItems: async()=>{
     return await db.plastic_item.findAll();
   },
-  listTraceType: async()=>{
-    return await db.treace_type.findAll();
-  },
-  listProductCategory: async()=>{
-    return await db.product_category.findAll();
-  },
-  listDesplastifiedActivity: async()=>{
-    return await db.desplastified_activity.findAll();
-  },
   listProductMeasurementUnit: async()=>{
     return await db.product_measurement_unit.findAll();
   },
   listAlternativePlasticItems: async()=>{
     return await db.alternative_plastic_item.findAll();
   },
-  listSourceChange: async()=>{
-    return await db.source_change.findAll();
+  getStatus: async (e) => {
+    return await db.minting_request_status.findOne({
+      attributes: ['id_status'],
+      where: { status: e },
+    });
   },
-  listimpactApproach: async()=>{
-    return await db.impact_approach.findAll();
-  },
-  listPlasticItem: async () => {
-    return await db.plastic_item.findAll()
-  },
-  listTreace_type: async () => {
-    return await db.treace_type.findAll()
-  },
-  listProduct_category: async () => {
-    return await db.treace_type.findAll()
-  },
-  
+  updateMintingRequestStatus: async (id, status) => {
+    return await db.Minting_request.update({
+      id_minting_request_status: status,
+    },
+    {
+      where: { minting_request_id: id },
+    });
+  }
+
 }
 
 module.exports = Minting_request;

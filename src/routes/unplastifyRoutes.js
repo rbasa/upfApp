@@ -9,11 +9,11 @@ router.put('/approveUser/:id', userNotLogged, unplastifyController.aproveUser);
 router.put('/standByUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
 router.put('/declineUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
 
-router.put('/setMintingRequestInReview/:id', userNotLogged, unplastifyController.setMintRequestInReview);
-router.put('/setMintingRequestAproved/:id', userNotLogged, unplastifyController.setMintRequestAsAproved);
-router.put('/setMintingRequestRequestFurtherDocumentation/:id', userNotLogged, unplastifyController.setMintRequestRequestFurtherInfo);
-router.put('/setMintingRequestInStandBy/:id', userNotLogged, unplastifyController.setMintRequestInStandBy);
-router.put('/setMintingRequestDeclined/:id', userNotLogged, unplastifyController.setMintRequestInDeclined);
+router.put('/updateMintingRequestStatus/:id/:status', userNotLogged, unplastifyController.processMintingRequestStatusChange);
+// router.put('/setMintingRequestAproved/:id', userNotLogged, unplastifyController.setMintRequestAsAproved);
+// router.put('/setMintingRequestRequestFurtherDocumentation/:id', userNotLogged, unplastifyController.setMintRequestRequestFurtherInfo);
+// router.put('/setMintingRequestInStandBy/:id', userNotLogged, unplastifyController.setMintRequestInStandBy);
+// router.put('/setMintingRequestDeclined/:id', userNotLogged, unplastifyController.setMintRequestInDeclined);
 // router.get('/approveEnterprise/:id', userNotLogged, unplastifyController.aproveEnterprise);
 // router.get('/details', userNotLogged, enterpriseController.details);
 // router.get('/mintingRequest', userNotLogged, enterpriseController.mintingRequest);

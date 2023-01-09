@@ -32,11 +32,18 @@ const controller = {
   setMintRequestInReview: async (req,res)=>{
     res.send('InReview'+req.params.id)
   },
-  setMintRequestAsAproved: async (req,res)=>{
-    res.send('Aproved'+req.params.id)
-  },
-  setMintRequestRequestFurtherInfo: async (req,res)=>{
-    res.send('furtherinfo'+req.params.id)
+  // setMintRequestAsAproved: async (req,res)=>{
+  //   await Users.approveMintingRequest(req.params.id)
+  //   res.send('Aproved'+req.params.id)
+  // },
+  processMintingRequestStatusChange: async (req,res)=>{
+    const status = await Minting_Request.getStatus(req.params.status)
+    if (status) {
+      await Minting_Request.updateMintingRequestStatus(req.params.id, status.id_status);
+      return res.redirect('/unplastify/home')
+    }
+    return res.send(status)
+    return res.send('unexpected error')
   },
   setMintRequestInStandBy: async (req,res)=>{
     res.send('SB'+req.params.id)
