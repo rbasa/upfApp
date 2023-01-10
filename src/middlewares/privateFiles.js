@@ -25,5 +25,4 @@ function checkPermissions(req, res, next) {
   res.status(403).send('Forbidden');
 }
 
-
 module.exports = checkPermissions
