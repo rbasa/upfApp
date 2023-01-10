@@ -26,7 +26,7 @@ const controller = {
     const plasticItem = await Minting_Request.listPlasticItems();
     const alternativePlasticItem = await Minting_Request.listAlternativePlasticItems();
     const productMeasurementUnit = await Minting_Request.listProductMeasurementUnit();
-    const impactApproach = await Minting_Request.listimpactApproach();
+    const impactApproach = await Minting_Request.listImpactApproach();
     return res.render('enterprise/mintingRequest', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach });
   },
   processMintingRequest: async(req, res) => {
