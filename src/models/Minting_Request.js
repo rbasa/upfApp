@@ -44,7 +44,7 @@ const Minting_request = {
   listPlasticItems: async()=>{
     return await db.plastic_item.findAll();
   },
-  listimpactApproach: async()=>{
+  listImpactApproach: async()=>{
     return await db.impact_approach.findAll();
   },
   listProductMeasurementUnit: async()=>{
