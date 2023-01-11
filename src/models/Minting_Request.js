@@ -1,15 +1,19 @@
-let db = require("../../database/models");
+const db = require("../../database/models");
+const path = require('path')
 
 const Minting_request = {
-  getFileArray: (fieldname, req) => {
-    return req.files.some(file => file.fieldname === fieldname)
+  getFileArray(fieldname, req) {
+    const privateDir = path.join(__dirname, '..', 'private');
+    return req.files.some((file) => file.fieldname === fieldname)
       ? JSON.stringify(
           req.files
-            .filter(file => file.fieldname === fieldname)
-            .map(file => file.path)
+            .filter((file) => file.fieldname === fieldname)
+            .map((file) => `../private/${path.relative(privateDir, file.path)}`)
         )
       : JSON.stringify([]);
   },
+  
+
   submit: async function(req) {
     await db.Minting_request.create({
       user_id: req.session.userLogged.user_id,
