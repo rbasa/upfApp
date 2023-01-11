@@ -18,9 +18,17 @@ const storage = multer.diskStorage({
       const dirName = crypto.randomBytes(8).toString('hex')
       req.dirName = dirName;
     }
-    const dir = path.join(`../private/enterpriseDocumentation/${userId}/${req.dirName}`);
+    let dir = path.join('../private/enterpriseDocumentation');
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+      fs.mkdirSync(dir);
+    }
+    dir = path.join(dir,`/${userId}`)
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    dir = path.join(dir,`/${req.dirName}`)
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
     }
     cb(null, dir);
   },
@@ -34,4 +42,3 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports = upload;
-
