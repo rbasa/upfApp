@@ -4,4 +4,4 @@ localDb.json
 secrets.txt
 database/dbCreation/Untitled.sql
 database/modelsNotFinished/
-src/private/
+# src/private/enterpriseDocumentation/*
