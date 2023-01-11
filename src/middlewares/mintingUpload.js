@@ -13,7 +13,7 @@ const counters = {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const userId = req.session.userLogged.user_id;
+    const userId = req.session.userLogged.user_id.toString();
     let dir = path.join(__dirname, '..', 'private', 'enterpriseDocumentation');
 
     if (!fs.existsSync(dir)) {
