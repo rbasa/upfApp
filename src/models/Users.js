@@ -57,7 +57,7 @@ const User = {
     user_category_id: userData.category
     });
   },
-  submitDetails: async function(userData, id){
+  submitDetails: async function(id, userData){
     await db.enterprise_detail.create({
     user_id: id,
     cuit: userData.cuit,

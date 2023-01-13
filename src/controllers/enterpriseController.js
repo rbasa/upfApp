@@ -15,11 +15,12 @@ const controller = {
     return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory});
   },
   details: async(req, res) => {
-    const submitedDetails = await Users.getDetails(req.session.userLogged.id);
-    return res.render('enterprise/details', { submitedDetails });
+    const user = req.session.userLogged.user_id
+    const submitedDetails = await Users.getDetails(user);
+    return res.render('enterprise/details', { user, submitedDetails });
   },
-  submitDetails: async(req, res) => {
-    await Users.submitDetails(req.body, req.session.userLogged.id);
+  processEnterpriseDetails: async(req, res) => {
+    await Users.submitDetails(req.params.id, req.body);
     return res.redirect('/enterprise/home');
   },
   mintingRequest: async(req, res) => {
