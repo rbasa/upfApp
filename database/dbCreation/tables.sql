@@ -27,7 +27,7 @@ create table `user` (
 )
 
 create table enterprise_details (
-  `id` integer not null,
+  `user_id` integer not null,
   `cuit` bigint,
   `country` text,
   `city` text,
@@ -36,8 +36,8 @@ create table enterprise_details (
   `mipyme` text,
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  primary key (id),
-  foreign key (id) REFERENCES user(user_id)
+  primary key (user_id),
+  foreign key (user_id) REFERENCES user(user_id)
 )
 
 create table treace_type(
@@ -177,6 +177,7 @@ create table impact_approach (
   `impact_approach` text,
   primary key (id_impact_approach)
 )
+
 insert into impact_approach (impact_approach)
 values
 ('Purchases'),
@@ -187,6 +188,7 @@ create table minting_request_status (
   `status` text,
   primary key (id_status)
 )
+
 insert into minting_request_status (`status`)
 values
 ('Submited'),
@@ -196,9 +198,19 @@ values
 ('Rejected'),
 ('Stand-by')
 
-create table minting_request (
+create table minting_request(
   `minting_request_id` integer not null auto_increment,
   `user_id` integer not null,
+  `status_id` integer not null,
+  `createdAt` timestamp default CURRENT_TIMESTAMP,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  primary key (`minting_request_id`),
+  FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
+  FOREIGN KEY (`status_id`) REFERENCES minting_request_status(`id_status`)
+)
+create table unplastified_item (
+  `unplastified_item_id` integer not null auto_increment,
+  `minting_request_id` integer not null,
   `before_pic` text,
   `after_pic` text,
   `video` text,
@@ -213,18 +225,17 @@ create table minting_request (
   `id_impact_approach` integer,
   `id_product_measurement_unit` integer,
   `impact_approach_quantity` decimal(30,18),
-  `id_minting_request_status` integer,
   `dir_name` text,
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  primary key (`minting_request_id`),
-  FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
-  FOREIGN KEY (id_minting_request_status) REFERENCES minting_request_status(id_status),
+  primary key (`unplastified_item_id`),
+  FOREIGN KEY (`minting_request_id`) REFERENCES minting_request(`minting_request_id`),
   FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
   FOREIGN KEY (id_impact_approach) REFERENCES impact_approach(id_impact_approach),
   FOREIGN KEY (id_plastic_item_before) REFERENCES plastic_item(id_plastic_item),
   FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
 )
+
 create table minting_request_old (
   `minting_request_id` integer not null auto_increment,
   `user_id` integer not null,

@@ -47,11 +47,12 @@ module.exports = (sequelize, dataTypes) => {
     User.belongsTo(models.enterprise_detail, {
       as: 'enterprise_detail',
       foreignKey: 'user_id'
+    }),
+    User.hasMany(models.minting_request, {
+      as: 'minting_request_id',
+      foreignKey: 'minting_request_id'
     })
-    // User.belongsTo(models.Minting_request, {
-    //   as: 'user_request',
-    //   foreignKey: 'user_id'
-    // })
-  }
+  };
+
   return User;
 }

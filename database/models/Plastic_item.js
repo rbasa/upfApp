@@ -21,7 +21,7 @@ module.exports = (sequelize, dataTypes) => {
     timestamps: true
   });
   Plastic_item.associate = function(modelName){
-    Plastic_item.hasMany(modelName.Minting_request, {
+    Plastic_item.hasMany(modelName.unplastified_item, {
       as: 'minting_request_before',
       foreignKey: 'id_plastic_item_before'
     })

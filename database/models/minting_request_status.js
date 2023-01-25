@@ -16,9 +16,9 @@ module.exports = (sequelize, dataTypes) => {
     timestamps: false
   });
   Minting_request_status.associate = function(modelName){
-    Minting_request_status.hasMany(modelName.Minting_request, {
+    Minting_request_status.hasMany(modelName.minting_request, {
       as: 'minting_request',
-      foreignKey: 'id_minting_request_status'
+      foreignKey: 'status_id'
     })
   }
   return Minting_request_status;

@@ -16,8 +16,8 @@ module.exports = (sequelize, dataTypes) => {
     timestamps: false
   });
   Impact_approach.associate = function(modelName){
-    Impact_approach.hasMany(modelName.Minting_request, {
-      as: 'minting_request',
+    Impact_approach.hasMany(modelName.unplastified_item, {
+      as: 'unplastified_item',
       foreignKey: 'id_impact_approach'
     })
   }

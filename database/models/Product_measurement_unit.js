@@ -15,7 +15,7 @@ module.exports = (sequelize, dataTypes) => {
     timestamps: false
   });
   Product_measurement_unit.associate = function(modelName){
-    Product_measurement_unit.hasMany(modelName.Minting_request, {
+    Product_measurement_unit.hasMany(modelName.unplastified_item, {
       as: 'minting_request',
       foreignKey: 'id_product_measurement_unit'
     })
