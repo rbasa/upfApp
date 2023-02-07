@@ -1,11 +1,13 @@
 <!-- Modal -->
 <% unplastifiedItems.forEach(e=>{ %> 
-  <div class="modal bd-example-modal-lg <%= `modal-${e.dataValues.unplastified_item_id}`%>" tabindex="-1" role="dialog">
+  <div class="modal bd-example-modal-lg <%= `editmodal-${e.dataValues.unplastified_item_id}`%>" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
+        <form action=" <%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT`%>" method="POST">
         <div class="modal-header">
           <h5 class="modal-title">
-            <%= e.dataValues.plastic_item %>
+            <label class="form-label" for="plastic_item">Plastic Item</label>
+            <input type="text" name="plastic_item" value="<%= e.dataValues.plastic_item %>">
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -14,40 +16,64 @@
         <div class="modal-body">
           <h5>
             <label class="form-label" for="implemented_change">Implemented Change</label>
-            <p><%= e.dataValues.implemented_change %></p>
+            <input type="text" name="implemented_change" value="<%= e.dataValues.implemented_change %>">
           </h5>
           <h5>
             <label class="form-label" for="sku">Sku</label>
-            <p>
-              <%= e.dataValues.sku %>
-            </p>
+            <input type="text" name="sku" value="<%= e.dataValues.sku %>">
           </h5>
           <h5>
-            <label class="form-label" for="implemented_change">Implementation date</label>
-            <p>
-              <%= e.dataValues.implementation_date %>
-            </p>
+            <label class="form-label" for="implemented_date">Implementation date</label>
+            <input type="date" name="implementation_date" value="<%= e.dataValues.implementation_date %>">
           </h5>
           <h5>
-            <label class="form-label" for="implemented_change">Impact Approach</label>
-            <p>
-              <%= e.dataValues.impact_approach %>
-            </p>
+            <label class="form-label" for="plastic-item-before">Select the previous plastic item</label>
+            <select name ="id_plastic_item_before" class="form-select mb-4" aria-label="Default select example">
+              <% plasticItem.forEach( plasticItem => { %>
+                <option value="<%= plasticItem.id_plastic_item %>" <%= plasticItem.id_plastic_item == e.dataValues.id_plastic_item_before ? `selected="true"` : false %>>
+                  <%= plasticItem.plastic_item %> 
+                </option>
+              <% }) %>
+            </select>
           </h5>
           <h5>
-            <label class="form-label" for="implemented_change">Measurement unit</label>
-            <p>
-              <%= e.dataValues.id_product_measurement_unit %>
-            </p>
+            <!-- Alternative plastic item -->
+            <label class="form-label" for="plastic_item_before">Select the alternative plastic item chosen</label>
+            <select name ="id_plastic_item_after" class="form-select mb-4" aria-label="Default select example">
+              <% alternativePlasticItem.forEach( alternativePlasticItem => { %>
+                <option value="<%= alternativePlasticItem.id_alternative_plastic_item %>" <%= alternativePlasticItem.id_alternative_plastic_item == e.dataValues.id_alternative_plastic_item ? `selected="true"` : false %>>
+                  <%= alternativePlasticItem.alternative_plastic_item %> 
+                </option>
+              <% }) %>
+            </select>
           </h5>
           <h5>
-            <label class="form-label" for="implemented_change">Quantity</label>
-            <p>
-              <%= e.dataValues.impact_approach_quantity %>
-            </p>
+            <!-- Impact approach -->
+            <label class="form-label" for="plastic-item-before">Select the impact approach</label>
+            <select name ="impact_approach" class="form-select mb-4" aria-label="Default select example">
+              <% impactApproach.forEach( imapctApproach => { %>
+                <option value="<%= imapctApproach.id_impact_approach %>" <%=  imapctApproach.id_impact_approach == e.dataValues.impact_approach.dataValues.id_impact_approach ? `selected="true"` : false %> >
+                  <%= imapctApproach.impact_approach %> 
+                </option>
+              <% }) %>
+            </select>
           </h5>
-        </div>
-        <%
+          <h5>
+            <label class="form-label" for="plastic-item-before">Select product measurement</label>
+            <select name ="id_product_measurement_unit" class="form-select mb-4" aria-label="Default select example">
+              <% productMeasurementUnit.forEach( productMeasurementUnit => { %>
+                <option value="<%= productMeasurementUnit.id_product_measurement_unit %>"<%= productMeasurementUnit.id_product_measurement_unit == e.dataValues.id_product_measurement_unit ? `selected="true"` : false %> >
+                  <%= productMeasurementUnit.measurement_unit %> 
+                </option>
+              <% }) %>
+            </select>
+          </h5>
+          <h5>
+            
+            <label class="form-label" for="impact_approach_quantity">Quantity</label>
+            <input type="text" name="impact_approach_quantity" value="<%= e.dataValues.impact_approach_quantity %>">
+          </h5>
+          <%
           const beforePicArray = JSON.parse(e.dataValues.before_pic);
           if (beforePicArray.length > 0) {
         %>
@@ -185,9 +211,9 @@
             <% } %>
           </div>
         <% } %>
-       
         <% if (userCategory ==2) { %>
           <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Edit</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         <% } %>
@@ -210,10 +236,11 @@
               </form>
             </div>
         <% } %>
+        </div>
+      </form>
       </div>
     </div>
   </div>
-  
 <% }) %>
   
 <!-- Modal imports -->

@@ -7,7 +7,19 @@
         <div class="alert alert-success alert-dismissible fade show">
           <strong>Account properly registered.</strong> You are all set to start minting UPF!
         </div>
-        <a href="/enterprise/mintingRequest"><button type="button" class="btn btn-outline-dark flex-shrink-0" data-bs-dismiss="alert">New minting request</button></a>
+        <div class="card-body py-5 px-md-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-8">
+              <form action="/enterprise/newMintingRequest" method="POST">
+                <div class="form-outline mb-4">
+                  <input name="name" type="text" class="form-control" />
+                  <label class="form-label" for="sku">New minting request name</label>
+                </div>
+                <input type="submit" class="btn btn-outline-dark flex-shrink-0" value="Start you minting request aplication"></input>
+              </form>
+            </div>
+          </div>
+        </div>
       <% } else if(!submitedDetails){ %>
         <!-- Error Alert -->
         <div class="alert alert-danger alert-dismissible fade show">
@@ -21,7 +33,7 @@
     <% } %>
   <!-- Related items section-->
   <% if(openMintedRequests.length>0) { %>
-    <%- include("./requests") %>
+    <%-  include("./requests") %>
   <% } %>
 <!-- Product section-->
   <section class="py-5">
