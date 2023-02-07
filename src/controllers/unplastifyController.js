@@ -1,12 +1,12 @@
 const path = require('path');
 const Users = require('../models/Users');
 const bcryptjs = require('bcryptjs')
-const Minting_Request = require('../models/Minting_Request');
+const Unplastified_item = require('../models/Unplastified_item');
 
 const controller = {
   dashboard: async (req, res) => {
     const users = await Users.unregisteredList()
-    const openMintedRequests = await Minting_Request.list();
+    const openMintedRequests = await Unplastified_item.list();
     const userCategory = req.session.userLogged.user_category_id
     return res.render('unplastify/upfDashboard', { users, openMintedRequests, userCategory});
   },
@@ -37,9 +37,9 @@ const controller = {
   //   res.send('Aproved'+req.params.id)
   // },
   processMintingRequestStatusChange: async (req,res)=>{
-    const status = await Minting_Request.getStatus(req.params.status)
+    const status = await Unplastified_item.getStatus(req.params.status)
     if (status) {
-      await Minting_Request.updateMintingRequestStatus(req.params.id, status.id_status);
+      await Unplastified_item.updateMintingRequestStatus(req.params.id, status.id_status);
       return res.redirect('/unplastify/home')
     }
     return res.send(status)
