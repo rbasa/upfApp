@@ -187,27 +187,30 @@ create table minting_request_status (
   `id_status` integer not null auto_increment,
   `status` text,
   primary key (id_status)
-)
+);
 
 insert into minting_request_status (`status`)
 values
+('Created'),
 ('Submited'),
 ('In Review'),
 ('Further documentation requested'),
 ('Approved'),
 ('Rejected'),
-('Stand-by')
+('Stand-by');
 
 create table minting_request(
   `minting_request_id` integer not null auto_increment,
   `user_id` integer not null,
+  `name` text,
   `status_id` integer not null,
   `createdAt` timestamp default CURRENT_TIMESTAMP,
   `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   primary key (`minting_request_id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`status_id`) REFERENCES minting_request_status(`id_status`)
-)
+);
+
 create table unplastified_item (
   `unplastified_item_id` integer not null auto_increment,
   `minting_request_id` integer not null,
@@ -234,7 +237,7 @@ create table unplastified_item (
   FOREIGN KEY (id_impact_approach) REFERENCES impact_approach(id_impact_approach),
   FOREIGN KEY (id_plastic_item_before) REFERENCES plastic_item(id_plastic_item),
   FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
-)
+);
 
 create table minting_request_old (
   `minting_request_id` integer not null auto_increment,

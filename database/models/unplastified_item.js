@@ -6,7 +6,7 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    user_id:{
+    minting_request_id: {
       type: dataTypes.INTEGER,
       allowNull: false
     },
