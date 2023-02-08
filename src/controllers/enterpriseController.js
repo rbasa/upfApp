@@ -1,7 +1,7 @@
 const path = require('path');
 const Users = require('../models/Users');
 const Unplastified_item = require('../models/Unplastified_item');
-const Minting_request = require('../models/Minting_request');
+const Minting_request = require('../models/Minting_Request');
 const bcryptjs = require('bcryptjs');
 
 
