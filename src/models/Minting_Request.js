@@ -5,7 +5,7 @@ const Minting_request = {
   create: async function(req) {
     const newMintingRequest = await db.minting_request.create({
       user_id: req.session.userLogged.user_id,
-      name: req.body.name,
+      name: req.body.name || 'no name',
       status_id: 1
     });
     return newMintingRequest.minting_request_id;

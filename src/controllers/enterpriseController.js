@@ -25,7 +25,7 @@ const controller = {
   },
   newMintingRequest: async(req, res) => {
     const minting_request_id = await Minting_request.create(req);
-    return res.render('enterprise/mintingRequest', {minting_request_id});
+    return res.redirect(`/enterprise/mintingRequest/${minting_request_id}`);
   },
   mintingRequestDetail: async(req,res) => {
     let mintingRequestId
