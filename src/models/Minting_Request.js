@@ -1,12 +1,14 @@
 const db = require("../../database/models");
-const path = require('path')
 
 const Minting_request = {
   create: async function(req) {
+    const newMintingRequestStatus = await db.minting_request_status.findOne({
+      where: { status: 'created' }
+    });
     const newMintingRequest = await db.minting_request.create({
       user_id: req.session.userLogged.user_id,
       name: req.body.name || 'no name',
-      status_id: 1
+      status_id: newMintingRequestStatus.id_status
     });
     return newMintingRequest.minting_request_id;
   },
