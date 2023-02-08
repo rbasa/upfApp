@@ -33,7 +33,6 @@ const Unplastified_item = {
     });
   },
   edit: async function(req) {
-    console.log(req.params.idUnplastifiedItem)
     await db.unplastified_item.update({
       sku: req.body.sku,
       plastic_item: req.body.plastic_item,
