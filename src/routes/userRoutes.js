@@ -14,4 +14,4 @@ router.get('/register', userIsLogged, userController.register);
 router.post('/register', userController.processRegister);
 router.get('/redirectUser', userController.redirectUser);
 
-module.exports = router
+module.exports = router;

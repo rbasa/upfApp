@@ -25,4 +25,4 @@ router.put('/updateMintingRequestStatus/:id/:status', userNotLogged, unplastifyC
 // router.get('/profile', userController.profile);
 // router.get('/logout', userController.logout);
 
-module.exports = router
+module.exports = router;

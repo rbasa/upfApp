@@ -20,4 +20,4 @@ router.get('/addUnplastifiedItem', userNotLogged, enterpriseController.addNewUnp
 router.post('/newUnplastifiedItem', userNotLogged, upload.any('before_pic','after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.uploadUnplastifiedItem);
 router.put('/editUnplastifiedItem/:idUnplastifiedItem', userNotLogged, enterpriseController.editUnplastifiedItem);
 
-module.exports = router
+module.exports = router;

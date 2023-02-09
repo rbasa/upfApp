@@ -1,5 +1,5 @@
 const db = require("../../database/models");
-const path = require('path')
+const path = require('path');
 
 const Unplastified_item = {
   getFileArray(fieldname, req) {
@@ -74,6 +74,6 @@ const Unplastified_item = {
   listAlternativePlasticItems: async()=>{
     return await db.alternative_plastic_item.findAll();
   }
-}
+};
 
 module.exports = Unplastified_item;
