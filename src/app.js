@@ -39,3 +39,7 @@ app.use('/users', userRoutes);
 app.use('/enterprise', enterpriseRoutes);
 app.use('/unplastify', unplastifyRoutes);
 app.use('/private', privateRoutes);
+
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
