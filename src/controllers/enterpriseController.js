@@ -11,20 +11,20 @@ const controller = {
     req.session.minting_request_id = null
     return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory});
   },
-  details: async(req, res) => {
+  details: async (req, res) => {
     const user = req.session.userLogged.user_id
     const submitedDetails = await Users.getDetails(user);
     return res.render('enterprise/details', { user, submitedDetails });
   },
-  processEnterpriseDetails: async(req, res) => {
+  processEnterpriseDetails: async (req, res) => {
     await Users.submitDetails(req.params.id, req.body);
     return res.redirect('/enterprise/home');
   },
-  newMintingRequest: async(req, res) => {
+  newMintingRequest: async (req, res) => {
     const minting_request_id = await Minting_request.create(req);
     return res.redirect(`/enterprise/mintingRequest/${minting_request_id}`);
   },
-  mintingRequestDetail: async(req,res) => {
+  mintingRequestDetail: async (req,res) => {
     let mintingRequestId
     req.params.idMintingRequest ? mintingRequestId = req.params.idMintingRequest : mintingRequestId = req.session.minting_request_id;
     const unplastifiedItems = await Unplastified_item.findByMintingRequest(mintingRequestId);
@@ -46,19 +46,25 @@ const controller = {
       impactApproach
     });
   },
-  uploadUnplastifiedItem: async(req, res) => {
+  uploadUnplastifiedItem: async (req, res) => {
     await Unplastified_item.submit(req);
     return res.redirect(`/enterprise/mintingRequest/${req.session.minting_request_id}`);
   },
-  addNewUnplastifiedItem: async(req, res) => {
+  addNewUnplastifiedItem: async (req, res) => {
     const plasticItem = await Unplastified_item.listPlasticItems();
     const alternativePlasticItem = await Unplastified_item.listAlternativePlasticItems();
     const productMeasurementUnit = await Unplastified_item.listProductMeasurementUnit();
     const impactApproach = await Unplastified_item.listImpactApproach();
     return res.render('enterprise/unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach });
   },
-  editUnplastifiedItem: async(req, res) => {
+  editUnplastifiedItem: async (req, res) => {
     return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
+  },
+  submitMintingRequest: async (req,res)=>{
+    // change status to submited
+    const { id_status } =  await Minting_request.getStatus('submited');
+    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
+    return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
   }
 };
 module.exports = controller;

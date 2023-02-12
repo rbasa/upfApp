@@ -14,7 +14,8 @@ const Minting_request = {
   },
   findByEnterprise: async (user_id) => {
     return await db.minting_request.findAll({
-    where: { user_id: user_id }
+    where: { user_id: user_id },
+    include: [{all: true}]
   })},
   findByEnterpriseWithUnplastifiedItems: async (user_id) => {
     return await db.sequelize.query("select a.name, a.minting_request_id, user_id, status, b.* from minting_request a left join unplastified_item b on a.minting_request_id = b.minting_request_id inner join minting_request_status c on a. status_id = c.id_status where a.user_id = ?",
@@ -24,7 +25,11 @@ const Minting_request = {
     return await db.minting_request.findAll();
   },
   findByPk: async (minting_request_id) => {
-    return await db.minting_request.findByPk(minting_request_id);
+    return await db.minting_request.findByPk(minting_request_id,
+      {
+        include: [{all: true}]
+      }
+    );
   },
   getStatus: async (e) => {
     return await db.minting_request_status.findOne({

@@ -19,5 +19,6 @@ router.get('/mintingRequest/:idMintingRequest', userNotLogged, enterpriseControl
 router.get('/addUnplastifiedItem', userNotLogged, enterpriseController.addNewUnplastifiedItem);
 router.post('/newUnplastifiedItem', userNotLogged, upload.any('before_pic','after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.uploadUnplastifiedItem);
 router.put('/editUnplastifiedItem/:idUnplastifiedItem', userNotLogged, enterpriseController.editUnplastifiedItem);
+router.put('/submitMintingRequest/:minting_request_id', userNotLogged, enterpriseController.submitMintingRequest);
 
 module.exports = router;
