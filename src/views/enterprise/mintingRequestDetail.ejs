@@ -46,12 +46,16 @@
           <!-- boton para agregar unplastified item -->
           <!-- lista con todas las uni cargadas -->
           <% if(unplastifiedItems.length>0){ %>
-          <% //if(unplastifiedItems){ %>
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
               <table class="table table-bordered table-striped mb-0">
                 <thead>
                   <tr>
                     <th scope="col">Plastic Item</th>
+                    <th>SKU</th>
+                    <th>Details</th>
+                    <% if (mintingRequest.minting_status.dataValues.status === 'Created') { %>
+                      <th>Edit</th>
+                    <% } %>
                   </tr>
                 </thead>
                 <tbody>
@@ -59,16 +63,23 @@
                     <tr>
                       <td>
                           <%= e.dataValues.plastic_item %>
+                      </td>
+                      <td>
+                        <%= e.dataValues.sku %>
+                      </td>
+                      <td>
                         <button type="button" class="btn btn-outline-dark mt-auto" data-toggle="modal" data-target="<%= `.editmodal-${e.dataValues.unplastified_item_id}`%>">
                           Details
                         </button>
-                        <% if (mintingRequest.minting_status.dataValues.status === 'Created') { %>
+                      </td>
+                      <% if (mintingRequest.minting_status.dataValues.status === 'Created') { %>
+                        <td>
                           <button type="button" class="btn btn-outline-dark mt-auto" data-toggle="modal" data-target="<%= `.editmodal-${e.dataValues.unplastified_item_id}`%>">
                             Edit
                           </button>
+                        </td>
                         <% } %>
-                      </td>
-                    </tr> 
+                    </tr>
                   <% }) %> 
               </tbody>
               </table>
@@ -98,10 +109,11 @@
                 </span>
               </h4>
               <div class="progress mb-4">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: <%= progresion %>% " 
+                <div class="progress-bar bg-danger" role="progressbar" style="width: <%= progresion %>%"
                     aria-valuenow="<%= progresion %>" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
+              
                 <!-- <h4 class="small font-weight-bold">Sales Tracking <span
                         class="float-right">40%</span></h4>
                 <div class="progress mb-4">
