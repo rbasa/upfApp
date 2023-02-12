@@ -31,6 +31,15 @@ const Minting_request = {
       }
     );
   },
+  findMintingRequestStatus: async (minting_request_id) => {
+    return await db.minting_request.findByPk(minting_request_id, {
+      include: {
+        model: db.minting_request_status,
+        as: 'minting_status',
+        attributes: ['status']
+      }
+    });
+  },
   getStatus: async (e) => {
     return await db.minting_request_status.findOne({
       attributes: ['id_status'],

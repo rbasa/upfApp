@@ -34,7 +34,7 @@ const controller = {
   //   await Users.approveMintingRequest(req.params.id)
   //   res.send('Aproved'+req.params.id)
   // },
-  processMintingRequestStatusChange: async (req,res)=>{
+  processMintingRequestStatusChange: async (req,res)=>{ // should change minting status, not unplastified item
     const status = await Unplastified_item.getStatus(req.params.status);
     if (status) {
       await Unplastified_item.updateMintingRequestStatus(req.params.id, status.id_status);

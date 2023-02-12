@@ -54,6 +54,12 @@ const Unplastified_item = {
   findByPk: async (id) => {
     return await db.unplastified_item.findByPk(id);
   },
+  findMintingRequest: async (id) => {
+    return await db.unplastified_item.findByPk(id,
+      {
+        attributes: ['minting_request_id']
+      });
+  },
   findByMintingRequest: async (minting_request_id) => {
     return await db.unplastified_item.findAll({
       where: { minting_request_id: minting_request_id },
