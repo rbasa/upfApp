@@ -27,7 +27,7 @@ router.put('/submitMintingRequest/:minting_request_id', userNotLoggedAsEnterpris
 
 
 router.get('*', (req, res) => {
-  console.log(`Route requested: ${req.path}`);
-  res.send('problema'); // Redirect to your home page URL
+  res.redirect('/');
+  
 });
 module.exports = router;
