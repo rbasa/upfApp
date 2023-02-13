@@ -1,10 +1,11 @@
 const Users = require('../models/Users');
 const Unplastified_item = require('../models/Unplastified_item');
+const Minting_request = require('../models/Minting_request');
 
 const controller = {
   dashboard: async (req, res) => {
     const users = await Users.unregisteredList();
-    const openMintedRequests = await Unplastified_item.list();
+    const openMintedRequests = await Minting_request.listAllWithFk();
     const userCategory = req.session.userLogged.user_category_id;
     return res.render('unplastify/upfDashboard', { users, openMintedRequests, userCategory});
   },
