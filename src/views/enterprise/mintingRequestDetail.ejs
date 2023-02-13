@@ -38,9 +38,17 @@
     background: hsla(0, 0%, 100%, 0.8);
     backdrop-filter: blur(30px);
   ">
+  
     <div class="card-body py-5 px-md-5">
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
+          <form action="<%=`/enterprise/changeMintingRequestName/${mintingRequest.minting_request_id}?_method=PUT`%>" method="POST">
+            <div class="form-outline mb-4">
+              <label class="form-label">Change minting request name</label>
+              <input name="newName" type="text" class="form-control" />
+            </div>
+            <input type="submit" class="btn btn-outline-dark flex-shrink-0" value="Change name"></input>
+          </form>
           <!-- hipervinculo a cada detalle de uni -->
           <!-- el estado de la mr -->
           <!-- boton para agregar unplastified item -->

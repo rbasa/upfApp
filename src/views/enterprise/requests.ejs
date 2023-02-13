@@ -1,6 +1,12 @@
 <section class="py-5 bg-light">
   <div class="container px-4 px-lg-5 mt-5">
-    <h2 class="fw-bolder mb-4">Your minting requests</h2>
+    <% if (userCategory == 2) { %>
+      <h5 class="fw-bolder">
+        <h2 class="fw-bolder mb-4">Your minting requests</h2>
+      </h5>
+      <% } else{%>
+        <h2 class="fw-bolder mb-4">Minting requests</h2>
+    <% } %>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
       <% openMintedRequests.forEach(e=>{ %>
         <div class="col mb-5">
@@ -12,10 +18,9 @@
                   <div class="text-center">
                       <!-- Enterprise name for Unplastify views -->
                       <% if (userCategory == 3) { %>
-                        <h5 class="fw-bolder">
-                          <!-- deberia aparecer el nombre de la empresa -->
-                          <%= e.user_id %>
-                        </h5>
+                        <h4 class="">
+                          <%= e.user_request.dataValues.name %>
+                        </h4>
                       <% } %>
                       <!-- Product name-->
                       <h5 class="fw-bolder"><%= e.name %></h5>
@@ -27,7 +32,11 @@
               </div>
               <!-- Product actions-->
               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<%= `/enterprise/mintingRequest/${e.minting_request_id}` %>">Details</a></div>
+                  <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="<%= `/enterprise/mintingRequest/${e.minting_request_id}` %>">
+                      Details
+                    </a>
+                  </div>
               </div>
           </div>
         </div>

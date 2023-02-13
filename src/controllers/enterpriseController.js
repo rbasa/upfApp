@@ -60,6 +60,10 @@ const controller = {
   editUnplastifiedItem: async (req, res) => {
     return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
   },
+  changeMintingRequestName: async (req,res)=>{
+    await Minting_request.changeMintingRequestName(req);
+    return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
+  },
   submitMintingRequest: async (req,res)=>{
     // change status to submited
     const { id_status } =  await Minting_request.getStatus('submited');
