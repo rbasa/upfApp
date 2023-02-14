@@ -5,13 +5,18 @@
   <% if (enterpriseLogged.registered) { %>
         <!-- Success Alert -->
         <div class="alert alert-success alert-dismissible fade show">
-          <strong>Account properly registered.</strong> You are all set to start minting UPF!
+          <strong>Account properly registered.</strong>You are all set to start minting UPF!
         </div>
         <div class="card-body py-5 px-md-5">
           <div class="row d-flex justify-content-center">
             <div class="col-lg-8">
               <form action="/enterprise/newMintingRequest" method="POST">
                 <div class="form-outline mb-4">
+                  <% if (errorMessages && errorMessages.length > 0) { %>
+                    <div class="alert alert-danger">
+                      <p><%= errorMessages[0].name.msg %></p>
+                    </div>
+                  <% } %>
                   <input name="name" type="text" class="form-control" />
                   <label class="form-label" for="sku">New minting request name</label>
                 </div>

@@ -7,6 +7,8 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const cookies = require('cookie-parser');
 const cors = require('cors');
+const flash = require('connect-flash');
+
 app.use(cors());
 
 const mainRoutes = require('./routes/mainRoutes');
@@ -33,6 +35,7 @@ app.set('views',path.join(__dirname,'/views'));
 app.listen(PORT, ()=>{
   console.log(`Server running at port ${PORT}`);
 });
+app.use(flash());
 
 app.use('/', mainRoutes);
 app.use('/users', userRoutes);

@@ -1,15 +1,18 @@
 const Users = require('../models/Users');
 const Unplastified_item = require('../models/Unplastified_item');
 const Minting_request = require('../models/Minting_Request');
+const { validationResult } = require('express-validator');
 
 const controller = {
   dashboard: async (req, res) => {
+    // const errorMessages = req.session.errors || [];
+    const errorMessages = req.flash('error');
     const enterpriseLogged = req.session.userLogged;
     const submitedDetails = await Users.hasSubmitedDetails(req.session.userLogged.user_id);
     const userCategory = req.session.userLogged.user_category_id
     const openMintedRequests = await Minting_request.findByEnterprise(req.session.userLogged.user_id);
     req.session.minting_request_id = null
-    return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory});
+    return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory, errorMessages});
   },
   details: async (req, res) => {
     const user = req.session.userLogged.user_id
@@ -21,6 +24,14 @@ const controller = {
     return res.redirect('/enterprise/home');
   },
   newMintingRequest: async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // const errorMessages = Object.values(errors.mapped()).map(error => error.msg);
+      // req.flash('error', errorMessages);
+      // return res.redirect('/enterprise/home');
+      req.flash('error', errors.mapped());
+      return res.redirect('/enterprise/home');
+    }
     const minting_request_id = await Minting_request.create(req);
     return res.redirect(`/enterprise/mintingRequest/${minting_request_id}`);
   },
