@@ -6,7 +6,7 @@
         <form action=" <%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT`%>" method="POST">
         <div class="modal-header">
           <h5 class="modal-title">
-            <label class="form-label" for="plastic_item">Plastic Item</label>
+            <label class="form-label" for="plastic_item">Plastic Itemmmmmmmmm</label>
             <input type="text" name="plastic_item" value="<%= e.dataValues.plastic_item %>">
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -89,7 +89,7 @@
             <div class="carousel-inner">
               <% beforePicArray.forEach((pic, index) => { %>
                 <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img class="d-block w-100" src= "<%= pic %>" alt="<%= pic %> slide">
+                  <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
                 </div>
               <% }); %>
             </div>
@@ -121,7 +121,7 @@
             <div class="carousel-inner">
               <% afterPicArray.forEach((pic, index) => { %>
                 <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img class="d-block w-100" src= "<%= pic %>" alt="<%= pic %> slide">
+                  <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
                 </div>
               <% }); %>
             </div>
@@ -154,9 +154,9 @@
                 <div class="modal-body">
                   <% videoArray.forEach(video => { %>
                     <video class="w-100" controls>
-                      <source src="<%= video %>" type="video/mp4">
-                      <source src="<%= video %>" type="video/webm">
-                      <source src="<%= video %>" type="video/ogg">
+                      <source src="<%= `/private/${video }` %>" type="video/mp4">
+                      <source src="<%= `/private/${video }` %>" type="video/webm">
+                      <source src="<%= `/private/${video }` %>" type="video/ogg">
                       Your browser does not support the video tag.
                     </video>
                     <br>
@@ -176,7 +176,7 @@
             </button>
           </div>
           <% technicalFileArray.forEach(file => { %>
-            <a class="d-none" href="<%= file %>" download="<%= file %>" id="downloadLink"></a>
+            <a class="d-none" href="<%= `/private/${file}` %>" download="<%= `/private/${file}` %>" id="downloadLink"></a>
           <% }); %>
         <% } %>
         <%
@@ -195,7 +195,7 @@
             <div class="carousel-inner">
               <% additionalPics.forEach((pic, index) => { %>
                 <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img class="d-block w-100" src= "<%= pic %>" alt="<%= pic %> slide">
+                  <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
                 </div>
               <% }); %>
             </div>
@@ -214,6 +214,10 @@
         <% if (userCategory ==2) { %>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Edit</button>
+            
+            <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
+              Delete Unplastified item
+            </button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         <% } %>
