@@ -1,7 +1,14 @@
 const db = require("../../database/models");
 const path = require('path');
+const fs = require('fs-extra');
 
 const Unplastified_item = {
+  list: async() => {
+    return await db.unplastified_item.findAll();
+  },
+  findByPk: async (id) => {
+    return await db.unplastified_item.findByPk(id);
+  },
   getFileArray(fieldname, req) {
     const privateDir = path.join(__dirname, '..', 'private');
     return req.files.some((file) => file.fieldname === fieldname)
@@ -48,11 +55,23 @@ const Unplastified_item = {
     });
     return await this.findByPk(req.params.idUnplastifiedItem)
   },
-  list: async() => {
-    return await db.unplastified_item.findAll();
-  },
-  findByPk: async (id) => {
-    return await db.unplastified_item.findByPk(id);
+  delete: async function(req) {
+    const { dataValues: { minting_request_id: mintingRequestId, dir_name: dirName } } = await this.findByPk(req.params.idUnplastifiedItem);
+    const deleted = await db.unplastified_item.destroy({
+      where: { unplastified_item_id: req.params.idUnplastifiedItem },
+    });
+      // deletes all files contained in the dir_name directory 
+    if (deleted) {
+      usuario = req.session.userLogged.user_id;
+      const dirPath = path.join(__dirname, `../private/enterpriseDocumentation/${usuario}/${dirName}`);
+      try {
+        await fs.remove(dirPath);
+        console.log(`Directory ${dirPath} has been removed`);
+      } catch (err) {
+        console.error(`Error removing directory ${dirPath}: ${err}`);
+      }
+    }
+    return mintingRequestId;
   },
   findMintingRequest: async (id) => {
     return await db.unplastified_item.findByPk(id,

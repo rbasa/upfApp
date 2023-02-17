@@ -71,6 +71,10 @@ const controller = {
   editUnplastifiedItem: async (req, res) => {
     return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
   },
+  deleteUnplastifiedItem: async (req, res) => {
+    const mintingRequestId = await Unplastified_item.delete(req);
+    return res.redirect(`/enterprise/mintingRequest/${mintingRequestId}`)
+  },
   changeMintingRequestName: async (req,res)=>{
     await Minting_request.changeMintingRequestName(req);
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);

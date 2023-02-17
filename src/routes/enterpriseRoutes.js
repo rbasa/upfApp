@@ -23,6 +23,7 @@ router.get('/mintingRequest/:idMintingRequest', userNotLogged, enterpriseControl
 router.get('/addUnplastifiedItem', userNotLoggedAsEnterprise, enterpriseController.addNewUnplastifiedItem);
 router.post('/newUnplastifiedItem', userNotLoggedAsEnterprise, upload.any('before_pic','after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.uploadUnplastifiedItem);
 router.put('/editUnplastifiedItem/:idUnplastifiedItem', userNotLoggedAsEnterprise, editPermision, editPermision, enterpriseController.editUnplastifiedItem);
+router.delete('/deleteUnplastifiedItem/:idUnplastifiedItem', userNotLoggedAsEnterprise, editPermision, editPermision, enterpriseController.deleteUnplastifiedItem);
 router.put('/changeMintingRequestName/:minting_request_id', userNotLoggedAsEnterprise, enterpriseController.changeMintingRequestName);
 router.put('/submitMintingRequest/:minting_request_id', userNotLoggedAsEnterprise, enterpriseController.submitMintingRequest);
 
