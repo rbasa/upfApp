@@ -36,7 +36,7 @@ const controller = {
     return res.redirect(`/enterprise/mintingRequest/${minting_request_id}`);
   },
   mintingRequestDetail: async (req,res) => {
-    let mintingRequestId
+    let mintingRequestId;
     req.params.idMintingRequest ? mintingRequestId = req.params.idMintingRequest : mintingRequestId = req.session.minting_request_id;
     const unplastifiedItems = await Unplastified_item.findByMintingRequest(mintingRequestId);
     const mintingRequest = await Minting_request.findByPk(mintingRequestId);
@@ -69,6 +69,18 @@ const controller = {
     return res.render('enterprise/unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach });
   },
   editUnplastifiedItem: async (req, res) => {
+    const userType = req.session.userLogged.user_category_id;
+    let userRouter
+    switch (userType) {
+      case 2:
+        userRouter = 'enterprise'
+        break;
+      case 3:
+        userRouter = 'unplastify'
+        break;
+      default:
+        return res.redirect('/')
+    }
     return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
   },
   deleteUnplastifiedItem: async (req, res) => {
@@ -82,6 +94,18 @@ const controller = {
   submitMintingRequest: async (req,res)=>{
     // change status to submited
     const { id_status } =  await Minting_request.getStatus('submited');
+    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
+    return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
+  },
+  assignMintingRequestToValidator: async (req,res)=>{
+    // change status to assigned to validator
+    const { id_status } =  await Minting_request.getStatus('Assign To Validator');
+    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
+    return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
+  },
+  inReviewMintingRequest: async (req,res)=>{
+    // change status to assigned to validator
+    const { id_status } =  await Minting_request.getStatus('In Review');
     await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
   }

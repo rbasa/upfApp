@@ -7,6 +7,8 @@ const Unplastified_item = {
     return await db.unplastified_item.findAll();
   },
   findByPk: async (id) => {
+    console.log('seejecuta')
+    console.log(id)
     return await db.unplastified_item.findByPk(id);
   },
   getFileArray(fieldname, req) {
@@ -40,6 +42,7 @@ const Unplastified_item = {
     });
   },
   edit: async function(req) {
+    const upfItem = req.params.idUnplastifiedItem;
     await db.unplastified_item.update({
       sku: req.body.sku,
       plastic_item: req.body.plastic_item,
@@ -51,9 +54,9 @@ const Unplastified_item = {
       id_product_measurement_unit: req.body.id_product_measurement_unit,
       impact_approach_quantity: req.body.impact_approach_quantity ? req.body.impact_approach_quantity : null
     },{
-      where: { unplastified_item_id: req.params.idUnplastifiedItem },
+      where: { unplastified_item_id: upfItem },
     });
-    return await this.findByPk(req.params.idUnplastifiedItem)
+    return await this.findByPk(upfItem)
   },
   delete: async function(req) {
     const { dataValues: { minting_request_id: mintingRequestId, dir_name: dirName } } = await this.findByPk(req.params.idUnplastifiedItem);
