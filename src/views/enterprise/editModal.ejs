@@ -214,7 +214,6 @@
         <% if (userCategory ==2) { %>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Edit</button>
-            
             <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
               Delete Unplastified item
             </button>
@@ -223,6 +222,10 @@
         <% } %>
         <% if (userCategory == 3) { %>
             <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" formaction="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT` %>" formmethod="POST">Edit</button>
+              <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
+                Delete Unplastified item
+              </button>
               <form method="POST" action="/unplastify/updateMintingRequestStatus/<%= e.dataValues.minting_request_id %>/In%20Review?_method=PUT">
                 <input type="submit" class="btn btn-primary" value="In Review"></input>
               </form>
