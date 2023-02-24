@@ -93,7 +93,7 @@ const controller = {
   },
   submitMintingRequest: async (req,res)=>{
     // change status to submited
-    const { id_status } =  await Minting_request.getStatus('submited');
+    const { id_status } =  await Minting_request.getStatus('Submited');
     await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
   },
