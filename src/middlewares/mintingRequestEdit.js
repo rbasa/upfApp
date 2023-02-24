@@ -6,14 +6,15 @@ async function editPermision(req, res, next){
   if(req.session.userLogged.user_category_id==3){
     return next();
   }
-  // Otherwise the Minting request status should not be submited
-  const { minting_request_id: idMintingRequest } = await Unplastified_item.findMintingRequest(req.params.idUnplastifiedItem);
   const statusNotAllowed = await Minting_request.getStatus('Submited');
+  const { minting_request_id: idMintingRequest } = req.params.minting_request_id || await Unplastified_item.findMintingRequest(req.params.idUnplastifiedItem)
   const mintingRequestStatus = await Minting_request.findMintingRequestStatus(idMintingRequest);
+  
+  // Submited MR should not be edited
   if(statusNotAllowed == mintingRequestStatus){
     return res.redirect('/enterprise/');
   }
-  next();
+  return next();
 };
 
 module.exports = editPermision
