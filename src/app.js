@@ -15,6 +15,7 @@ const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
 const enterpriseRoutes = require('./routes/enterpriseRoutes');
 const unplastifyRoutes = require('./routes/unplastifyRoutes');
+const validatorRoutes = require('./routes/validatorRoutes');
 const privateRoutes = require('./routes/privateRoutes');
 const userLogged = require('./middlewares/userLogged');
 
@@ -41,6 +42,7 @@ app.use('/', mainRoutes);
 app.use('/users', userRoutes);
 app.use('/enterprise', enterpriseRoutes);
 app.use('/unplastify', unplastifyRoutes);
+app.use('/validator', validatorRoutes);
 app.use('/private', privateRoutes);
 
 app.get('*', (req, res) => {
