@@ -9,7 +9,7 @@ const controller = {
     if(req.session.userLogged){
       switch (req.session.userLogged.user_category_id) {
         case 1:
-          return res.send('view del validador');
+          return res.redirect('/validator/home');
         case 2:
           return res.redirect('/enterprise/home');
         case 3:
@@ -48,7 +48,7 @@ const controller = {
     if(req.session.userLogged){
       switch (req.session.userLogged.user_category_id) {
         case 1:
-          return res.send('view del validador');
+          return res.redirect('/validator/home');
         case 2:
           return res.redirect('/enterprise/home');
         case 3:
