@@ -17,6 +17,7 @@ const enterpriseRoutes = require('./routes/enterpriseRoutes');
 const unplastifyRoutes = require('./routes/unplastifyRoutes');
 const validatorRoutes = require('./routes/validatorRoutes');
 const privateRoutes = require('./routes/privateRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 const userLogged = require('./middlewares/userLogged');
 
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
@@ -44,6 +45,7 @@ app.use('/enterprise', enterpriseRoutes);
 app.use('/unplastify', unplastifyRoutes);
 app.use('/validator', validatorRoutes);
 app.use('/private', privateRoutes);
+app.use('/chat', chatRoutes);
 
 app.get('*', (req, res) => {
   res.redirect('/');
