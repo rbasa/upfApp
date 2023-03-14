@@ -37,11 +37,7 @@ const Minting_request = {
   },
   findMintingRequestStatus: async (minting_request_id) => {
     return await db.minting_request.findByPk(minting_request_id, {
-      include: {
-        model: db.minting_request_status,
-        as: 'minting_status',
-        attributes: ['status']
-      }
+      attributes: ['status_id']
     });
   },
   getStatus: async (e) => {
