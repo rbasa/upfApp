@@ -1,0 +1,62 @@
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="">
+        <ul class="list-unstyled">
+          <h2>Chat Room</h2>
+          <p>This will be used for validators Q&A</p>
+          <div class="container py-5" style="height: 400px; overflow: auto;">
+          <% mintingRequest.chatRooms.forEach(chat => { %>
+            <% 
+              const timestamp = new Date(chat.dataValues.createdAt);
+              const formattedDate = timestamp.toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+              });
+              const formattedTime = timestamp.toLocaleTimeString('en-US');
+
+              const formattedTimestamp = `${formattedDate} ${formattedTime}`;
+              %>
+            <li class="d-flex justify-content-between mb-4">
+              <div class="card w-100">
+                <div class="card-header d-flex justify-content-between p-3">
+                  <p class="fw-bold mb-0">
+                    <% if(chat.dataValues.user_category_id == userCategory+ 1){ %>
+                      you
+                    <% } else if(chat.dataValues.user_category_id==1){ %>
+                      Validator
+                    <% } else if(chat.dataValues.user_category_id==2){ %>
+                      <%= mintingRequest.dataValues.user_request.dataValues.name %>
+                    <% } else if(chat.dataValues.user_category_id==3){ %>
+                      Unplastify
+                    <% } %>
+
+                  </p>
+                  <p class="text-muted small mb-0"><i class="far fa-clock"></i><%= formattedTimestamp %></p>
+                </div>
+                <div class="card-body">
+                  <p class="mb-0">
+                    <%= chat.dataValues.msg %>
+                  </p>
+                </div>
+              </div>
+            </li>
+          <% }); %>
+        </div>
+          <form method="POST" action="/chat">
+            <li class="bg-white mb-3">
+              <div class="form-outline">
+                <textarea name="newMsg" class="form-control" id="textAreaExample2" rows="4"></textarea>
+              </div>
+            </li>
+            <button type="submit" class="btn btn-info btn-rounded float-end">Send</button>
+          </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+  
