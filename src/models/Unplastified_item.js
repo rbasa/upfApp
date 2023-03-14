@@ -7,8 +7,6 @@ const Unplastified_item = {
     return await db.unplastified_item.findAll();
   },
   findByPk: async (id) => {
-    console.log('seejecuta')
-    console.log(id)
     return await db.unplastified_item.findByPk(id);
   },
   getFileArray(fieldname, req) {
