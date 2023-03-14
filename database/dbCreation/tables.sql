@@ -239,6 +239,18 @@ create table unplastified_item (
   FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
 );
 
+create table chat_room(
+  `chat_id` integer not null auto_increment,
+  `minting_request_id` integer not null,
+  `user_category_id` integer not null,
+  `msg` text not null,
+  `createdAt` timestamp default CURRENT_TIMESTAMP,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  primary key (`chat_id`),
+  FOREIGN KEY (`minting_request_id`) REFERENCES minting_request(`minting_request_id`),
+  FOREIGN KEY (`user_category_id`) REFERENCES user_category (`id`)
+);
+
 create table minting_request_old (
   `minting_request_id` integer not null auto_increment,
   `user_id` integer not null,
