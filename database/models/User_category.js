@@ -3,7 +3,7 @@ module.exports = (sequelize, dataTypes) => {
     id: {
       type: dataTypes.INTEGER,
       primaryKey: true,
-      autoincrement: true,
+      autoIncrement: true,
       allowNull: false
     },
     user_category:{
@@ -18,6 +18,10 @@ module.exports = (sequelize, dataTypes) => {
   User_category.associate = function(modelName){
     User_category.hasMany(modelName.User, {
       as: 'users',
+      foreignKey: 'user_category_id'
+    }),
+    User_category.hasMany(modelName.ChatRoom, {
+      as: 'chat_rooms',
       foreignKey: 'user_category_id'
     })
   };

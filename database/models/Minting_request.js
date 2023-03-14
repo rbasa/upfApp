@@ -37,6 +37,10 @@ module.exports = (sequelize, dataTypes) => {
     Minting_request.belongsTo(models.minting_request_status, {
       as: 'minting_status',
       foreignKey: 'status_id'
+    }),
+    Minting_request.hasMany(models.ChatRoom, {
+      as: 'chatRooms',
+      foreignKey: 'minting_request_id'
     })
   };
   return Minting_request;
