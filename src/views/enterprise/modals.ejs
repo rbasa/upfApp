@@ -154,26 +154,26 @@
           <% }); %>
         <% } %>
         <%
-          const additionalPics = JSON.parse(e.dataValues.additional_pics);
-          if (additionalPics.length > 0) {
+          const additionalDocs = JSON.parse(e.dataValues.additional_documents);
+          if (additionalDocs.length > 0) {
         %>
-          <h4>Additional pics</h4>
+          <h4>Additional Documents</h4>
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <% if (additionalPics.length > 1) { %>
+            <% if (additionalDocs.length > 1) { %>
               <ol class="carousel-indicators">
-                <% additionalPics.forEach((pic, index) => { %>
+                <% additionalDocs.forEach((doc, index) => { %>
                   <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
                 <% }); %>
               </ol>
             <% } %>
             <div class="carousel-inner">
-              <% additionalPics.forEach((pic, index) => { %>
+              <% additionalDocs.forEach((doc, index) => { %>
                 <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img class="d-block w-100" src= "<%= pic %>" alt="<%= pic %> slide">
+                  <img class="d-block w-100" src= "<%= doc %>" alt="<%= doc %> slide">
                 </div>
               <% }); %>
             </div>
-            <% if (additionalPics.length > 1) { %>
+            <% if (additionalDocs.length > 1) { %>
               <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>

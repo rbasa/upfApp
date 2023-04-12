@@ -60,7 +60,7 @@
                     <th scope="col">Plastic Item</th>
                     <th>SKU</th>
                     <th>Details</th>
-                    <% if (mintingRequest.minting_status.dataValues.status !== 'Submited') { %>
+                    <% if (mintingRequest.minting_status.dataValues.status !== 'Submited' && mintingRequest.minting_status.dataValues.status !== 'In Review') { %>
                       <th>Edit</th>
                     <% } %>
                   </tr>
@@ -79,7 +79,7 @@
                           Details
                         </button>
                       </td>
-                      <% if (mintingRequest.minting_status.dataValues.status !== 'Submited') { %>
+                      <% if (mintingRequest.minting_status.dataValues.status !== 'Submited'&& mintingRequest.minting_status.dataValues.status !== 'In Review') { %>
                         <td>
                           <button type="button" class="btn btn-outline-dark mt-auto" data-toggle="modal" data-target="<%= `.editmodal-${e.dataValues.unplastified_item_id}`%>">
                             Edit

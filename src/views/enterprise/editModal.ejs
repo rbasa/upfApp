@@ -3,248 +3,267 @@
   <div class="modal bd-example-modal-lg <%= `editmodal-${e.dataValues.unplastified_item_id}`%>" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <form action=" <%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT`%>" method="POST">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            <label class="form-label" for="plastic_item">Plastic Item</label>
-            <input type="text" name="plastic_item" value="<%= e.dataValues.plastic_item %>">
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h5>
-            <label class="form-label" for="implemented_change">Implemented Change</label>
-            <input type="text" name="implemented_change" value="<%= e.dataValues.implemented_change %>">
-          </h5>
-          <h5>
-            <label class="form-label" for="sku">Sku</label>
-            <input type="text" name="sku" value="<%= e.dataValues.sku %>">
-          </h5>
-          <h5>
-            <label class="form-label" for="implemented_date">Implementation date</label>
-            <input type="date" name="implementation_date" value="<%= e.dataValues.implementation_date %>">
-          </h5>
-          <h5>
-            <label class="form-label" for="plastic-item-before">Select the previous plastic item</label>
-            <select name ="id_plastic_item_before" class="form-select mb-4" aria-label="Default select example">
-              <% plasticItem.forEach( plasticItem => { %>
-                <option value="<%= plasticItem.id_plastic_item %>" <%= plasticItem.id_plastic_item == e.dataValues.id_plastic_item_before ? `selected="true"` : false %>>
-                  <%= plasticItem.plastic_item %> 
-                </option>
-              <% }) %>
-            </select>
-          </h5>
-          <h5>
-            <!-- Alternative plastic item -->
-            <label class="form-label" for="plastic_item_before">Select the alternative plastic item chosen</label>
-            <select name ="id_plastic_item_after" class="form-select mb-4" aria-label="Default select example">
-              <% alternativePlasticItem.forEach( alternativePlasticItem => { %>
-                <option value="<%= alternativePlasticItem.id_alternative_plastic_item %>" <%= alternativePlasticItem.id_alternative_plastic_item == e.dataValues.id_alternative_plastic_item ? `selected="true"` : false %>>
-                  <%= alternativePlasticItem.alternative_plastic_item %> 
-                </option>
-              <% }) %>
-            </select>
-          </h5>
-          <h5>
-            <!-- Impact approach -->
-            <label class="form-label" for="plastic-item-before">Select the impact approach</label>
-            <select name ="impact_approach" class="form-select mb-4" aria-label="Default select example">
-              <% impactApproach.forEach( imapctApproach => { %>
-                <option value="<%= imapctApproach.id_impact_approach %>" <%=  imapctApproach.id_impact_approach == e.dataValues.impact_approach.dataValues.id_impact_approach ? `selected="true"` : false %> >
-                  <%= imapctApproach.impact_approach %> 
-                </option>
-              <% }) %>
-            </select>
-          </h5>
-          <h5>
-            <label class="form-label" for="plastic-item-before">Select product measurement</label>
-            <select name ="id_product_measurement_unit" class="form-select mb-4" aria-label="Default select example">
-              <% productMeasurementUnit.forEach( productMeasurementUnit => { %>
-                <option value="<%= productMeasurementUnit.id_product_measurement_unit %>"<%= productMeasurementUnit.id_product_measurement_unit == e.dataValues.id_product_measurement_unit ? `selected="true"` : false %> >
-                  <%= productMeasurementUnit.measurement_unit %> 
-                </option>
-              <% }) %>
-            </select>
-          </h5>
-          <h5>
-            
-            <label class="form-label" for="impact_approach_quantity">Quantity</label>
-            <input type="text" name="impact_approach_quantity" value="<%= e.dataValues.impact_approach_quantity %>">
-          </h5>
-          <%
-          const beforePicArray = JSON.parse(e.dataValues.before_pic);
-          if (beforePicArray.length > 0) {
-        %>
-          <h4>Before pics</h4>
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <% if (beforePicArray.length > 1) { %>
-              <ol class="carousel-indicators">
-                <% beforePicArray.forEach((pic, index) => { %>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
-                <% }); %>
-              </ol>
-            <% } %>
-            <div class="carousel-inner">
-              <% beforePicArray.forEach((pic, index) => { %>
-                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
-                </div>
-              <% }); %>
+        <form action="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT`%>" method="POST" enctype="multipart/form-data">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <label class="form-label" for="plastic_item">Plastic Item</label>
+                <input type="text" name="plastic_item" value="<%= e.dataValues.plastic_item %>">
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <% if (beforePicArray.length > 1) { %>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            <% } %>
-          </div>
-        <% } %>
-        <%
-          const afterPicArray = JSON.parse(e.dataValues.after_pic);
-          if (afterPicArray.length > 0) {
-        %>
-          <h4>After pics</h4>
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <% if (afterPicArray.length > 1) { %>
-              <ol class="carousel-indicators">
-                <% afterPicArray.forEach((pic, index) => { %>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
-                <% }); %>
-              </ol>
-            <% } %>
-            <div class="carousel-inner">
-              <% afterPicArray.forEach((pic, index) => { %>
-                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
-                </div>
-              <% }); %>
-            </div>
-            <% if (afterPicArray.length > 1) { %>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            <% } %>
-          </div>
-        <% } %>
-        <%
-          const videoArray = JSON.parse(e.dataValues.video);
-          if (videoArray.length > 0) {
-        %>
-          <h4>Videos</h4>
-          <div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Videos</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <% videoArray.forEach(video => { %>
-                    <video class="w-100" controls>
-                      <source src="<%= `/private/${video }` %>" type="video/mp4">
-                      <source src="<%= `/private/${video }` %>" type="video/webm">
-                      <source src="<%= `/private/${video }` %>" type="video/ogg">
-                      Your browser does not support the video tag.
-                    </video>
-                    <br>
+            <div class="modal-body">
+              <h5>
+                <label class="form-label" for="implemented_change">Implemented Change</label>
+                <input type="text" name="implemented_change" value="<%= e.dataValues.implemented_change %>">
+              </h5>
+              <h5>
+                <label class="form-label" for="sku">Sku</label>
+                <input type="text" name="sku" value="<%= e.dataValues.sku %>">
+              </h5>
+              <h5>
+                <label class="form-label" for="implemented_date">Implementation date</label>
+                <input type="date" name="implementation_date" value="<%= e.dataValues.implementation_date %>">
+              </h5>
+              <h5>
+                <label class="form-label" for="plastic-item-before">Select the previous plastic item</label>
+                <select name ="id_plastic_item_before" class="form-select mb-4" aria-label="Default select example">
+                  <% plasticItem.forEach( plasticItem => { %>
+                    <option value="<%= plasticItem.id_plastic_item %>" <%= plasticItem.id_plastic_item == e.dataValues.id_plastic_item_before ? `selected="true"` : false %>>
+                      <%= plasticItem.plastic_item %> 
+                    </option>
+                  <% }) %>
+                </select>
+              </h5>
+              <h5>
+                <!-- Alternative plastic item -->
+                <label class="form-label" for="plastic_item_before">Select the alternative plastic item chosen</label>
+                <select name ="id_plastic_item_after" class="form-select mb-4" aria-label="Default select example">
+                  <% alternativePlasticItem.forEach( alternativePlasticItem => { %>
+                    <option value="<%= alternativePlasticItem.id_alternative_plastic_item %>" <%= alternativePlasticItem.id_alternative_plastic_item == e.dataValues.id_alternative_plastic_item ? `selected="true"` : false %>>
+                      <%= alternativePlasticItem.alternative_plastic_item %> 
+                    </option>
+                  <% }) %>
+                </select>
+              </h5>
+              <h5>
+                <!-- Impact approach -->
+                <label class="form-label" for="plastic-item-before">Select the impact approach</label>
+                <select name ="impact_approach" class="form-select mb-4" aria-label="Default select example">
+                  <% impactApproach.forEach( imapctApproach => { %>
+                    <option value="<%= imapctApproach.id_impact_approach %>" <%=  imapctApproach.id_impact_approach == e.dataValues.impact_approach.dataValues.id_impact_approach ? `selected="true"` : false %> >
+                      <%= imapctApproach.impact_approach %> 
+                    </option>
+                  <% }) %>
+                </select>
+              </h5>
+              <h5>
+                <label class="form-label" for="plastic-item-before">Select product measurement</label>
+                <select name ="id_product_measurement_unit" class="form-select mb-4" aria-label="Default select example">
+                  <% productMeasurementUnit.forEach( productMeasurementUnit => { %>
+                    <option value="<%= productMeasurementUnit.id_product_measurement_unit %>"<%= productMeasurementUnit.id_product_measurement_unit == e.dataValues.id_product_measurement_unit ? `selected="true"` : false %> >
+                      <%= productMeasurementUnit.measurement_unit %> 
+                    </option>
+                  <% }) %>
+                </select>
+              </h5>
+              <h5>
+                <label class="form-label" for="impact_approach_quantity">Quantity</label>
+                <input type="text" name="impact_approach_quantity" value="<%= e.dataValues.impact_approach_quantity %>">
+              </h5>
+              <%
+                const beforePicArray = JSON.parse(e.dataValues.before_pic);
+                if (beforePicArray.length > 0) {
+              %>
+              <h4>Before pics</h4>
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <% if (beforePicArray.length > 1) { %>
+                  <ol class="carousel-indicators">
+                    <% beforePicArray.forEach((pic, index) => { %>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
+                    <% }); %>
+                  </ol>
+                <% } %>
+                <div class="carousel-inner">
+                  <% beforePicArray.forEach((pic, index) => { %>
+                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                      <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
+                    </div>
                   <% }); %>
                 </div>
+                <% if (beforePicArray.length > 1) { %>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                <% } %>
               </div>
-            </div>
-          </div>
-        <% } %>
-        <%
-          const technicalFileArray = JSON.parse(e.dataValues.technical_file);
-          if (technicalFileArray.length > 0) {
-        %>
-          <div class="text-center mt-4">
-            <button type="button" class="btn btn-primary" id="downloadAllButton">
-              Download technical files
-            </button>
-          </div>
-          <% technicalFileArray.forEach(file => { %>
-            <a class="d-none" href="<%= `/private/${file}` %>" download="<%= `/private/${file}` %>" id="downloadLink"></a>
-          <% }); %>
-        <% } %>
-        <%
-          const additionalPics = JSON.parse(e.dataValues.additional_pics);
-          if (additionalPics.length > 0) {
-        %>
-          <h4>Additional pics</h4>
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <% if (additionalPics.length > 1) { %>
-              <ol class="carousel-indicators">
-                <% additionalPics.forEach((pic, index) => { %>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
-                <% }); %>
-              </ol>
             <% } %>
-            <div class="carousel-inner">
-              <% additionalPics.forEach((pic, index) => { %>
-                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                  <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
+            <%
+              const afterPicArray = JSON.parse(e.dataValues.after_pic);
+              if (afterPicArray.length > 0) {
+            %>
+              <h4>After pics</h4>
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <% if (afterPicArray.length > 1) { %>
+                  <ol class="carousel-indicators">
+                    <% afterPicArray.forEach((pic, index) => { %>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
+                    <% }); %>
+                  </ol>
+                <% } %>
+                <div class="carousel-inner">
+                  <% afterPicArray.forEach((pic, index) => { %>
+                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                      <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
+                    </div>
+                  <% }); %>
                 </div>
-              <% }); %>
-            </div>
-            <% if (additionalPics.length > 1) { %>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+                <% if (afterPicArray.length > 1) { %>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                <% } %>
+              </div>
             <% } %>
-          </div>
-        <% } %>
-        <% if (userCategory ==2) { %>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Edit</button>
-            <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
-              Delete Unplastified item
-            </button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        <% } %>
-        <% if (userCategory == 3) { %>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" formaction="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT` %>" formmethod="POST">Edit</button>
-              <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
-                Delete Unplastified item
-              </button>
-              <form method="POST" action="/unplastify/updateMintingRequestStatus/<%= e.dataValues.minting_request_id %>/In%20Review?_method=PUT">
-                <input type="submit" class="btn btn-primary" value="In Review"></input>
-              </form>
-              <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/Approved?_method=PUT">
-                <input type="submit" class="btn btn-success" value="Approve"></input>
-              </form>
-              <form method="POST" action= "<%= `/unplastify/updateMintingRequestStatus/${e.dataValues.minting_request_id}/Further%20documentation%20requested?_method=PUT` %>" >
-                <input type="submit" class="btn btn-warning" value="Request further information"></input>
-              </form>
-              <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/Stand-by?_method=PUT">
-                <input type="submit" class="btn btn-warning" value="Stand by"></input>
-              </form>
-              <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/'Rejected'?_method=PUT">
-                <input type="submit" class="btn btn-danger" value="Decline"></input>
-              </form>
+            <%
+              const videoArray = JSON.parse(e.dataValues.video);
+              if (videoArray.length > 0) {
+            %>
+              <h4>Videos</h4>
+              <div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Videos</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <% videoArray.forEach(video => { %>
+                        <video class="w-100" controls>
+                          <source src="<%= `/private/${video }` %>" type="video/mp4">
+                          <source src="<%= `/private/${video }` %>" type="video/webm">
+                          <source src="<%= `/private/${video }` %>" type="video/ogg">
+                          Your browser does not support the video tag.
+                        </video>
+                        <br>
+                      <% }); %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+            <%
+              const technicalFileArray = JSON.parse(e.dataValues.technical_file);
+              if (technicalFileArray.length > 0) {
+            %>
+              <div class="text-center mt-4">
+                <button type="button" class="btn btn-primary" id="downloadAllButton">
+                  Download technical files
+                </button>
+              </div>
+              <% technicalFileArray.forEach(file => { %>
+                <a class="d-none" href="<%= `/private/${file}` %>" download="<%= `/private/${file}` %>" id="downloadLink"></a>
+              <% }); %>
+            <% } %>
+            <%
+              const additionalDocs = JSON.parse(e.dataValues.additional_documents);
+              if (additionalDocs.length > 0) {
+            %>
+              <h4>Additional docs</h4>
+              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <% if (additionalDocs.length > 1) { %>
+                  <ol class="carousel-indicators">
+                    <% additionalDocs.forEach((pic, index) => { %>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : '' %>"></li>
+                    <% }); %>
+                  </ol>
+                <% } %>
+                <div class="carousel-inner">
+                  <% additionalDocs.forEach((pic, index) => { %>
+                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                      <img class="d-block w-100" src= "<%= `/private/${pic}` %>" alt="<%= `unouthorised` %> slide">
+                    </div>
+                  <% }); %>
+                </div>
+                <% if (additionalDocs.length > 1) { %>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                <% } %>
+              </div>
+            <% } %>
+            <% if (mintingRequest.dataValues.minting_status.dataValues.status == 'Further documentation requested') { %>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input"
+                  aria-describedby="inputGroupFileAddon01" name="additional_documents" multiple>
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+              <label class="form-label" for="customFileLang">Upload additional documentation if further documentation its requested</label>
+            <% } %>
+            <% if (userCategory == 2) { %>
+              <div class="modal-footer">
+                <% if (mintingRequest.dataValues.minting_status.dataValues.status == 'Further documentation requested') { %>
+                    <button type="submit" class="btn btn-primary">Add further information</button>
+                  <% } %>
+                  <% if (mintingRequest.dataValues.minting_status.dataValues.status == 'Created') { %>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                  <% } %>
+                  <% if (mintingRequest.dataValues.minting_status.dataValues.status == 'Created' || mintingRequest.dataValues.minting_status.dataValues.status == 'Further documentation requested' ) { %>
+                    <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
+                      Delete Unplastified item
+                    </button>
+                  <% } %>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            <% } %>
+            <% if (userCategory == 3) { %>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" formaction="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT` %>" formmethod="POST">Edit</button>
+                  <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
+                    Delete Unplastified item
+                  </button>
+                  <form method="POST" action="/unplastify/updateMintingRequestStatus/<%= e.dataValues.minting_request_id %>/In%20Review?_method=PUT">
+                    <input type="submit" class="btn btn-primary" value="In Review"></input>
+                  </form>
+                  <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/Approved?_method=PUT">
+                    <input type="submit" class="btn btn-success" value="Approve"></input>
+                  </form>
+                  <form method="POST" action= "<%= `/unplastify/updateMintingRequestStatus/${e.dataValues.minting_request_id}/Further%20documentation%20requested?_method=PUT` %>" >
+                    <input type="submit" class="btn btn-warning" value="Request further information"></input>
+                  </form>
+                  <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/Stand-by?_method=PUT">
+                    <input type="submit" class="btn btn-warning" value="Stand by"></input>
+                  </form>
+                  <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/'Rejected'?_method=PUT">
+                    <input type="submit" class="btn btn-danger" value="Decline"></input>
+                  </form>
+                </div>
+            <% } %>
             </div>
-        <% } %>
-        </div>
-      </form>
+        </form>
       </div>
     </div>
   </div>
