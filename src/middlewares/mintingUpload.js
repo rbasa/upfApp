@@ -8,7 +8,7 @@ const counters = {
   'after_pic': 0,
   'video': 0,
   'technical_file': 0,
-  'additional_pics': 0
+  'additional_documents': 0,
 };
 
 const storage = multer.diskStorage({
