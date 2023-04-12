@@ -22,7 +22,7 @@ module.exports = (sequelize, dataTypes) => {
     technical_file:{
       type: dataTypes.TEXT,
     },
-    additional_pics:{
+    additional_documents:{
       type: dataTypes.TEXT,
     },
     sku:{
