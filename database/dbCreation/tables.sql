@@ -218,7 +218,7 @@ create table unplastified_item (
   `after_pic` text,
   `video` text,
   `technical_file` text,
-  `additional_pics` text,
+  `additional_documents` text,
   `sku` text,
   `plastic_item` text,
   `implemented_change` text,
