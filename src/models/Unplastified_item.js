@@ -26,7 +26,7 @@ const Unplastified_item = {
       after_pic: this.getFileArray('after_pic', req),
       video: this.getFileArray('video', req),
       technical_file: this.getFileArray('technical_file', req),
-      additional_pics: this.getFileArray('additional_pics', req),
+      additional_documents: this.getFileArray('additional_documents', req),
       sku: req.body.sku,
       plastic_item: req.body.plastic_item,
       implemented_change: req.body.implemented_change,
@@ -61,7 +61,7 @@ const Unplastified_item = {
     const deleted = await db.unplastified_item.destroy({
       where: { unplastified_item_id: req.params.idUnplastifiedItem },
     });
-      // deletes all files contained in the dir_name directory 
+      // deletes all files contained in the dir_name directory
     if (deleted) {
       usuario = req.session.userLogged.user_id;
       const dirPath = path.join(__dirname, `../private/enterpriseDocumentation/${usuario}/${dirName}`);
@@ -73,6 +73,24 @@ const Unplastified_item = {
       }
     }
     return mintingRequestId;
+  },
+  findAdditionalDocumentationByPk: async function(id) {
+    const result = await db.unplastified_item.findByPk(id, { attributes: ['additional_documents'] });
+    console.log(result.dataValues.additional_documents)
+    return JSON.parse(result.dataValues.additional_documents);
+  },
+  submitFurtherDocumentation: async function(req){
+    const upfItem = req.params.idUnplastifiedItem;
+    let previousDocs = await this.findAdditionalDocumentationByPk(upfItem);
+    const newDocs = this.getFileArray('additional_documents', req) || [];
+    JSON.parse(newDocs).map(e=>{previousDocs.push(e)})
+    const updatedDocumentation = JSON.stringify(previousDocs)
+    await db.unplastified_item.update({
+      additional_documents: updatedDocumentation
+    },{
+      where: { unplastified_item_id: upfItem },
+    });
+    return await this.findByPk(upfItem)
   },
   findMintingRequest: async (id) => {
     return await db.unplastified_item.findByPk(id,

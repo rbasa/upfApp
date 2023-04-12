@@ -73,15 +73,32 @@ const controller = {
     let userRouter
     switch (userType) {
       case 2:
-        userRouter = 'enterprise'
+        // userRouter = 'enterprise'
+        const minting_request =  await Unplastified_item.findMintingRequest(req.params.idUnplastifiedItem);
+        const status = await Minting_request.findMintingRequestStatus(minting_request.dataValues.minting_request_id);
+        switch (status.dataValues.status_id){
+          case 1:
+            return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
+            break;
+          case 4:
+            return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.submitFurtherDocumentation(req)).minting_request_id}`)
+          break;
+          default:
+            // error de tipo prohibido, no deberia poder acceder a la edicion en otro estado
+            console.log('************************************')
+            return res.redirect('/')
+        }
         break;
       case 3:
         userRouter = 'unplastify'
+        return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
         break;
       default:
         return res.redirect('/')
-    }
-    return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
+      }
+  },
+  editSubmitedUnplastifiedItem: async (req, res) => {
+    console.log('holas')
   },
   deleteUnplastifiedItem: async (req, res) => {
     const mintingRequestId = await Unplastified_item.delete(req);
