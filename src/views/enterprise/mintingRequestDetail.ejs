@@ -128,9 +128,8 @@
         <% } %>
           <% if(userCategory==3 && mintingRequest.minting_status.dataValues.status != 'Assign To Validator'){%>
             <!-- Unplastify can assign to validator whenever -->
-            <form action="<%= `/enterprise/assignToValidator/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
-              <input type="submit" class="btn btn-primary btn-block mb-4" value="assign to validator"></input>
-            </form>
+            <input type="submit" class="btn btn-primary btn-block mb-4" data-toggle="modal" data-target=".modal-esteTarget" value="assign to validator">
+            </input>
           <% } %>
           <% if(userCategory==3 && mintingRequest.minting_status.dataValues.status != 'In Review'){%>
             <!-- Unplastify can assign to validator whenever -->
@@ -143,7 +142,25 @@
     </div>
   </div>
 </section>
-
+<div class="modal bd-example-modal-lg modal-esteTarget" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-body">
+          <h5 class="modal-title">
+            Enter the amount of validator this minting request should be assign to
+          </h5>
+          <form action="<%= `/enterprise/assignToValidator/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
+            <label for=""></label>
+            <label for="validatorQuantity">Validator Quantity</label>
+            <input type="number" name="validatorQuantity"></input>
+            <input type="submit" class="btn btn-primary btn-block mb-4" value="assign to validator"></input>
+          </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <%- include("../partials/chatRoom")%>
 <%- include("./modals")%>
 <%- include("./editModal")%>
