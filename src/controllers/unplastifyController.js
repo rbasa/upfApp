@@ -11,7 +11,6 @@ const controller = {
   },
   pendingRegistrations: async (req, res) => {
     const user = await Users.getUserAndCategory(req.params.id);
-
     switch (user.category.user_category) {
       case 'enterprise':
         const enterprise = await Users.getFullEnterpriseDetails(user.user_id)
@@ -28,8 +27,38 @@ const controller = {
     await Users.approveUser(req.params.id);
     return res.redirect('/unplastify/home');
   },
-  setMintRequestInReview: async (req,res)=>{
-    res.send('InReview'+req.params.id);
+  selectRandomValidators: async (count)=>{
+    const allValidators = await Users.listUserByCategory('validator')
+    const totalValidators = allValidators.length;
+    const selectedValidators = [];
+  
+    if (count >= totalValidators) {
+      // Add all validators to the selected list
+      allValidators.forEach(validator => {
+        selectedValidators.push(validator.user_id);
+      });
+    } else {
+      // Randomly select 'count' number of validators
+      while (selectedValidators.length < count) {
+        const randomIndex = Math.floor(Math.random() * totalValidators);
+        const randomValidator = allValidators[randomIndex];
+  
+        if (!selectedValidators.includes(randomValidator.user_id)) {
+          selectedValidators.push(randomValidator.user_id);
+        }
+      }
+    }
+    return selectedValidators;
+  },
+  assignMintingRequestToValidator: async (req,res)=>{
+    // return res.send(req.body.validatorQuantity)
+    // change status to assigned to validator
+    const { id_status } =  await Minting_request.getStatus('Assign To Validator');
+    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
+    // randomly assign validator
+    console.log(allValidators)
+    return res.send(allValidators);
+    return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
   },
   // setMintRequestAsAproved: async (req,res)=>{
   //   await Users.approveMintingRequest(req.params.id)
