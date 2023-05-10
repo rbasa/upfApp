@@ -7,18 +7,13 @@ module.exports = (sequelize, dataTypes) => {
       allowNull: false
     },
     plastic_item:{
-      type: dataTypes.TEXT
-    },
-    createdAt:{
-      type: dataTypes.DATE
-    },
-    updatedAt:{
-      type: dataTypes.DATE
+      type: dataTypes.TEXT,
+      allowNull: false
     }
   },
   {
     tableName: 'plastic_item',
-    timestamps: true
+    timestamps: false
   });
   Plastic_item.associate = function(modelName){
     Plastic_item.hasMany(modelName.unplastified_item, {

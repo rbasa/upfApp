@@ -8,7 +8,8 @@ module.exports = (sequelize, dataTypes) => {
       allowNull: false
     },
     status:{
-      type: dataTypes.TEXT
+      type: dataTypes.TEXT,
+      allowNull: false
     }
   },
   {

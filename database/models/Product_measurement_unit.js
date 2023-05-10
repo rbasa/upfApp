@@ -7,7 +7,8 @@ module.exports = (sequelize, dataTypes) => {
       allowNull: false
     },
     measurement_unit:{
-      type: dataTypes.TEXT
+      type: dataTypes.TEXT,
+      allowNull: false
     }
   },
   {

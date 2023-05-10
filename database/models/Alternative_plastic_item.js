@@ -8,7 +8,8 @@ module.exports = (sequelize, dataTypes) => {
       allowNull: false
     },
     alternative_plastic_item:{
-      type: dataTypes.TEXT
+      type: dataTypes.TEXT,
+      allowNull: false
     },
     createdAt:{
       type: dataTypes.DATE

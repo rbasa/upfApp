@@ -20,8 +20,8 @@ create table `user` (
   `password` text not null,
   `user_category_id` integer not null,
   `registered` integer DEFAULT 0,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
   primary key (user_id),
   foreign key (user_category_id) REFERENCES user_category(id)
 )
@@ -34,15 +34,15 @@ create table enterprise_details (
   `employees` integer,
   `invoicing` decimal(25,10),
   `mipyme` text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
   primary key (user_id),
   foreign key (user_id) REFERENCES user(user_id)
 )
 
 create table treace_type(
   id_treace_type integer not null auto_increment,
-  treace_type text,
+  treace_type text not null,
   primary key (id_treace_type)
 )
 
@@ -53,9 +53,7 @@ values
 
 create table product_category(
   id_product_category integer not null auto_increment,
-  category text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  category text not null,
   primary key (id_product_category)
 )
 
@@ -86,8 +84,8 @@ values
 create table desplastified_activity(
   id_desplastified_activity integer  not null auto_increment,
   activity text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
   primary key (id_desplastified_activity)
 )
 
@@ -102,7 +100,7 @@ values
 
 create table product_measurement_unit(
   id_product_measurement_unit integer not null auto_increment,
-  measurement_unit text,
+  measurement_unit text not null,
   primary key (id_product_measurement_unit)
 )
 
@@ -114,9 +112,7 @@ values
 
 create table plastic_item(
   id_plastic_item integer not null auto_increment,
-  plastic_item text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  plastic_item text not null,
   primary key (id_plastic_item)
 )
 
@@ -135,9 +131,7 @@ values
 
 create table source_change(
   id_source_change integer not null auto_increment,
-  source_change text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  source_change text not null,
   primary key (id_source_change)
 )
 
@@ -151,9 +145,9 @@ values
 
 create table alternative_plastic_item(
   id_alternative_plastic_item integer not null auto_increment,
-  alternative_plastic_item text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  alternative_plastic_item text not null,
+  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
+  `updatedAt` timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
   primary key (id_alternative_plastic_item)
 )
 
@@ -185,7 +179,7 @@ values
 
 create table minting_request_status (
   `id_status` integer not null auto_increment,
-  `status` text,
+  `status` text not null,
   primary key (id_status)
 );
 
@@ -204,8 +198,8 @@ create table minting_request(
   `user_id` integer not null,
   `name` text,
   `status_id` integer not null,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
   primary key (`minting_request_id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`status_id`) REFERENCES minting_request_status(`id_status`)
@@ -229,8 +223,8 @@ create table unplastified_item (
   `id_product_measurement_unit` integer,
   `impact_approach_quantity` decimal(30,18),
   `dir_name` text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
   primary key (`unplastified_item_id`),
   FOREIGN KEY (`minting_request_id`) REFERENCES minting_request(`minting_request_id`),
   FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
@@ -244,56 +238,9 @@ create table chat_room(
   `minting_request_id` integer not null,
   `user_category_id` integer not null,
   `msg` text not null,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
+  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
   primary key (`chat_id`),
   FOREIGN KEY (`minting_request_id`) REFERENCES minting_request(`minting_request_id`),
   FOREIGN KEY (`user_category_id`) REFERENCES user_category (`id`)
 );
-
-create table minting_request_old (
-  `minting_request_id` integer not null auto_increment,
-  `user_id` integer not null,
-  `before_pic` text,
-  `after_pic` text,
-  `video` text,
-  `technical_file` text,
-  `additional_pics` text,
-  `proof_of_purchase` text,
-  `dispatch_note` text,
-  `sku` text,
-  `id_treace_type` integer,
-  `plastic_item` text,
-  `graduality_category` text,
-  `id_product_category` integer,
-  `id_desplastified_activity` integer,
-  `id_product_measurement_unit` integer,
-  `id_plastic_item_before` integer,
-  `previous_plastic_weight` decimal(30,18),
-  `previous_cuantity` decimal(30,18),
-  `id_source_change` integer,
-  `implementation_date` date,
-  `id_alternative_plastic_item` integer,
-  `actual_plastic_weight` decimal(30,18),
-  `actual_cuantity` decimal(30,18),
-  `plastic_ratio` decimal(30,18),
-  `id_impact_approach` integer,
-  `impact_approach_quantity` decimal(30,18),
-  `id_impact_approach_measurement_unit` integer,
-  `impact_approach_files` text,
-  `id_minting_request_status` integer,
-  `createdAt` timestamp default CURRENT_TIMESTAMP,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  primary key (`minting_request_id`),
-  FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
-  FOREIGN KEY (`id_treace_type`) REFERENCES treace_type(id_treace_type),
-  FOREIGN KEY (id_product_category) REFERENCES product_category(id_product_category),
-  FOREIGN KEY (id_minting_request_status) REFERENCES minting_request_status(id_status),
-  FOREIGN KEY (id_desplastified_activity) REFERENCES desplastified_activity(id_desplastified_activity),
-  FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
-  FOREIGN KEY (id_impact_approach) REFERENCES impact_approach(id_impact_approach),
-  FOREIGN KEY (id_impact_approach_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
-  FOREIGN KEY (id_plastic_item_before) REFERENCES plastic_item(id_plastic_item),
-  FOREIGN KEY (id_source_change) REFERENCES source_change(id_source_change),
-  FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
-)

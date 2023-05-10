@@ -8,18 +8,13 @@ module.exports = (sequelize, dataTypes) => {
       allowNull: false
     },
     source_change:{
-      type: dataTypes.TEXT
-    },
-    createdAt:{
-      type: dataTypes.DATE
-    },
-    updatedAt:{
-      type: dataTypes.DATE
+      type: dataTypes.TEXT,
+      allowNull: false
     }
   },
   {
     tableName: 'source_change',
-    timestamps: true
+    timestamps: false
   });
   // Source_change.associate = function(modelName){
   //   Source_change.hasMany(modelName.Minting_request, {
