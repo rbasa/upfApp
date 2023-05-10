@@ -114,12 +114,6 @@ const controller = {
     await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
   },
-  assignMintingRequestToValidator: async (req,res)=>{
-    // change status to assigned to validator
-    const { id_status } =  await Minting_request.getStatus('Assign To Validator');
-    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
-    return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
-  },
   inReviewMintingRequest: async (req,res)=>{
     // change status to assigned to validator
     const { id_status } =  await Minting_request.getStatus('In Review');
