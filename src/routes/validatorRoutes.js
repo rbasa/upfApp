@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const unplastifyController = require('../controllers/unplastifyController');
-const userNotLogged = require('../middlewares/userNotLoggedAsUnplastify');
+const validatorController = require('../controllers/validatorController');
+const userNotLogged = require('../middlewares/userNotLoggedAsValidator');
 
-router.get('/home', userNotLogged, (req, res)=>{return res.send('asd')});
-router.get('/pendingRequest/:id', userNotLogged, unplastifyController.pendingRegistrations);
-router.put('/approveUser/:id', userNotLogged, unplastifyController.aproveUser);
-router.put('/standByUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
-router.put('/declineUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
+router.get('/home',  userNotLogged, validatorController.home);
+
 
 module.exports = router;
