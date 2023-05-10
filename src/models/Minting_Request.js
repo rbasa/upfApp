@@ -21,10 +21,6 @@ const Minting_request = {
     return await db.minting_request.findAll({
     include: [{all: true}]
   })},
-  findByEnterpriseWithUnplastifiedItems: async (user_id) => {
-    return await db.sequelize.query("select a.name, a.minting_request_id, user_id, status, b.* from minting_request a left join unplastified_item b on a.minting_request_id = b.minting_request_id inner join minting_request_status c on a. status_id = c.id_status where a.user_id = ?",
-    { replacements: [user_id], type: db.Sequelize.QueryTypes.SELECT });
-  },
   list: async() => {
     return await db.minting_request.findAll();
   },
@@ -40,12 +36,32 @@ const Minting_request = {
       attributes: ['status_id']
     });
   },
-  getStatus: async (e) => {
+  getStatus: async function(e){
     return await db.minting_request_status.findOne({
       attributes: ['id_status'],
       where: { status: e },
     });
   },
+  findByStatusQuery: async function(status){
+    return await db.sequelize.query(
+      `select
+        *
+      from
+        minting_request
+      where
+        status_id = (
+          select
+            id_status
+          from
+            minting_request_status
+          where
+            status = ?
+        );`,
+    { replacements: [status], type: db.Sequelize.QueryTypes.SELECT });
+  },
+  findByStatus: async function(status){
+    const { dataValues: { id_status } } = await this.getStatus(status);
+    return await db.minting_request.findAll()},
   changeMintingRequestName: async (req) => {
     return await db.minting_request.update({
       name: req.body.newName,

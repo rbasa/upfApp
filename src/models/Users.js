@@ -11,6 +11,25 @@ const User = {
       attributes: ['user_id', 'name', 'email','address', 'createdAt']
     });
   },
+  listUserByCategory: async function(userCategory){
+    return await db.sequelize.query(
+      `select
+        a.*
+      from
+        user a
+      where
+        user_category_id = (
+          select
+            id
+          from
+            user_category
+          where
+          user_category = ?
+        )
+      and
+        registered = 1;`,
+    { replacements: [userCategory], type: db.Sequelize.QueryTypes.SELECT });
+  },
   listCategory: async () => {
     return await db.user_category.findAll();
   },
