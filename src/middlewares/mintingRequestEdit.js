@@ -6,11 +6,13 @@ async function editPermision(req, res, next){
   if(req.session.userLogged.user_category_id==3){
     return next();
   }
-  const { id_status: statusNotAllowed } = await Minting_request.getStatus('Submited');
-  const { minting_request_id: idMintingRequest } = req.params.minting_request_id || await Unplastified_item.findMintingRequest(req.params.idUnplastifiedItem)
-  const { status_id: mintingRequestStatus } = await Minting_request.findMintingRequestStatus(idMintingRequest);
-  // Submited MR should not be edited
-  if(statusNotAllowed == mintingRequestStatus){
+  // Enterprise users cannot edit when minting request its submited
+  let minting_request_id;
+  req.params.minting_request_id ? minting_request_id = req.params.minting_request_id : { minting_request_id } = await Unplastified_item.findMintingRequest(req.params.idUnplastifiedItem);
+  const statusResult = await Minting_request.findMintingRequestStatus(minting_request_id);
+  const status = statusResult[0].status;
+  const statusNotAllowed = ['Submited', 'In Review', 'Approved', 'Rejected', 'Stand-by'];
+  if(statusNotAllowed.includes(status)){
     return res.redirect('/enterprise/');
   }
   return next();
