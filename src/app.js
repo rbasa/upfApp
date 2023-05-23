@@ -18,6 +18,13 @@ const unplastifyRoutes = require('./routes/unplastifyRoutes');
 const validatorRoutes = require('./routes/validatorRoutes');
 const privateRoutes = require('./routes/privateRoutes');
 const chatRoutes = require('./routes/chatRoutes');
+const mainRoutesApi = require('./routes/mainRoutesApi');
+const userRoutesApi = require('./routes/userRoutesApi');
+const enterpriseRoutesApi = require('./routes/enterpriseRoutesApi');
+const unplastifyRoutesApi = require('./routes/unplastifyRoutesApi');
+const validatorRoutesApi = require('./routes/validatorRoutesApi');
+const privateRoutesApi = require('./routes/privateRoutesApi');
+const chatRoutesApi = require('./routes/chatRoutesApi');
 const userLogged = require('./middlewares/userLogged');
 
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
@@ -46,6 +53,13 @@ app.use('/unplastify', unplastifyRoutes);
 app.use('/validator', validatorRoutes);
 app.use('/private', privateRoutes);
 app.use('/chat', chatRoutes);
+app.use('/api/', mainRoutesApi);
+app.use('/api/users', userRoutesApi);
+app.use('/api/enterprise', enterpriseRoutesApi);
+app.use('/api/unplastify', unplastifyRoutesApi);
+app.use('/api/validator', validatorRoutesApi);
+app.use('/api/private', privateRoutesApi);
+app.use('/api/chat', chatRoutesApi);
 
 app.get('*', (req, res) => {
   res.redirect('/');
