@@ -32,9 +32,20 @@ const Minting_request = {
     );
   },
   findMintingRequestStatus: async (minting_request_id) => {
-    return await db.minting_request.findByPk(minting_request_id, {
-      attributes: ['status_id']
-    });
+    return await db.sequelize.query(
+      `
+      select
+        b.status
+      from
+        minting_request a
+      inner join
+        minting_request_status b
+      on
+        a.status_id = b.id_status
+      where
+        a.minting_request_id = ?
+      ;`,
+    { replacements: [minting_request_id], type: db.Sequelize.QueryTypes.SELECT });
   },
   getStatus: async function(e){
     return await db.minting_request_status.findOne({
