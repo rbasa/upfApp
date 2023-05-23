@@ -97,9 +97,6 @@ const controller = {
         return res.redirect('/')
       }
   },
-  editSubmitedUnplastifiedItem: async (req, res) => {
-    console.log('holas')
-  },
   deleteUnplastifiedItem: async (req, res) => {
     const mintingRequestId = await Unplastified_item.delete(req);
     return res.redirect(`/enterprise/mintingRequest/${mintingRequestId}`)
