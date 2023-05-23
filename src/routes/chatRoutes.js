@@ -8,10 +8,6 @@ const userNotLogged = require('../middlewares/userNotLogged');
 // build chat model
 
 router.post('/', userNotLogged, async (req, res)=>{
-  console.log('***********************************')
-  console.log('***********************************')
-  console.log('***********************************')
-  console.log('***********************************')
   await chat.createNewMsg(req)
   return res.redirect(`/enterprise/mintingRequest/${req.session.minting_request_id}`)
 });
