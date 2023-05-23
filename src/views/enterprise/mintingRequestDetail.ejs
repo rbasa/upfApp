@@ -150,7 +150,7 @@
           <h5 class="modal-title">
             Enter the amount of validator this minting request should be assign to
           </h5>
-          <form action="<%= `/enterprise/assignToValidator/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
+          <form action="<%= `/unplastify/assignToValidator/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
             <label for=""></label>
             <label for="validatorQuantity">Validator Quantity</label>
             <input type="number" name="validatorQuantity"></input>

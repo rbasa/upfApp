@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const enterpriseController = require('../controllers/enterpriseController');
+const unplastifyController = require('../controllers/unplastifyController');
 const { validationResult } = require('express-validator');
 const userNotLoggedAsEnterprise = require('../middlewares/userNotLoggedAsEnterprise');
 const userNotLoggedAsUnplastify = require('../middlewares/userNotLoggedAsUnplastify');
@@ -8,7 +9,7 @@ const userNotLogged = require('../middlewares/userNotLogged');
 const editPermision = require('../middlewares/mintingRequestEdit');
 const upload = require('../middlewares/mintingUpload');
 const namingMintingRequest = require('../middlewares/namingMintingRequest');
-// hay que hacer un midleware para que solo se pueda renderizar si la mintingRequest del user_id
+// hay que hacer un midleware para que solo se pueda renderizar si la mintingRequest es del user_id
 
 router.get('/home', userNotLoggedAsEnterprise, enterpriseController.dashboard);
 router.get('/details', userNotLoggedAsEnterprise, enterpriseController.details);
@@ -22,7 +23,7 @@ router.put('/editUnplastifiedItem/:idUnplastifiedItem', userNotLogged, editPermi
 router.delete('/deleteUnplastifiedItem/:idUnplastifiedItem', userNotLoggedAsEnterprise, editPermision, editPermision, upload.any('additional_documents'), enterpriseController.deleteUnplastifiedItem);
 router.put('/changeMintingRequestName/:minting_request_id', userNotLoggedAsEnterprise, enterpriseController.changeMintingRequestName);
 router.put('/submitMintingRequest/:minting_request_id', editPermision, enterpriseController.submitMintingRequest);
-router.put('/assignToValidator/:minting_request_id', editPermision, userNotLoggedAsUnplastify, enterpriseController.assignMintingRequestToValidator);
+// router.put('/assignToValidator/:minting_request_id', editPermision, userNotLoggedAsUnplastify, unplastifyController.assignMintingRequestToValidator);
 router.put('/inReview/:minting_request_id', editPermision, userNotLoggedAsUnplastify, enterpriseController.inReviewMintingRequest);
 router.get('*', (req, res) => {
   res.redirect('/');
