@@ -1,64 +1,64 @@
-create database upfcapp;
+CREATE DATABASE upfcapp;
 
-create table `user_category` (
-  `id` integer not null auto_increment,
-  `user_category` text not null,
-  primary key (id)
+CREATE TABLE `user_category` (
+  `id` INTEGER NOT NULL auto_increment,
+  `user_category` TEXT NOT NULL,
+  PRIMARY KEY (id)
 )
 
-insert into `user_category` 
-values
+INSERT INTO `user_category` 
+VALUES
 (1, 'validator'),
 (2, 'enterprise'),
 (3, 'unplastify')
 
-create table `user` (
-  `user_id` integer not null auto_increment,
-  `name` text not null,
-  `email` text not null,
-  `address` text not null,
-  `password` text not null,
-  `user_category_id` integer not null,
-  `registered` integer DEFAULT 0,
-  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
-  primary key (user_id),
-  foreign key (user_category_id) REFERENCES user_category(id)
+CREATE TABLE `user` (
+  `user_id` INTEGER NOT NULL auto_increment,
+  `name` TEXT NOT NULL,
+  `email` TEXT NOT NULL,
+  `address` TEXT NOT NULL,
+  `password` TEXT NOT NULL,
+  `user_category_id` INTEGER NOT NULL,
+  `registered` INTEGER DEFAULT 0,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (user_id),
+  FOREIGN KEY (user_category_id) REFERENCES user_category(id)
 )
 
-create table enterprise_details (
-  `user_id` integer not null,
+CREATE TABLE enterprise_details (
+  `user_id` INTEGER NOT NULL,
   `cuit` bigint,
-  `country` text,
-  `city` text,
-  `employees` integer,
-  `invoicing` decimal(25,10),
-  `mipyme` text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
-  primary key (user_id),
-  foreign key (user_id) REFERENCES user(user_id)
+  `country` TEXT,
+  `city` TEXT,
+  `employees` INTEGER,
+  `invoicing` DECIMAL(25,10),
+  `mipyme` TEXT,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (user_id),
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
 )
 
-create table treace_type(
-  id_treace_type integer not null auto_increment,
-  treace_type text not null,
-  primary key (id_treace_type)
+CREATE TABLE treace_type(
+  id_treace_type INTEGER NOT NULL auto_increment,
+  treace_type TEXT NOT NULL,
+  PRIMARY KEY (id_treace_type)
 )
 
-insert into treace_type (treace_type)
-values
+INSERT INTO treace_type (treace_type)
+VALUES
 ('Primary'),
 ('Secondary')
 
-create table product_category(
-  id_product_category integer not null auto_increment,
-  category text not null,
-  primary key (id_product_category)
+CREATE TABLE product_category(
+  id_product_category INTEGER NOT NULL auto_increment,
+  category TEXT NOT NULL,
+  PRIMARY KEY (id_product_category)
 )
 
-insert into product_category (category)
-values
+INSERT INTO product_category (category)
+VALUES
 ('Foods'),
 ('Beverages'),
 ('Hygiene and personal care'),
@@ -81,16 +81,16 @@ values
 ('Marketing'),
 ('Health')
 
-create table desplastified_activity(
-  id_desplastified_activity integer  not null auto_increment,
-  activity text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
-  primary key (id_desplastified_activity)
+CREATE TABLE desplastified_activity(
+  id_desplastified_activity INTEGER  NOT NULL auto_increment,
+  activity TEXT,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (id_desplastified_activity)
 )
 
-insert into desplastified_activity (activity)
-values
+INSERT INTO desplastified_activity (activity)
+VALUES
 ('Product Manufacturing'),
 ('Gastronomic Service'),
 ('Logistics and Retail Service'),
@@ -98,26 +98,26 @@ values
 ('Hosting Service'),
 ('Others')
 
-create table product_measurement_unit(
-  id_product_measurement_unit integer not null auto_increment,
-  measurement_unit text not null,
-  primary key (id_product_measurement_unit)
+CREATE TABLE product_measurement_unit(
+  id_product_measurement_unit INTEGER NOT NULL auto_increment,
+  measurement_unit TEXT NOT NULL,
+  PRIMARY KEY (id_product_measurement_unit)
 )
 
-insert into product_measurement_unit (measurement_unit)
-values
+INSERT INTO product_measurement_unit (measurement_unit)
+VALUES
 ('Units'),
 ('KG'),
 ('L')
 
-create table plastic_item(
-  id_plastic_item integer not null auto_increment,
-  plastic_item text not null,
-  primary key (id_plastic_item)
+CREATE TABLE plastic_item(
+  id_plastic_item INTEGER NOT NULL auto_increment,
+  plastic_item TEXT NOT NULL,
+  PRIMARY KEY (id_plastic_item)
 )
 
-insert into plastic_item (plastic_item)
-values
+INSERT INTO plastic_item (plastic_item)
+VALUES
 ('Disposable Plastic Packaging'),
 ('Disposable Plastic Bottle/Bidon'),
 ('Disposable Plastic Bag'),
@@ -129,30 +129,30 @@ values
 ('Tetra Pack'),
 ('Disposable Plastic Seals and Cards')
 
-create table source_change(
-  id_source_change integer not null auto_increment,
-  source_change text not null,
-  primary key (id_source_change)
+CREATE TABLE source_change(
+  id_source_change INTEGER NOT NULL auto_increment,
+  source_change TEXT NOT NULL,
+  PRIMARY KEY (id_source_change)
 )
 
-insert into source_change (source_change)
-values
+INSERT INTO source_change (source_change)
+VALUES
 ('Efficiency/Reduction'),
 ('Bulk'),
 ('ReFill'),
 ('reusable'),
 ('Alternative material')
 
-create table alternative_plastic_item(
-  id_alternative_plastic_item integer not null auto_increment,
-  alternative_plastic_item text not null,
-  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
-  `updatedAt` timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
-  primary key (id_alternative_plastic_item)
+CREATE TABLE alternative_plastic_item(
+  id_alternative_plastic_item INTEGER NOT NULL auto_increment,
+  alternative_plastic_item TEXT NOT NULL,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (id_alternative_plastic_item)
 )
 
-insert into alternative_plastic_item (alternative_plastic_item)
-values
+INSERT INTO alternative_plastic_item (alternative_plastic_item)
+VALUES
 ('Disposable Paper'),
 ('Disposable Cardboard'),
 ('Glass'),
@@ -166,25 +166,25 @@ values
 ('Reusable Plastic'),
 ('Digital')
 
-create table impact_approach (
-  `id_impact_approach` integer not null auto_increment,
-  `impact_approach` text,
-  primary key (id_impact_approach)
+CREATE TABLE impact_approach (
+  `id_impact_approach` INTEGER NOT NULL auto_increment,
+  `impact_approach` TEXT,
+  PRIMARY KEY (id_impact_approach)
 )
 
-insert into impact_approach (impact_approach)
-values
+INSERT INTO impact_approach (impact_approach)
+VALUES
 ('Purchases'),
 ('Sales')
 
-create table minting_request_status (
-  `id_status` integer not null auto_increment,
-  `status` text not null,
-  primary key (id_status)
+CREATE TABLE minting_request_status (
+  `id_status` INTEGER NOT NULL auto_increment,
+  `status` TEXT NOT NULL,
+  PRIMARY KEY (id_status)
 );
 
-insert into minting_request_status (`status`)
-values
+INSERT INTO minting_request_status (`status`)
+VALUES
 ('Created'),
 ('Submited'),
 ('In Review'),
@@ -193,39 +193,39 @@ values
 ('Rejected'),
 ('Stand-by');
 
-create table minting_request(
-  `minting_request_id` integer not null auto_increment,
-  `user_id` integer not null,
-  `name` text,
-  `status_id` integer not null,
-  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
-  primary key (`minting_request_id`),
+CREATE TABLE minting_request(
+  `minting_request_id` INTEGER NOT NULL auto_increment,
+  `user_id` INTEGER NOT NULL,
+  `name` TEXT,
+  `status_id` INTEGER NOT NULL,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (`minting_request_id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`status_id`) REFERENCES minting_request_status(`id_status`)
 );
 
-create table unplastified_item (
-  `unplastified_item_id` integer not null auto_increment,
-  `minting_request_id` integer not null,
-  `before_pic` text,
-  `after_pic` text,
-  `video` text,
-  `technical_file` text,
-  `additional_documents` text,
-  `sku` text,
-  `plastic_item` text,
-  `implemented_change` text,
+CREATE TABLE unplastified_item (
+  `unplastified_item_id` INTEGER NOT NULL auto_increment,
+  `minting_request_id` INTEGER NOT NULL,
+  `before_pic` TEXT,
+  `after_pic` TEXT,
+  `video` TEXT,
+  `technical_file` TEXT,
+  `additional_documents` TEXT,
+  `sku` TEXT,
+  `plastic_item` TEXT,
+  `implemented_change` TEXT,
   `implementation_date` date,
-  `id_plastic_item_before` integer,
-  `id_alternative_plastic_item` integer,
-  `id_impact_approach` integer,
-  `id_product_measurement_unit` integer,
-  `impact_approach_quantity` decimal(30,18),
-  `dir_name` text,
-  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
-  primary key (`unplastified_item_id`),
+  `id_plastic_item_before` INTEGER,
+  `id_alternative_plastic_item` INTEGER,
+  `id_impact_approach` INTEGER,
+  `id_product_measurement_unit` INTEGER,
+  `impact_approach_quantity` DECIMAL(30,18),
+  `dir_name` TEXT,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (`unplastified_item_id`),
   FOREIGN KEY (`minting_request_id`) REFERENCES minting_request(`minting_request_id`),
   FOREIGN KEY (id_product_measurement_unit) REFERENCES product_measurement_unit(id_product_measurement_unit),
   FOREIGN KEY (id_impact_approach) REFERENCES impact_approach(id_impact_approach),
@@ -233,14 +233,39 @@ create table unplastified_item (
   FOREIGN KEY (id_alternative_plastic_item) REFERENCES alternative_plastic_item(id_alternative_plastic_item)
 );
 
-create table chat_room(
-  `chat_id` integer not null auto_increment,
-  `minting_request_id` integer not null,
-  `user_category_id` integer not null,
-  `msg` text not null,
-  `createdAt` timestamp default CURRENT_TIMESTAMP not null,
-  `updatedAt` datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP not null,
-  primary key (`chat_id`),
+CREATE TABLE chat_room(
+  `chat_id` INTEGER NOT NULL auto_increment,
+  `minting_request_id` INTEGER NOT NULL,
+  `user_category_id` INTEGER NOT NULL,
+  `msg` TEXT NOT NULL,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (`chat_id`),
   FOREIGN KEY (`minting_request_id`) REFERENCES minting_request(`minting_request_id`),
   FOREIGN KEY (`user_category_id`) REFERENCES user_category (`id`)
+);
+
+CREATE TABLE validation_status(
+  `validation_status_id` INTEGER NOT NULL auto_increment,
+  `status` TEXT NOT NULL,
+  PRIMARY KEY (`validation_status_id`)
+);
+
+INSERT INTO `validation_status` (`status`)
+VALUES
+('Assigned'),
+('Completed'),
+('Rejected'),
+('Canceled');
+
+CREATE TABLE validation_tracking (
+  `minting_request_id` INTEGER NOT NULL,
+  `user_id` INTEGER NOT NULL,
+  `validation_status_id` INTEGER NOT NULL,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `updatedAt` datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY (`minting_request_id`, `user_id`),
+  FOREIGN KEY (`minting_request_id`) REFERENCES minting_request(`minting_request_id`),
+  FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
+  FOREIGN KEY (`validation_status_id`) REFERENCES validation_status (`validation_status_id`)
 );
