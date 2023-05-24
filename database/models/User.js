@@ -51,7 +51,11 @@ module.exports = (sequelize, dataTypes) => {
     User.hasMany(models.minting_request, {
       as: 'minting_request_id',
       foreignKey: 'minting_request_id'
-    })
+    }),
+    User.hasMany(models.ValidationTracking, {
+      as: 'validationTrackings',
+      foreignKey: 'user_id'
+    });
   };
 
   return User;

@@ -41,7 +41,11 @@ module.exports = (sequelize, dataTypes) => {
     Minting_request.hasMany(models.ChatRoom, {
       as: 'chatRooms',
       foreignKey: 'minting_request_id'
-    })
+    }),
+    Minting_request.hasMany(models.ValidationTracking, {
+      as: 'validationTrackings',
+      foreignKey: 'minting_request_id'
+    });    
   };
   return Minting_request;
 }

@@ -27,15 +27,15 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'validation_tracking'
   });
   ValidationTracking.associate = function(models) {
-    ValidationTracking.belongsTo(sequelize.models.minting_request, {
+    ValidationTracking.belongsTo(models.minting_request, {
       as: 'mintingRequest',
       foreignKey: 'minting_request_id'
     }),
-    ValidationTracking.belongsTo(sequelize.models.user, {
+    ValidationTracking.belongsTo(models.User, {
       as: 'user',
       foreignKey: 'user_id'
     }),
-    ValidationTracking.belongsTo(sequelize.models.validation_status, {
+    ValidationTracking.belongsTo(models.ValidationStatus, {
       as: 'status',
       foreignKey: 'validation_status_id'
     })
