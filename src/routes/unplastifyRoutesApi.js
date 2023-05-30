@@ -19,5 +19,7 @@ router.put('/declineUser/:id', (req,res)=> res.send('Proximamente'));
 router.put('/assignToValidator/:minting_request_id', unplastifyController.assignMintingRequestToValidator);
 // router.put('/updateMintingRequestStatus/:id/:status', userNotLogged, unplastifyController.processMintingRequestStatusChange);
 router.put('/updateMintingRequestStatus/:id/:status', unplastifyController.processMintingRequestStatusChange);
-
+router.get('*', (req, res) => {
+  res.redirect('/');
+});
 module.exports = router;

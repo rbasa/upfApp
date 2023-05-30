@@ -19,5 +19,7 @@ router.get('/register', userController.register);
 router.post('/register', userController.processRegister);
 // router.get('/redirectUser', userController.redirectUser);
 router.get('/redirectUser', userController.redirectUser);
-
+router.get('*', (req, res) => {
+  res.redirect('/');
+});
 module.exports = router;

@@ -11,5 +11,7 @@ router.post('/', userNotLogged, async (req, res)=>{
   await chat.createNewMsg(req)
   return res.redirect(`/api/enterprise/mintingRequest/${req.session.minting_request_id}`)
 });
-
+router.get('*', (req, res) => {
+  res.redirect('/');
+});
 module.exports = router;
