@@ -5,7 +5,6 @@ const { validationResult } = require('express-validator');
 
 const controller = {
   dashboard: async (req, res) => {
-    // const errorMessages = req.session.errors || [];
     const errorMessages = req.flash('error');
     const enterpriseLogged = req.session.userLogged;
     const submitedDetails = await Users.hasSubmitedDetails(req.session.userLogged.user_id);
@@ -15,7 +14,8 @@ const controller = {
     return res.json([enterpriseLogged, submitedDetails, openMintedRequests, userCategory, errorMessages]);
   },
   details: async (req, res) => {
-    const user = req.session.userLogged.user_id
+    const decodedToken = User.captureAuth(req);
+    const user = decodedToken.userLogged.user_id
     const submitedDetails = await Users.getDetails(user);
     return res.json([user, submitedDetails]);
   },

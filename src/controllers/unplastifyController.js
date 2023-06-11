@@ -1,33 +1,60 @@
 const Users = require('../models/Users');
 const Unplastified_item = require('../models/Unplastified_item');
 const Minting_request = require('../models/Minting_Request');
+const Validator = require('../models/Validator');
+const jwt = require('jsonwebtoken');
 
 const controller = {
   dashboard: async (req, res) => {
+    const api = req.params.api || false;
+    const token = req.cookies.token; // Extract the token from the cookies
+    // Verify and decode the token
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const users = await Users.unregisteredList();
     const openMintedRequests = await Minting_request.listAllWithFk();
-    const userCategory = req.session.userLogged.user_category_id;
-    return res.render('unplastify/upfDashboard', { users, openMintedRequests, userCategory});
+    const userCategory = decodedToken.userCategory;
+    if(!api){
+      return res.render('unplastify/upfDashboard', { users, openMintedRequests, userCategory});
+    }
+    return res.json( [users, openMintedRequests, userCategory]);
   },
   pendingRegistrations: async (req, res) => {
+    const api = req.params.api || false;
     const user = await Users.getUserAndCategory(req.params.id);
     switch (user.category.user_category) {
       case 'enterprise':
         const enterprise = await Users.getFullEnterpriseDetails(user.user_id)
-        return res.render('unplastify/upfEnterprisePendingRegistrations', { user, enterprise });
+        if(!api){
+          return res.render('unplastify/upfEnterprisePendingRegistrations', { user, enterprise });
+        }
+        return res.json([ user, enterprise ]);
       case 'validator':
-        return res.render('unplastify/upfEnterprisePendingRegistrations', { user });
-      case 'unplastify':
-        return res.render('unplastify/upfEnterprisePendingRegistrations', { user });
+        if(!api){
+          return res.render('unplastify/upfEnterprisePendingRegistrations', { user });
+        }
+        return res.json(user);
+        case 'unplastify':
+          if(!api){
+            return res.render('unplastify/upfEnterprisePendingRegistrations', { user });
+          }
+          return res.json(user);
       default:
-        return res.send('user.category.id');
+        if(!api){
+          return res.send('user.category.id');
+        }
+        return res.json('user.category.id');
     }
   },
   aproveUser: async (req,res)=>{
+    const api = req.params.api || false;
     await Users.approveUser(req.params.id);
-    return res.redirect('/unplastify/home');
+    if(!api){
+      return res.redirect('/unplastify/home');
+    }
+    return res.redirect('/unplastify/home/api');
   },
   selectRandomValidators: async (count)=>{
+    const api = req.params.api || false;
     const allValidators = await Users.listUserByCategory('validator')
     const totalValidators = allValidators.length;
     const selectedValidators = [];
@@ -48,12 +75,14 @@ const controller = {
         }
       }
     }
+    //unfinished method
     return selectedValidators;
   },
   assignMintingRequestToValidator: async (req,res)=>{
-    // return res.send(req.body.validatorQuantity)
-    // change status to assigned to validator
-    const { id_status } =  await Minting_request.getStatus('Assign To Validator');
+    const api = req.params.api || false;
+    const registeredValidators = await Users.listUserByCategory('validator')
+    const definedValidators = await Validator.selectValidators(registeredValidators, req.params.q)
+    return res.json (registeredValidators)
     await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
     // randomly assign validator
     console.log(allValidators)
@@ -65,18 +94,25 @@ const controller = {
   //   res.send('Aproved'+req.params.id)
   // },
   processMintingRequestStatusChange: async (req,res)=>{ // should change minting status, not unplastified item
-    const status = await Unplastified_item.getStatus(req.params.status);
+    const api = req.params.api || false;
+    const status = await Minting_request.getStatus(req.params.status);
+    console.log('msndfkjsanldkansldk')
+    console.log('msndfkjsanldkansldk')
+    console.log('msndfkjsanldkansldk')
+    console.log('msndfkjsanldkansldk')
+    console.log(req.params.status)
+    
     if (status) {
-      await Unplastified_item.updateMintingRequestStatus(req.params.id, status.id_status);
-      return res.redirect('/unplastify/home');
+      await Minting_request.updateMintingRequestStatus(req.params.id, status.id_status);
+      if(!api){
+        return res.redirect('/unplastify/home');
+      }  
+      return res.redirect('/unplastify/home/api');
     }
-    return res.send(status);
+    if(!api){
+      return res.redirect('users/redirect');
+    }
+    return res.redirect('users/redirect/api');
   },
-  setMintRequestInStandBy: async (req,res)=>{
-    res.send('SB'+req.params.id);
-  },
-  setMintRequestInDeclined: async (req,res)=>{
-    res.send('Declined'+req.params.id);
-  }
 };
 module.exports = controller;

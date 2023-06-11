@@ -7,11 +7,11 @@ const userIsLogged = require('../middlewares/userIsLogged');
 // const userMiddleware = require('../middlewares/userMiddleware');
 
 
-router.get('/login', userIsLogged, userController.login);
-router.post('/login', userController.loginProcess);
-router.get('/logout', userController.logout);
-router.get('/register', userIsLogged, userController.register);
-router.post('/register', userController.processRegister);
-router.get('/redirectUser', userController.redirectUser);
+router.get('/login/:api?', userIsLogged, userController.login);
+router.post('/login/:api?', userController.loginProcess);
+router.get('/logout/:api?', userController.logout);
+router.get('/register/:api?', userIsLogged, userController.register);
+router.post('/register/:api?', userController.processRegister);
+router.get('/redirectUser/:api?', userController.redirectUser);
 
 module.exports = router;

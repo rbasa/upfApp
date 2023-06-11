@@ -1,89 +1,162 @@
 const Users = require('../models/Users');
 const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const controller = {
   login:(req, res) => {
+    const api = req.params.api || false;
+    if(!api){
+      return res.render('users/login');
+    }
     return res.render('users/login');
   },
   redirectUser:(req,res)=>{
-    if(req.session.userLogged){
-      switch (req.session.userLogged.user_category_id) {
-        case 1:
-          return res.redirect('/validator/home');
-        case 2:
-          return res.redirect('/enterprise/home');
-        case 3:
-          return res.redirect('/unplastify/home');
+    const api = req.params.api || false;
+    if(req.cookies && req.cookies.token){
+      const decodedToken = jwt.verify(req.cookies.token, process.env.SECRET_KEY_JWT);
+      switch (decodedToken.userCategory) {
+        case 'validator':
+          if(!api){
+            return res.redirect('/validator/home');
+          }
+          return res.redirect('/validator/home/api');
+        case 'enterprise':
+          if(!api){
+            return res.redirect('/enterprise/home');
+          }
+          return res.redirect('/enterprise/home/api');
+        case 'unplastify':
+          if(!api){
+            return res.redirect('/unplastify/home');
+          }
+          return res.redirect('/unplastify/home/api');
         default:
-          return res.redirect('/users/login');
+          if(!api){
+            return res.redirect('/users/login');
+          }
+          return res.redirect('/users/login/api');
+
       }
     }
-    return res.redirect('/users/login');
+    if(!api){
+      return res.redirect('/users/login');
+    }
+    return res.redirect('/users/login/api');
+
   },
-  loginProcess: async(req, res) => {
-    let userToLogin = await Users.findByEmail(req.body.email);
+  loginProcess: async (req, res) => {
+    const api = req.params.api || false;
+    let userToLogin = await Users.createLoginToken(req.body.email);
+    const user = userToLogin[0];
     if (!userToLogin) {
-      return res.render('users/login', {
-        errors: {
-          login: {
-            msg: 'Las credenciales son inválidas'
+      if(!api){
+        return res.render('users/login', {
+          errors: {
+            login: {
+              msg: 'Las credenciales son inválidas'
+            }
           }
-        }
-      });
-    }
-    let passwordVerificated = bcryptjs.compareSync(req.body.password, userToLogin.password)
-    if (!passwordVerificated) {
-      return res.render('users/login', {
-        errors: {
-          login: {
-            msg: 'Las credenciales son inválidas'
-          }
-        }
-      });
-    }
-    req.session.userLogged = await Users.userLogged(userToLogin.email);
-    if(req.body.remember){
-      res.cookie('userEmail', req.body.email, {maxAge: 1000*60*60});
-    }
-    if(req.session.userLogged){
-      switch (req.session.userLogged.user_category_id) {
-        case 1:
-          return res.redirect('/validator/home');
-        case 2:
-          return res.redirect('/enterprise/home');
-        case 3:
-          return res.redirect('/unplastify/home');
-        default:
-          return res.redirect('users/login');
+        });
       }
+      return res.json( msg= 'Las credenciales son inválidas');
     }
+    let passwordVerificated = bcryptjs.compareSync(
+      req.body.password,
+      user.password
+    );
+    if (!passwordVerificated) {
+      if(!api){
+        return res.render('users/login', {
+          errors: {
+            login: {
+              msg: 'Las credenciales son inválidas'
+            }
+          }
+        });
+      }
+      return res.json( msg= 'Las credenciales son inválidas');
+    }
+    // Generate JWT token, user completed properly its authentication
+    const token = jwt.sign(
+      { 
+        userId: user.user_id,
+        email: user.email,
+        address: user.address,
+        userCategory: user.user_category,
+        registered: user.registered
+      }, 
+      process.env.SECRET_KEY_JWT
+    );
+    // Set the token as a cookie in the response
+    res.cookie('token', token, { httpOnly: true });
+    // Redirect the user after successful login
+    if(!api){
+      return res.redirect(`/${user.user_category}/home`);
+    }
+    return res.redirect(`/${user.user_category}/home/api`);
   },
   logout: (req, res) => {
-    res.clearCookie('userEmail');
-    req.session.destroy();
-    return res.redirect('/');
+    const api = req.params.api || false;
+    // Clear the token cookie
+    res.clearCookie('token');
+    // Redirect the user to the desired page
+    if(!api){
+      return res.redirect('/');
+    }
+    return res.redirect('/api');
   },
   register: async(req, res) =>{
+    const api = req.params.api || false;
     const userCategory = await Users.listCategory();
-    return res.render('users/register', { userCategory });
+    if(!api){
+      return res.render('users/register', { userCategory });
+    }
+    return res.json([ userCategory ]);
+
   },
   processRegister: async (req, res) => {
+    const api = req.params.api || false;
     userInDB = await Users.findByEmail(req.body.email);
       if (userInDB) {
         const userCategory = await Users.listCategory();
-        return res.render('users/register', {
+        if(!api){
+          return res.render('users/register', {
+            userCategory,
+            errors: {
+              email: {
+                msg: 'Este email ya está registrado'
+              }
+            },
+            old : req.body
+        })
+      }
+        return res.json([
           userCategory,
-          errors: {
+          {
+            errors: {
             email: {
               msg: 'Este email ya está registrado'
             }
           },
           old : req.body
-        })
+          }
+        ])
       }
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
     Users.create(req.body);
-    return res.redirect('/users/login');
+    if(!api){
+      return res.redirect('/users/login');
+    }
+    return res.redirect('/users/login/api');
+
+  },
+  captureAuth: (req) =>{
+    const api = req.params.api || false;
+    // Extract the token from the cookies
+    const token = req.cookies.token;
+    // Verify and decode the token
+    return jwt.verify(token, process.env.SECRET_KEY_JWT);
   }
 };
 module.exports = controller;

@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const unplastifyController = require('../controllers/unplastifyController');
-const userNotLogged = require('../middlewares/userNotLoggedAsUnplastify');
+const userNotLoggedAsCategory = require('../middlewares/userLoggedAsCategory');
 const notRegistered = require('../middlewares/userNotRegistered');
 const editPermision = require('../middlewares/mintingRequestEdit');
 
-router.get('/home', userNotLogged, unplastifyController.dashboard);
-router.get('/pendingRequest/:id', userNotLogged, unplastifyController.pendingRegistrations);
-router.put('/approveUser/:id', userNotLogged, notRegistered, unplastifyController.aproveUser);
-router.put('/standByUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
-router.put('/declineUser/:id', userNotLogged, (req,res)=> res.send('Proximamente'));
-router.put('/assignToValidator/:minting_request_id', editPermision, userNotLogged, unplastifyController.assignMintingRequestToValidator);
-router.put('/updateMintingRequestStatus/:id/:status', userNotLogged, unplastifyController.processMintingRequestStatusChange);
+router.get('/home/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.dashboard);
+router.get('/pendingRequest/:id/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.pendingRegistrations);
+router.put('/approveUser/:id/:api?', userNotLoggedAsCategory('unplastify'), notRegistered, unplastifyController.aproveUser);
+router.put('/standByUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req,res)=> res.send('Proximamente'));
+router.put('/declineUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req,res)=> res.send('Proximamente'));
+router.put('/assignToValidator/:minting_request_id/:api?', editPermision, userNotLoggedAsCategory('unplastify'), unplastifyController.assignMintingRequestToValidator);
+router.put('/updateMintingRequestStatus/:id/:status/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.processMintingRequestStatusChange);
 
 module.exports = router;

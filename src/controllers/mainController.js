@@ -1,7 +1,11 @@
 
 const controller = {
   index: (req, res) => {
-    return(res.render('home'))
+    const api = req.params.api || false;
+    if(!api){
+      return res.render('home')
+    }
+    return res.json('home')
   }  
 };
 module.exports = controller;
