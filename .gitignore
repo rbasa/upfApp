@@ -7,3 +7,4 @@ database/modelsNotFinished/
 src/private/enterpriseDocumentation/*
 src/views/enterprise/requests copy.ejs
 database/dbCreation/upfcapp (2).sql
+.env
