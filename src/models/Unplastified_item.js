@@ -63,7 +63,8 @@ const Unplastified_item = {
     });
       // deletes all files contained in the dir_name directory
     if (deleted) {
-      usuario = req.session.userLogged.user_id;
+      const decodedToken = User.captureAuth(req);
+      usuario = decodedToken.user_id;
       const dirPath = path.join(__dirname, `../private/enterpriseDocumentation/${usuario}/${dirName}`);
       try {
         await fs.remove(dirPath);
