@@ -41,6 +41,34 @@ const User = {
       where: { email: email }
     });
   },
+  createLoginToken: async (email) => {
+    return await db.sequelize.query(
+      `
+      SELECT
+        a.user_id,
+        a.name,
+        a.password,
+        a.email,
+        a.address,
+        b.user_category,
+        a.registered,
+        c.user_id submitedDetails
+      from
+        user a
+      left join
+        user_category b
+      on
+        a.user_category_id = b.id
+      left join
+        enterprise_details c
+      on
+        a.user_id = c.user_id
+      where
+        a.email = ?
+      LIMIT 1
+      `,{ replacements: [email], type: db.Sequelize.QueryTypes.SELECT }
+    );
+  },
   getDetails: async (id) => {
     return await db.enterprise_detail.findByPk(id)
   },
