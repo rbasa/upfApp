@@ -1,9 +1,12 @@
 const Unplastified_item = require('../models/Unplastified_item');
 const Minting_request = require('../models/Minting_Request');
+const jwt = require('jsonwebtoken');
 
 async function editPermision(req, res, next){
+  const token = req.cookies && req.cookies.token;
+  const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
   // Unplastify can allways edit Minting Request
-  if(req.session.userLogged.user_category_id==3){
+  if(decodedToken.userCategory=='unplastify'){
     return next();
   }
   // Enterprise users cannot edit when minting request its submited

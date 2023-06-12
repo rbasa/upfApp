@@ -1,8 +1,11 @@
+const jwt = require('jsonwebtoken');
 function registeredMiddleware(req, res, next){
-  if(req.session.userLogged.registered!==1){
+  const token = req.cookies.token; // Extract the token from the cookies
+  // Verify and decode the token
+  const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
+  if(decodedToken.registered!==1){
     return res.redirect('/users/login');
   };
-  console.log(req.session.userLogged.registered)
   next();
 }
 module.exports = registeredMiddleware;

@@ -2,7 +2,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
-
+const User = require('../controllers/userController')
 const counters = {
   'before_pic': 0,
   'after_pic': 0,
@@ -13,7 +13,8 @@ const counters = {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const userId = req.session.userLogged.user_id.toString();
+    const decodedToken = User.captureAuth(req);
+    const userId = decodedToken.user_id.toString();
     let dir = path.join(__dirname, '..', 'private', 'enterpriseDocumentation');
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
