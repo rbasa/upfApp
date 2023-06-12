@@ -239,7 +239,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             <% } %>
-            <% if (userCategory == 3) { %>
+            <% if (userCategory == 'unplastify') { %>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary" formaction="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT` %>" formmethod="POST">Edit</button>
                   <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
@@ -257,8 +257,8 @@
                   <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/Stand-by?_method=PUT">
                     <input type="submit" class="btn btn-warning" value="Stand by"></input>
                   </form>
-                  <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/'Rejected'?_method=PUT">
-                    <input type="submit" class="btn btn-danger" value="Decline"></input>
+                  <form method="POST" action="/unplastify/updateMintingRequestStatus/ <%= e.dataValues.minting_request_id %>/Rejected?_method=PUT">
+                    <input type="submit" class="btn btn-danger" value="Reject"></input>
                   </form>
                 </div>
             <% } %>
