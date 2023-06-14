@@ -116,6 +116,15 @@ const controller = {
 
   },
   processRegister: async (req, res) => {
+    console.log(req)
+    console.log('__________________________________')
+    console.log('__________________________________')
+    console.log('__________________________________')
+    console.log('__________________________________')
+    console.log('__________________________________')
+    console.log('__________________________________')
+    console.log('__________________________________')
+    console.log(req.body)
     const api = req.params.api || false;
     userInDB = await Users.findByEmail(req.body.email);
       if (userInDB) {
