@@ -116,15 +116,6 @@ const controller = {
 
   },
   processRegister: async (req, res) => {
-    console.log(req)
-    console.log('__________________________________')
-    console.log('__________________________________')
-    console.log('__________________________________')
-    console.log('__________________________________')
-    console.log('__________________________________')
-    console.log('__________________________________')
-    console.log('__________________________________')
-    console.log(req.body)
     const api = req.params.api || false;
     userInDB = await Users.findByEmail(req.body.email);
       if (userInDB) {
@@ -157,7 +148,7 @@ const controller = {
     if(!api){
       return res.redirect('/users/login');
     }
-    return res.redirect('/users/login/api');
+    return res.status(200).json({ message: 'Data received successfully, User created' });
 
   },
   captureAuth: (req) =>{
