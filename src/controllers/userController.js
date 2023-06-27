@@ -95,7 +95,8 @@ const controller = {
     if(!api){
       return res.redirect(`/${user.user_category}/home`);
     }
-    return res.status(200).json({ message: 'Login successfull' });
+    return res.status(200).json({ message: 'Login successful', token });
+
   },
   logout: (req, res) => {
     const api = req.params.api || false;
