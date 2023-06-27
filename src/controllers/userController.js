@@ -50,6 +50,7 @@ const controller = {
     let userToLogin = await Users.createLoginToken(req.body.email);
     const user = userToLogin[0];
     if (!userToLogin) {
+      console.log('usuaruioi no existe')
       if(!api){
         return res.render('users/login', {
           errors: {
@@ -62,7 +63,7 @@ const controller = {
       return res.json( msg= 'Las credenciales son inválidas');
     }
     let passwordVerificated = bcryptjs.compareSync(
-      req.body.password,
+      String(req.body.password),
       user.password
     );
     if (!passwordVerificated) {
@@ -75,7 +76,7 @@ const controller = {
           }
         });
       }
-      return res.json( msg= 'Las credenciales son inválidas');
+      return res.status(204).json({ message: 'Las credenciales son inválidas' });
     }
     // Generate JWT token, user completed properly its authentication
     const token = jwt.sign(
@@ -94,7 +95,7 @@ const controller = {
     if(!api){
       return res.redirect(`/${user.user_category}/home`);
     }
-    return res.redirect(`/${user.user_category}/home/api`);
+    return res.status(200).json({ message: 'Login successfull' });
   },
   logout: (req, res) => {
     const api = req.params.api || false;
@@ -129,9 +130,9 @@ const controller = {
               }
             },
             old : req.body
-        })
-      }
-      return res.status(204).json({ message: 'Fail to register, email already registered' });
+          })
+        }
+        return res.status(204).json({ message: 'Fail to register, email already registered' });
       }
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
     Users.create(req.body);
