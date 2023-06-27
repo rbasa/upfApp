@@ -129,16 +129,16 @@ const controller = {
               }
             },
             old : req.body
-          })
-        }
-        return res.status(204).json({ message: 'Fail to register, email already registered' });
+        })
+      }
+      return res.status(204).json({ message: 'Fail to register, email already registered' });
       }
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
     Users.create(req.body);
     if(!api){
       return res.redirect('/users/login');
     }
-
+    return res.status(200).json({ message: 'Data received successfully, User created' });
   },
   captureAuth: (req) =>{
     const api = req.params.api || false;
