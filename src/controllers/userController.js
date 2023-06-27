@@ -129,7 +129,8 @@ const controller = {
               }
             },
             old : req.body
-        })
+          })
+        }
         return res.json([
           userCategory,
           {
@@ -141,7 +142,6 @@ const controller = {
           old : req.body
           }
         ])
-      }
       }
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
     Users.create(req.body);
