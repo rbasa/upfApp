@@ -68,7 +68,7 @@ const controller = {
     const productMeasurementUnit = await Unplastified_item.listProductMeasurementUnit();
     const impactApproach = await Unplastified_item.listImpactApproach();
     if(!api){
-      res.render('enterprise/mintingRequestDetail',
+      return res.render('enterprise/mintingRequestDetail',
       {
         unplastifiedItems,
         mintingRequest,
@@ -168,8 +168,7 @@ const controller = {
   submitMintingRequest: async (req,res)=>{
     const api = req.params.api || false;
     // change status to submited
-    const { id_status } =  await Minting_request.getStatus('Submited');
-    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
+    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, 'Submited');
     if(!api){
       return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
     }
@@ -178,8 +177,7 @@ const controller = {
   inReviewMintingRequest: async (req,res)=>{
     const api = req.params.api || false;
     // change status to assigned to validator
-    const { id_status } =  await Minting_request.getStatus('In Review');
-    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
+    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, 'In Review');
     if(!api){
       return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
     }

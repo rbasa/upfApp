@@ -82,13 +82,24 @@ const Minting_request = {
     });
   },
   updateMintingRequestStatus: async (id, status) => {
-    return await db.minting_request.update({
-      status_id: status,
-    },
-    {
-      where: { minting_request_id: id },
-    });
-  }
+    const query = `
+      UPDATE
+        minting_request
+      SET
+        status_id = (
+          select
+            id_status
+          from
+            minting_request_status
+          where
+            status = :status
+        )
+      WHERE
+        minting_request_id = :id
+    `;
+    const replacements = { status, id };
+    return await db.sequelize.query(query, { replacements });
+  },
 };
 
 module.exports = Minting_request;
