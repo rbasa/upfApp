@@ -80,30 +80,21 @@ const controller = {
   },
   assignMintingRequestToValidator: async (req,res)=>{
     const api = req.params.api || false;
-    const registeredValidators = await Users.listUserByCategory('validator')
-    const definedValidators = await Validator.selectValidators(registeredValidators, req.params.q)
-    return res.json (registeredValidators)
-    await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, id_status);
     // randomly assign validator
-    console.log(allValidators)
-    return res.send(allValidators);
+    try {
+      const amountValidatorsAssigned = await Validator.assignValidators(req.params.minting_request_id, parseInt(req.body.validatorQuantity))
+      await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, 'Assigned');
+    } catch (error) {
+      console.log(error)
+    }
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
   },
-  // setMintRequestAsAproved: async (req,res)=>{
-  //   await Users.approveMintingRequest(req.params.id)
-  //   res.send('Aproved'+req.params.id)
-  // },
   processMintingRequestStatusChange: async (req,res)=>{ // should change minting status, not unplastified item
     const api = req.params.api || false;
     const status = await Minting_request.getStatus(req.params.status);
-    console.log('msndfkjsanldkansldk')
-    console.log('msndfkjsanldkansldk')
-    console.log('msndfkjsanldkansldk')
-    console.log('msndfkjsanldkansldk')
-    console.log(req.params.status)
     
     if (status) {
-      await Minting_request.updateMintingRequestStatus(req.params.id, status.id_status);
+      await Minting_request.updateMintingRequestStatus(req.params.id, req.params.status);
       if(!api){
         return res.redirect('/unplastify/home');
       }  
