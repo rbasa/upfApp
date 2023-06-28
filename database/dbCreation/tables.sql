@@ -191,7 +191,8 @@ VALUES
 ('Further documentation requested'),
 ('Approved'),
 ('Rejected'),
-('Stand-by');
+('Stand-by'),
+('Assigned');
 
 CREATE TABLE minting_request(
   `minting_request_id` INTEGER NOT NULL auto_increment,
