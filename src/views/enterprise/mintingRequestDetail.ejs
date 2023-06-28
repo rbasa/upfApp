@@ -126,12 +126,12 @@
             <input type="submit" class="btn btn-primary btn-block mb-4" value="submit minting request"></input>
           </form>
         <% } %>
-          <% if(userCategory==3 && mintingRequest.minting_status.dataValues.status != 'Assign To Validator'){%>
-            <!-- Unplastify can assign to validator whenever -->
+        <% if(userCategory=='unplastify' && mintingRequest.minting_status.dataValues.status != 'Assign To Validator'){%>
+          <!-- Unplastify can assign to validator whenever -->
             <input type="submit" class="btn btn-primary btn-block mb-4" data-toggle="modal" data-target=".modal-esteTarget" value="assign to validator">
             </input>
           <% } %>
-          <% if(userCategory==3 && mintingRequest.minting_status.dataValues.status != 'In Review'){%>
+          <% if(userCategory=='unplastify' && mintingRequest.minting_status.dataValues.status != 'In Review'){%>
             <!-- Unplastify can assign to validator whenever -->
             <form action="<%= `/enterprise/inReview/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
               <input type="submit" class="btn btn-primary btn-block mb-4" value="In Review"></input>
