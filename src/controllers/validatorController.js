@@ -5,8 +5,7 @@ const Minting_request = require('../models/Minting_Request');
 const controller = {
   home: async (req, res) => {
     const asignedMintingRequests = await Minting_request.findByStatusQuery('Assign To Validator')
-    return res.send(asignedMintingRequests);
-    return res.render('validator/validatorDashboard');
+    return res.render('validator/validatorDashboard', { asignedMintingRequests });
   }
 };
 module.exports = controller;
