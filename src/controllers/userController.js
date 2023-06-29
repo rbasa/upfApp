@@ -80,7 +80,7 @@ const controller = {
     }
     // Generate JWT token, user completed properly its authentication
     const token = jwt.sign(
-      { 
+      {
         userId: user.user_id,
         email: user.email,
         address: user.address,
@@ -95,8 +95,7 @@ const controller = {
     if(!api){
       return res.redirect(`/${user.user_category}/home`);
     }
-    return res.status(200).json({ message: 'Login successful', token });
-
+    return res.status(200).json({ message: 'Login successful', token, userCategory: user.user_category });
   },
   logout: (req, res) => {
     const api = req.params.api || false;
