@@ -17,8 +17,8 @@ router.post('/details/:id/:api?', userNotLoggedAsCategory('enterprise'), enterpr
 router.post('/newMintingRequest/:api?', userNotLoggedAsCategory('enterprise'), namingMintingRequest, enterpriseController.newMintingRequest);
 router.get('/mintingRequest/:idMintingRequest/:api?', userNotLogged, enterpriseController.mintingRequestDetail);
 router.get('/addUnplastifiedItem/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.addNewUnplastifiedItem);
-router.post('/newUnplastifiedItem/:api?', userNotLoggedAsCategory('enterprise'), upload.any('before_pic','after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.uploadUnplastifiedItem);
-router.put('/editUnplastifiedItem/:idUnplastifiedItem/:api?', userNotLogged, editPermision, upload.any('before_pic','after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.editUnplastifiedItem);
+router.post('/newUnplastifiedItem/:api?', userNotLoggedAsCategory('enterprise'), upload.any('before_pic', 'after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.uploadUnplastifiedItem);
+router.put('/editUnplastifiedItem/:idUnplastifiedItem/:api?', userNotLogged, editPermision, upload.any('before_pic', 'after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.editUnplastifiedItem);
 router.delete('/deleteUnplastifiedItem/:idUnplastifiedItem/:api?', userNotLoggedAsCategory('enterprise'), editPermision, editPermision, upload.any('additional_documents'), enterpriseController.deleteUnplastifiedItem);
 router.put('/changeMintingRequestName/:minting_request_id/:api?', userNotLoggedAsCategory('enterprise'), editPermision, enterpriseController.changeMintingRequestName);
 router.put('/submitMintingRequest/:minting_request_id/:api?', editPermision, enterpriseController.submitMintingRequest);

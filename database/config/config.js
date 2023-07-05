@@ -7,12 +7,12 @@ try {
 }
 module.exports = {
   "development": {
-    "username": process.env.DBUSER||secrets.username,
-    "password": process.env.DBPASSWORD||secrets.password,
-    "database": process.env.DBDB||secrets.db,
-    "host": process.env.DBHOSTNAME||secrets.hostname,
+    "username": process.env.DBUSER || secrets.username,
+    "password": process.env.DBPASSWORD || secrets.password,
+    "database": process.env.DBDB || secrets.db,
+    "host": process.env.DBHOSTNAME || secrets.hostname,
     "dialect": "mysql",
-    "port": secrets.port||3306
+    "port": secrets.port || 3306
   },
   "test": {
     "username": "root",
@@ -22,10 +22,10 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "username": process.env.DBUSER||secrets.username,
-    "password": process.env.DBPASSWORD||secrets.password,
-    "database": process.env.DBDB||secrets.db,
-    "host": process.env.DBHOSTNAME||secrets.hostname,
+    "username": process.env.DBUSER || secrets.username,
+    "password": process.env.DBPASSWORD || secrets.password,
+    "database": process.env.DBDB || secrets.db,
+    "host": process.env.DBHOSTNAME || secrets.hostname,
     "dialect": "mysql",
     "port": 3306
   }

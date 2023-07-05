@@ -6,41 +6,41 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    cuit:{
+    cuit: {
       type: dataTypes.BIGINT,
       allowNull: false
     },
-    country:{
+    country: {
       type: dataTypes.TEXT,
       allowNull: false
     },
-    city:{
+    city: {
       type: dataTypes.TEXT,
       allowNull: false
     },
-    employees:{
+    employees: {
       type: dataTypes.INTEGER,
       allowNull: false
     },
-    invoicing:{
-      type: dataTypes.DECIMAL(25,10),
+    invoicing: {
+      type: dataTypes.DECIMAL(25, 10),
     },
-    mipyme:{
+    mipyme: {
       type: dataTypes.STRING(50),
-      allowNull : true
+      allowNull: true
     },
-    createdAt:{
+    createdAt: {
       type: dataTypes.DATE
     },
-    updatedAt:{
+    updatedAt: {
       type: dataTypes.DATE
     }
   },
-  {
-    tableName: "enterprise_details",
-    timestamps: true
-  });
-  Enterprise_detail.associate = function(models){
+    {
+      tableName: "enterprise_details",
+      timestamps: true
+    });
+  Enterprise_detail.associate = function (models) {
     Enterprise_detail.belongsTo(models.User, {
       as: 'user',
       foreignKey: 'user_id'

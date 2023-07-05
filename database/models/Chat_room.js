@@ -10,34 +10,34 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    user_category_id:{
+    user_category_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    msg:{
+    msg: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    createdAt:{
+    createdAt: {
       type: DataTypes.DATE
     },
-    updatedAt:{
+    updatedAt: {
       type: DataTypes.DATE
     }
   },
-  {
-    tableName: 'chat_room'
-  });
+    {
+      tableName: 'chat_room'
+    });
 
-  ChatRoom.associate = function(models) {
+  ChatRoom.associate = function (models) {
     ChatRoom.belongsTo(sequelize.models.minting_request, {
       as: 'mintingRequest',
       foreignKey: 'minting_request_id'
     }),
-    ChatRoom.belongsTo(sequelize.models.user_category, {
-      as: 'id',
-      foreignKey: 'user_category_id'
-    })
+      ChatRoom.belongsTo(sequelize.models.user_category, {
+        as: 'id',
+        foreignKey: 'user_category_id'
+      })
   }
 
   return ChatRoom;

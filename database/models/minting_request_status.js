@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-  
+
   const Minting_request_status = sequelize.define('minting_request_status', {
     id_status: {
       type: dataTypes.INTEGER,
@@ -7,16 +7,16 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    status:{
+    status: {
       type: dataTypes.TEXT,
       allowNull: false
     }
   },
-  {
-    tableName: 'minting_request_status',
-    timestamps: false
-  });
-  Minting_request_status.associate = function(modelName){
+    {
+      tableName: 'minting_request_status',
+      timestamps: false
+    });
+  Minting_request_status.associate = function (modelName) {
     Minting_request_status.hasMany(modelName.minting_request, {
       as: 'minting_request',
       foreignKey: 'status_id'

@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     };
-    if(!req.dirName){
+    if (!req.dirName) {
       const dirName = crypto.randomBytes(8).toString('hex');
       req.dirName = dirName;
     };

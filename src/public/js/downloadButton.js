@@ -1,4 +1,4 @@
-window.addEventListener("load", function(){
+window.addEventListener("load", function () {
   document.getElementById('downloadAllButton').addEventListener('click', () => {
     const downloadLinks = document.querySelectorAll('#downloadLink');
     downloadLinks.forEach(link => {

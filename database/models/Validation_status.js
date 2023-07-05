@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   },
-  {
-    tableName: 'validation_status'
-  });
-  ValidationStatus.associate = function(models){
+    {
+      tableName: 'validation_status'
+    });
+  ValidationStatus.associate = function (models) {
     ValidationStatus.hasMany(models.ValidationTracking, {
       as: 'validationTracking',
       foreignKey: 'validation_status_id'

@@ -4,42 +4,42 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const controller = {
-  login:(req, res) => {
+  login: (req, res) => {
     const api = req.params.api || false;
-    if(!api){
+    if (!api) {
       return res.render('users/login');
     }
     return res.render('users/login');
   },
-  redirectUser:(req,res)=>{
+  redirectUser: (req, res) => {
     const api = req.params.api || false;
-    if(req.cookies && req.cookies.token){
+    if (req.cookies && req.cookies.token) {
       const decodedToken = jwt.verify(req.cookies.token, process.env.SECRET_KEY_JWT);
       switch (decodedToken.userCategory) {
         case 'validator':
-          if(!api){
+          if (!api) {
             return res.redirect('/validator/home');
           }
           return res.redirect('/validator/home/api');
         case 'enterprise':
-          if(!api){
+          if (!api) {
             return res.redirect('/enterprise/home');
           }
           return res.redirect('/enterprise/home/api');
         case 'unplastify':
-          if(!api){
+          if (!api) {
             return res.redirect('/unplastify/home');
           }
           return res.redirect('/unplastify/home/api');
         default:
-          if(!api){
+          if (!api) {
             return res.redirect('/users/login');
           }
           return res.redirect('/users/login/api');
 
       }
     }
-    if(!api){
+    if (!api) {
       return res.redirect('/users/login');
     }
     return res.redirect('/users/login/api');
@@ -51,7 +51,7 @@ const controller = {
     const user = userToLogin[0];
     if (!userToLogin) {
       console.log('usuaruioi no existe')
-      if(!api){
+      if (!api) {
         return res.render('users/login', {
           errors: {
             login: {
@@ -60,14 +60,14 @@ const controller = {
           }
         });
       }
-      return res.json( msg= 'Las credenciales son inválidas');
+      return res.json(msg = 'Las credenciales son inválidas');
     }
     let passwordVerificated = bcryptjs.compareSync(
       String(req.body.password),
       user.password
     );
     if (!passwordVerificated) {
-      if(!api){
+      if (!api) {
         return res.render('users/login', {
           errors: {
             login: {
@@ -86,13 +86,13 @@ const controller = {
         address: user.address,
         userCategory: user.user_category,
         registered: user.registered
-      }, 
+      },
       process.env.SECRET_KEY_JWT
     );
     // Set the token as a cookie in the response
     res.cookie('token', token, { httpOnly: true });
     // Redirect the user after successful login
-    if(!api){
+    if (!api) {
       return res.redirect(`/${user.user_category}/home`);
     }
     return res.status(200).json({ message: 'Login successful', token, userCategory: user.user_category });
@@ -102,46 +102,46 @@ const controller = {
     // Clear the token cookie
     res.clearCookie('token');
     // Redirect the user to the desired page
-    if(!api){
+    if (!api) {
       return res.redirect('/');
     }
     return res.redirect('/api');
   },
-  register: async(req, res) =>{
+  register: async (req, res) => {
     const api = req.params.api || false;
     const userCategory = await Users.listCategory();
-    if(!api){
+    if (!api) {
       return res.render('users/register', { userCategory });
     }
-    return res.json([ userCategory ]);
+    return res.json([userCategory]);
 
   },
   processRegister: async (req, res) => {
     const api = req.params.api || false;
     userInDB = await Users.findByEmail(req.body.email);
-      if (userInDB) {
-        const userCategory = await Users.listCategory();
-        if(!api){
-          return res.render('users/register', {
-            userCategory,
-            errors: {
-              email: {
-                msg: 'Este email ya está registrado'
-              }
-            },
-            old : req.body
-          })
-        }
-        return res.status(204).json({ message: 'Fail to register, email already registered' });
+    if (userInDB) {
+      const userCategory = await Users.listCategory();
+      if (!api) {
+        return res.render('users/register', {
+          userCategory,
+          errors: {
+            email: {
+              msg: 'Este email ya está registrado'
+            }
+          },
+          old: req.body
+        })
       }
+      return res.status(204).json({ message: 'Fail to register, email already registered' });
+    }
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
     Users.create(req.body);
-    if(!api){
+    if (!api) {
       return res.redirect('/users/login');
     }
     return res.status(200).json({ message: 'Data received successfully, User created' });
   },
-  captureAuth: (req) =>{
+  captureAuth: (req) => {
     const api = req.params.api || false;
     // Extract the token from the cookies
     const token = req.cookies.token;

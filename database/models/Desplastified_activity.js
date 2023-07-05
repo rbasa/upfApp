@@ -6,20 +6,20 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    activity:{
+    activity: {
       type: dataTypes.TEXT
     },
-    createdAt:{
+    createdAt: {
       type: dataTypes.DATE
     },
-    updatedAt:{
+    updatedAt: {
       type: dataTypes.DATE
     }
   },
-  {
-    tableName: 'desplastified_activity',
-    timestamps: true
-  });
+    {
+      tableName: 'desplastified_activity',
+      timestamps: true
+    });
   // Desplastified_activity.associate = function(modelName){
   //   Desplastified_activity.hasMany(modelName.Minting_request, {
   //     as: 'minting_request',

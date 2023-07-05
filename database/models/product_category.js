@@ -6,15 +6,15 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    category:{
+    category: {
       type: dataTypes.TEXT,
       allowNull: false
     }
   },
-  {
-    tableName: 'product_category',
-    timestamps: false
-  });
+    {
+      tableName: 'product_category',
+      timestamps: false
+    });
   // Product_category.associate = function(modelName){
   //   Product_category.hasMany(modelName.Minting_request, {
   //     as: 'minting_request',

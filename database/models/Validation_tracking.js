@@ -5,40 +5,40 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    user_id:{
+    user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false
     },
-    validation_status_id:{
+    validation_status_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    createdAt:{
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false
     },
-    updatedAt:{
+    updatedAt: {
       type: DataTypes.DATE,
       allowNull: false
     }
   },
-  {
-    tableName: 'validation_tracking'
-  });
-  ValidationTracking.associate = function(models) {
+    {
+      tableName: 'validation_tracking'
+    });
+  ValidationTracking.associate = function (models) {
     ValidationTracking.belongsTo(models.minting_request, {
       as: 'mintingRequest',
       foreignKey: 'minting_request_id'
     }),
-    ValidationTracking.belongsTo(models.User, {
-      as: 'user',
-      foreignKey: 'user_id'
-    }),
-    ValidationTracking.belongsTo(models.ValidationStatus, {
-      as: 'status',
-      foreignKey: 'validation_status_id'
-    })
+      ValidationTracking.belongsTo(models.User, {
+        as: 'user',
+        foreignKey: 'user_id'
+      }),
+      ValidationTracking.belongsTo(models.ValidationStatus, {
+        as: 'status',
+        foreignKey: 'validation_status_id'
+      })
   }
 
   return ValidationTracking;

@@ -1,7 +1,7 @@
 const db = require("../../database/models");
 
 const Minting_request = {
-  create: async function(req) {
+  create: async function (req) {
     const newMintingRequestStatus = await db.minting_request_status.findOne({
       where: { status: 'created' }
     });
@@ -14,20 +14,22 @@ const Minting_request = {
   },
   findByEnterprise: async (user_id) => {
     return await db.minting_request.findAll({
-    where: { user_id: user_id },
-    include: [{all: true}]
-  })},
+      where: { user_id: user_id },
+      include: [{ all: true }]
+    })
+  },
   listAllWithFk: async () => {
     return await db.minting_request.findAll({
-    include: [{all: true}]
-  })},
-  list: async() => {
+      include: [{ all: true }]
+    })
+  },
+  list: async () => {
     return await db.minting_request.findAll();
   },
   findByPk: async (minting_request_id) => {
     return await db.minting_request.findByPk(minting_request_id,
       {
-        include: [{all: true}]
+        include: [{ all: true }]
       }
     );
   },
@@ -45,15 +47,15 @@ const Minting_request = {
       where
         a.minting_request_id = ?
       ;`,
-    { replacements: [minting_request_id], type: db.Sequelize.QueryTypes.SELECT });
+      { replacements: [minting_request_id], type: db.Sequelize.QueryTypes.SELECT });
   },
-  getStatus: async function(e){
+  getStatus: async function (e) {
     return await db.minting_request_status.findOne({
       attributes: ['id_status'],
       where: { status: e },
     });
   },
-  findByStatusQuery: async function(status){
+  findByStatusQuery: async function (status) {
     return await db.sequelize.query(
       `select
         *
@@ -68,18 +70,19 @@ const Minting_request = {
           where
             status = ?
         );`,
-    { replacements: [status], type: db.Sequelize.QueryTypes.SELECT });
+      { replacements: [status], type: db.Sequelize.QueryTypes.SELECT });
   },
-  findByStatus: async function(status){
+  findByStatus: async function (status) {
     const { dataValues: { id_status } } = await this.getStatus(status);
-    return await db.minting_request.findAll()},
+    return await db.minting_request.findAll()
+  },
   changeMintingRequestName: async (req) => {
     return await db.minting_request.update({
       name: req.body.newName,
     },
-    {
-      where: { minting_request_id: req.params.minting_request_id },
-    });
+      {
+        where: { minting_request_id: req.params.minting_request_id },
+      });
   },
   updateMintingRequestStatus: async (id, status) => {
     const query = `

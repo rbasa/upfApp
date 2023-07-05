@@ -1,7 +1,7 @@
 const db = require("../../database/models");
 
 const Chat = {
-  createNewMsg: async function(req, decodedToken) {
+  createNewMsg: async function (req, decodedToken) {
     return await db.sequelize.query(
       `
       INSERT INTO
@@ -30,9 +30,10 @@ const Chat = {
   },
   findByMintingRequest: async (user_id) => {
     return await db.ChatRoom.findAll({
-    where: { user_id: user_id },
-    include: [{all: true}]
-  })}
+      where: { user_id: user_id },
+      include: [{ all: true }]
+    })
+  }
 };
 
 module.exports = Chat;

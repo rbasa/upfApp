@@ -6,16 +6,16 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    plastic_item:{
+    plastic_item: {
       type: dataTypes.TEXT,
       allowNull: false
     }
   },
-  {
-    tableName: 'plastic_item',
-    timestamps: false
-  });
-  Plastic_item.associate = function(modelName){
+    {
+      tableName: 'plastic_item',
+      timestamps: false
+    });
+  Plastic_item.associate = function (modelName) {
     Plastic_item.hasMany(modelName.unplastified_item, {
       as: 'minting_request_before',
       foreignKey: 'id_plastic_item_before'

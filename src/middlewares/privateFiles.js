@@ -14,14 +14,14 @@ function checkPermissions(req, res, next) {
       if (decodedToken.userLogged.registered === 1) {
         return next();
       };
-    break;
+      break;
     case 2:
       const userId = decodedToken.userLogged.user_id;
       const fileUserId = Number(req.path.split('/')[2]);
       if (userId === fileUserId) {
         return next();
       };
-    break;
+      break;
   }
 
   res.status(403).send('Forbidden');

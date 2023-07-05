@@ -6,46 +6,46 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    user_id:{
+    user_id: {
       type: dataTypes.INTEGER,
       allowNull: false
     },
-    name:{
+    name: {
       type: dataTypes.TEXT,
       allowNull: false
     },
-    status_id:{
+    status_id: {
       type: dataTypes.INTEGER,
       allowNull: false
     },
-    createdAt:{
+    createdAt: {
       type: dataTypes.DATE
     },
-    updatedAt:{
+    updatedAt: {
       type: dataTypes.DATE
     }
   },
-  {
-    tableName: 'minting_request',
-    timestamps: true
-  });
-  Minting_request.associate = function(models){
+    {
+      tableName: 'minting_request',
+      timestamps: true
+    });
+  Minting_request.associate = function (models) {
     Minting_request.belongsTo(models.User, {
       as: 'user_request',
       foreignKey: 'user_id'
     }),
-    Minting_request.belongsTo(models.minting_request_status, {
-      as: 'minting_status',
-      foreignKey: 'status_id'
-    }),
-    Minting_request.hasMany(models.ChatRoom, {
-      as: 'chatRooms',
-      foreignKey: 'minting_request_id'
-    }),
-    Minting_request.hasMany(models.ValidationTracking, {
-      as: 'validationTrackings',
-      foreignKey: 'minting_request_id'
-    });    
+      Minting_request.belongsTo(models.minting_request_status, {
+        as: 'minting_status',
+        foreignKey: 'status_id'
+      }),
+      Minting_request.hasMany(models.ChatRoom, {
+        as: 'chatRooms',
+        foreignKey: 'minting_request_id'
+      }),
+      Minting_request.hasMany(models.ValidationTracking, {
+        as: 'validationTrackings',
+        foreignKey: 'minting_request_id'
+      });
   };
   return Minting_request;
 }

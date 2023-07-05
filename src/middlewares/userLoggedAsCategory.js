@@ -7,7 +7,6 @@ function userMiddleware(requiredUserCategory) {
     if (token) {
       try {
         const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
-        
         if (decodedToken.userCategory === requiredUserCategory) {
           req.session.userLogged = {
             user_id: decodedToken.userId,

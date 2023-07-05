@@ -14,8 +14,8 @@ const controller = {
     const submitedDetails = await Users.hasSubmitedDetails(decodedToken.userId);
     const userCategory = decodedToken.userCategory
     const openMintedRequests = await Minting_request.findByEnterprise(decodedToken.userId);
-    if(!api){
-      return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory, errorMessages});
+    if (!api) {
+      return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory, errorMessages });
     }
     return res.json([enterpriseLogged, submitedDetails, openMintedRequests, userCategory, errorMessages]);
   },
@@ -24,7 +24,7 @@ const controller = {
     const decodedToken = User.captureAuth(req);
     const user = decodedToken.user_id
     const submitedDetails = await Users.getDetails(user);
-    if(!api){
+    if (!api) {
       return res.render('enterprise/details', { user, submitedDetails });
     }
     return res.json([user, submitedDetails]);
@@ -32,7 +32,7 @@ const controller = {
   processEnterpriseDetails: async (req, res) => {
     const api = req.params.api || false;
     await Users.submitDetails(req.params.id, req.body);
-    if(!api){
+    if (!api) {
       return res.redirect('/enterprise/home');
     }
     return res.redirect('/enterprise/home/api');
@@ -48,12 +48,12 @@ const controller = {
       return res.redirect('/enterprise/home');
     }
     const minting_request_id = await Minting_request.create(req);
-    if(!api){
+    if (!api) {
       return res.redirect(`/enterprise/mintingRequest/${minting_request_id}`);
     }
     return res.redirect(`/enterprise/mintingRequest/${minting_request_id}/api`);
   },
-  mintingRequestDetail: async (req,res) => {
+  mintingRequestDetail: async (req, res) => {
     const api = req.params.api || false;
     const token = req.cookies.token; // Extract the token from the cookies
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
@@ -67,17 +67,17 @@ const controller = {
     const alternativePlasticItem = await Unplastified_item.listAlternativePlasticItems();
     const productMeasurementUnit = await Unplastified_item.listProductMeasurementUnit();
     const impactApproach = await Unplastified_item.listImpactApproach();
-    if(!api){
+    if (!api) {
       return res.render('enterprise/mintingRequestDetail',
-      {
-        unplastifiedItems,
-        mintingRequest,
-        userCategory,
-        plasticItem,
-        alternativePlasticItem,
-        productMeasurementUnit,
-        impactApproach
-      });
+        {
+          unplastifiedItems,
+          mintingRequest,
+          userCategory,
+          plasticItem,
+          alternativePlasticItem,
+          productMeasurementUnit,
+          impactApproach
+        });
     }
     return res.json([
       unplastifiedItems,
@@ -92,21 +92,21 @@ const controller = {
   uploadUnplastifiedItem: async (req, res) => {
     const api = req.params.api || false;
     await Unplastified_item.submit(req);
-    if(!api){
+    if (!api) {
       return res.redirect(`/enterprise/mintingRequest/${req.session.minting_request_id}`);
     }
     return res.redirect(`/enterprise/mintingRequest/${req.session.minting_request_id}/api`);
   },
   addNewUnplastifiedItem: async (req, res) => {
-        const api = req.params.api || false;
+    const api = req.params.api || false;
     const plasticItem = await Unplastified_item.listPlasticItems();
     const alternativePlasticItem = await Unplastified_item.listAlternativePlasticItems();
     const productMeasurementUnit = await Unplastified_item.listProductMeasurementUnit();
     const impactApproach = await Unplastified_item.listImpactApproach();
-    if(!api){
+    if (!api) {
       return res.render('enterprise/unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach });
     }
-    return res.json([plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach] );
+    return res.json([plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach]);
   },
   editUnplastifiedItem: async (req, res) => {
     const api = req.params.api || false;
@@ -115,16 +115,16 @@ const controller = {
     const userType = decodedToken.userCategory;
     switch (userType) {
       case 'enterprise':
-        const minting_request =  await Unplastified_item.findMintingRequest(req.params.idUnplastifiedItem);
+        const minting_request = await Unplastified_item.findMintingRequest(req.params.idUnplastifiedItem);
         const status = await Minting_request.findMintingRequestStatus(minting_request.dataValues.minting_request_id);
-        switch (status[0].status){
+        switch (status[0].status) {
           case 'Created':
-            if(!api){
+            if (!api) {
               return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
             }
             return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}/api`)
           case 'Further documentation requested':
-            if(!api){
+            if (!api) {
               return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.submitFurtherDocumentation(req)).minting_request_id}`)
             }
             return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.submitFurtherDocumentation(req)).minting_request_id}/api`)
@@ -132,53 +132,53 @@ const controller = {
             // error de tipo prohibido, no deberia poder acceder a la edicion en otro estado
             console.log('************************************')
             console.log('error de tipo prohibido, no deberia poder acceder a la edicion en otro estado')
-            if(!api){
+            if (!api) {
               return res.redirect('/')
             }
             return res.redirect('/api')
         }
       case 'unplastify':
-        if(!api){
+        if (!api) {
           return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}`)
         }
         return res.redirect(`/enterprise/mintingRequest/${(await Unplastified_item.edit(req)).minting_request_id}/api`)
       default:
-        if(!api){
+        if (!api) {
           return res.redirect('/')
         }
         return res.redirect('/api')
-      }
+    }
   },
   deleteUnplastifiedItem: async (req, res) => {
     const api = req.params.api || false;
     const mintingRequestId = await Unplastified_item.delete(req);
-    if(!api){
+    if (!api) {
       return res.redirect(`/enterprise/mintingRequest/${mintingRequestId}`)
     }
     return res.redirect(`/enterprise/mintingRequest/${mintingRequestId}/api`)
   },
-  changeMintingRequestName: async (req,res)=>{
+  changeMintingRequestName: async (req, res) => {
     const api = req.params.api || false;
     await Minting_request.changeMintingRequestName(req);
-    if(!api){
+    if (!api) {
       return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
     }
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}/api`);
   },
-  submitMintingRequest: async (req,res)=>{
+  submitMintingRequest: async (req, res) => {
     const api = req.params.api || false;
     // change status to submited
     await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, 'Submited');
-    if(!api){
+    if (!api) {
       return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
     }
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}/api`);
   },
-  inReviewMintingRequest: async (req,res)=>{
+  inReviewMintingRequest: async (req, res) => {
     const api = req.params.api || false;
     // change status to assigned to validator
     await Minting_request.updateMintingRequestStatus(req.params.minting_request_id, 'In Review');
-    if(!api){
+    if (!api) {
       return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}`);
     }
     return res.redirect(`/enterprise/mintingRequest/${req.params.minting_request_id}/api`);

@@ -8,8 +8,8 @@ const editPermision = require('../middlewares/mintingRequestEdit');
 router.get('/home/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.dashboard);
 router.get('/pendingRequest/:id/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.pendingRegistrations);
 router.put('/approveUser/:id/:api?', userNotLoggedAsCategory('unplastify'), notRegistered, unplastifyController.aproveUser);
-router.put('/standByUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req,res)=> res.send('Proximamente'));
-router.put('/declineUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req,res)=> res.send('Proximamente'));
+router.put('/standByUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req, res) => res.send('Proximamente'));
+router.put('/declineUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req, res) => res.send('Proximamente'));
 router.put('/assignToValidator/:minting_request_id/:api?', editPermision, userNotLoggedAsCategory('unplastify'), unplastifyController.assignMintingRequestToValidator);
 router.put('/updateMintingRequestStatus/:id/:status/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.processMintingRequestStatusChange);
 

@@ -6,15 +6,15 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    treace_type:{
+    treace_type: {
       type: dataTypes.TEXT,
       allowNull: false
     }
   },
-  {
-    tableName: 'treace_type',
-    timestamps: false
-  });
+    {
+      tableName: 'treace_type',
+      timestamps: false
+    });
   // Treace_type.associate = function(modelName){
   //   Treace_type.hasMany(modelName.Minting_request, {
   //     as: 'minting_request',
