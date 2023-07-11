@@ -49,8 +49,8 @@ const controller = {
     const api = req.params.api || false;
     let userToLogin = await Users.createLoginToken(req.body.email);
     const user = userToLogin[0];
-    if (!userToLogin) {
-      console.log('usuaruioi no existe')
+    if (!user) {
+      console.log(userToLogin)
       if (!api) {
         return res.render('users/login', {
           errors: {
@@ -79,18 +79,19 @@ const controller = {
       return res.status(204).json({ message: 'Las credenciales son inválidas' });
     }
     // Generate JWT token, user completed properly its authentication
+    const auth = {
+      userId: user.user_id,
+      email: user.email,
+      address: user.address,
+      userCategory: user.user_category,
+      registered: user.registered
+    }
     const token = jwt.sign(
-      {
-        userId: user.user_id,
-        email: user.email,
-        address: user.address,
-        userCategory: user.user_category,
-        registered: user.registered
-      },
+      auth,
       process.env.SECRET_KEY_JWT
     );
     // Set the token as a cookie in the response
-    res.cookie('token', token, { httpOnly: true });
+    res.cookie('token', token, 'user', auth, { httpOnly: true });
     // Redirect the user after successful login
     if (!api) {
       return res.redirect(`/${user.user_category}/home`);
