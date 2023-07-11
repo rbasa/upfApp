@@ -91,12 +91,12 @@ const controller = {
       process.env.SECRET_KEY_JWT
     );
     // Set the token as a cookie in the response
-    res.cookie('token', token, 'user', auth, { httpOnly: true });
+    res.cookie('token', token, { httpOnly: true });
     // Redirect the user after successful login
     if (!api) {
       return res.redirect(`/${user.user_category}/home`);
     }
-    return res.status(200).json({ message: 'Login successful', token, userCategory: user.user_category });
+    return res.status(200).json({ message: 'Login successful', token, userCategory: user.user_category, user: auth});
   },
   logout: (req, res) => {
     const api = req.params.api || false;
