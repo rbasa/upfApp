@@ -237,7 +237,8 @@ VALUES
   ('Assigned'),
   ('Completed'),
   ('Rejected'),
-  ('Canceled');
+  ('Canceled'),
+  ('Approved');
 
 CREATE TABLE validation_tracking (
   `minting_request_id` INTEGER NOT NULL,
