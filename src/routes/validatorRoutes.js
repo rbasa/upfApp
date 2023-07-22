@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const validatorController = require('../controllers/validatorController');
-const userNotLoggedAsCategory = require('../middlewares/userLoggedAsCategory');
+const userLoggedAsCategory = require('../middlewares/userLoggedAsCategory');
 
-router.get('/home/:api?', userNotLoggedAsCategory('validator'), validatorController.home);
+router.get('/home/:api?', userLoggedAsCategory('validator'), validatorController.home);
+router.put('/validate/:minting_request_id/:api?', userLoggedAsCategory('validator'), validatorController.validate);
 
 
 module.exports = router;
