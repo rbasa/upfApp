@@ -13,11 +13,12 @@ const controller = {
     const enterpriseLogged = decodedToken
     const submitedDetails = await Users.hasSubmitedDetails(decodedToken.userId);
     const userCategory = decodedToken.userCategory
-    const openMintedRequests = await Minting_request.findByEnterprise(decodedToken.userId);
+    const openMintingRequests = await Minting_request.findByEnterprise(decodedToken.userId);
+    const mintingRequestsWithDetails = await Minting_request.findByEnterpriseWithDetails(decodedToken.userId);
     if (!api) {
-      return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintedRequests, userCategory, errorMessages });
+      return res.render('enterprise/enterpriseDashboard', { enterpriseLogged, submitedDetails, openMintingRequests, mintingRequestsWithDetails, userCategory, errorMessages });
     }
-    return res.json([enterpriseLogged, submitedDetails, openMintedRequests, userCategory, errorMessages]);
+    return res.json([enterpriseLogged, submitedDetails, openMintingRequests, mintingRequestsWithDetails, userCategory, errorMessages]);
   },
   details: async (req, res) => {
     const api = req.params.api || false;

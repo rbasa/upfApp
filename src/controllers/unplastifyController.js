@@ -11,12 +11,13 @@ const controller = {
     // Verify and decode the token
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const users = await Users.unregisteredList();
-    const openMintedRequests = await Minting_request.listAllWithFk();
+    const openMintingRequests = await Minting_request.findAllMintingRequest();
+    const openMintingRequestsWithDetails = await Minting_request.findAllWithDetails();
     const userCategory = decodedToken.userCategory;
     if (!api) {
-      return res.render('unplastify/upfDashboard', { users, openMintedRequests, userCategory });
+      return res.render('unplastify/upfDashboard', { users, openMintingRequests, openMintingRequestsWithDetails, userCategory });
     }
-    return res.json([users, openMintedRequests, userCategory]);
+    return res.json([users, openMintingRequests, openMintingRequestsWithDetails, userCategory]);
   },
   pendingRegistrations: async (req, res) => {
     const api = req.params.api || false;
