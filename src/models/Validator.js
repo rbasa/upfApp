@@ -1,5 +1,7 @@
 let db = require("../../database/models");
 const Users = require('../models/Users');
+const { QueryTypes } = require('sequelize');
+
 const Validator = {
   selectValidators: async function (q) {
     const candidates = await Users.listUserByCategory('validator')
@@ -68,6 +70,50 @@ const Validator = {
       ));
       `,
       { replacements: [minting_request_id, user_id] }
+    );
+  },
+  changeStatus: async function (minting_request_id, user_id, status) {
+    await db.sequelize.query(
+      `
+      UPDATE
+        validation_tracking
+      SET
+        validation_status_id = (
+          select
+            validation_status_id
+          from
+            validation_status
+          where
+            status = :status
+        )
+      WHERE
+        minting_request_id = :mintingRequestId
+      AND
+        user_id = :userId;
+      `,
+      {
+        replacements: { status, mintingRequestId: minting_request_id, userId: user_id },
+        type: QueryTypes.UPDATE
+      }
+    );
+  },
+  obtainAllStatus: async function (minting_request_id) {
+    return await db.sequelize.query(
+      `
+      SELECT
+        b.status
+      FROM
+        validation_tracking a
+      INNER JOIN
+        validation_status b
+      ON
+        b.validation_status_id = a.validation_status_id
+      WHERE
+        minting_request_id = :mintingRequestId
+      `,
+      {
+        replacements: { mintingRequestId: minting_request_id }
+      }
     );
   },
   assignValidators: async function (minting_request_id, q) {
