@@ -8,7 +8,7 @@
         <h2 class="fw-bolder mb-4">Minting requests</h2>
     <% } %>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-      <% openMintedRequests.forEach(e=>{ %>
+      <% openMintingRequests.forEach(e=>{ %>
         <div class="col mb-5">
           <div class="card h-100">
               <!-- Product image-->
@@ -17,16 +17,16 @@
               <div class="card-body p-4">
                   <div class="text-center">
                       <!-- Enterprise name for Unplastify views -->
-                      <% if (userCategory == 3) { %>
+                      <% if (userCategory == 'unplastify') { %>
                         <h4 class="">
-                          <%= e.user_request.dataValues.name %>
+                          <%= e.enterpriseName %>
                         </h4>
                       <% } %>
                       <!-- Product name-->
                       <h5 class="fw-bolder"><%= e.name %></h5>
                       <!-- Product price-->
                       <span class="text-muted">
-                        <%= e.dataValues.minting_status.dataValues.status %>
+                        <%= e.status %>
                       </span>
                   </div>
               </div>
@@ -44,6 +44,3 @@
     </div>
   </div>
 </section>
-<% //if(unplastifiedItem){ %> 
-  <%- //include("./modals")%>
-<%//} %> 

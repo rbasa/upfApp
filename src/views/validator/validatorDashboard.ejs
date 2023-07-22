@@ -3,7 +3,9 @@
 <!-- hay que pasarle los minting request abiertos -->
 <%-//include("./../enterprise/mintingRequestDetail")%>
 <%-//include("./../enterprise/requests")%>
-hola soy la view
+<%- include("../enterprise/requests") %>
+<br>
 
-<%- asignedMintingRequests = [] ? 'array vacio':'chupala' %>
+<%- //console.log(openMintedRequests) %>
+<%- //openMintedRequests[0].name %>
 <%-include("./../partials/footer")%>
