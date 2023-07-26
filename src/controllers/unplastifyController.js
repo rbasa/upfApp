@@ -19,10 +19,11 @@ const controller = {
     }
     return res.json([users, openMintingRequests, openMintingRequestsWithDetails, userCategory]);
   },
-  pendingRegistrations: async (req, res) => {
+  pendingRegistration: async (req, res) => {
     const api = req.params.api || false;
-    const user = await Users.getUserAndCategory(req.params.id);
-    switch (user.category.user_category) {
+    const user = await Users.getUserCategory(req.params.id);
+    const userCategory = user?.[0]?.user_category;
+    switch (userCategory) {
       case 'enterprise':
         const enterprise = await Users.getFullEnterpriseDetails(user.user_id)
         if (!api) {
