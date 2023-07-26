@@ -69,13 +69,29 @@ const User = {
       `, { replacements: [email], type: db.Sequelize.QueryTypes.SELECT }
     );
   },
+  getUserCategory: async (id) => {
+    return await db.sequelize.query(
+      `
+      SELECT
+        a.user_id,
+        a.name,
+        a.address,
+        a.email,
+        a.createdAt,
+        b.user_category
+      FROM
+        user a
+      INNER JOIN
+        user_category b
+      ON
+        a.user_category_id = b.id
+      where
+        a.user_id = ?
+      `, { replacements: [id], type: db.Sequelize.QueryTypes.SELECT }
+    );
+  },
   getDetails: async (id) => {
     return await db.enterprise_detail.findByPk(id)
-  },
-  getUserAndCategory: async (id) => {
-    return await db.User.findByPk(id, {
-      include: [{ association: 'category' }]
-    });
   },
   getFullEnterpriseDetails: async (id) => {
     return await db.User.findByPk(id, {
