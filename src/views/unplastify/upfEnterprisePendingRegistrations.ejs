@@ -18,20 +18,25 @@
             <h1 class="h3 mb-0 text-gray-800 mt-4">Pending Registration details</h1>
           </div>
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h2 class="h3 mb-0 text-gray-800 mt-4"><%= user.name ? user.name : "User name is not defined"%></h2>
+            <h2 class="h3 mb-0 text-gray-800 mt-4"><%= user?.[0]?.name ? user?.[0]?.name : "User name is not defined"%></h2>
           </div>
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Enterprise mail contact <%= user.email ? user.email : "User mail is not defined" %></h5>
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Address <%= user.address ? user.address : "User address is not defined"%></h5>
-            <h5 class="h3 mb-0 text-gray-800 mt-4">Profile created at <%= user.createdAt %></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Enterprise mail contact <%= user?.[0]?.email ? user?.[0]?.email : "User mail is not defined" %></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Address <%= user?.[0]?.address ? user?.[0]?.address : "User address is not defined"%></h5>
+            <h5 class="h3 mb-0 text-gray-800 mt-4">Profile created at <%= user?.[0]?.createdAt %></h5>
             
           </div>
-          <% if (user.category.user_category == 'enterprise') { %>
+          <% if (user?.[0]?.user_category == 'enterprise') { %>
             <h5 class="h3 mb-0 text-gray-800 mt-4">detallles <%= enterprise.enterprise_detail && enterprise.enterprise_detail.dataValues.cuit ? enterprise.enterprise_detail.dataValues.cuit : "Cuit is not defined" %></h5>
           <% } %>
           </div>
           </div>
-          <form method="POST" action="/unplastify/approveUser/<%= user.user_id %>?_method=PUT">
+          <% console.log(user?.[0]?.user_id) %>
+          <% console.log('askjdbkjasnbdkjasn') %>
+          <% console.log('askjdbkjasnbdkjasn') %>
+          <% console.log('askjdbkjasnbdkjasn') %>
+          <% console.log('askjdbkjasnbdkjasn') %>
+          <form method="POST" action="/unplastify/approveUser/<%= user?.[0]?.user_id %>?_method=PUT">
             <div class="">
               <button type="button submit" class="btn btn-success">Approve</button>
             </div>

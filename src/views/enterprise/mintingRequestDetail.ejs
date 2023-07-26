@@ -120,7 +120,7 @@
               </div>
             </div>
         </div>
-        <% if(mintingRequest.minting_status.dataValues.status != 'Submited' && mintingRequest.minting_status.dataValues.status != 'Assign To Validator'){%>
+        <% if(!['Submited', 'Assign To Validator', 'Approved'].includes(mintingRequest.minting_status.dataValues.status)){%>
           <form action="<%= `/enterprise/submitMintingRequest/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST" enctype="multipart/form-data">
             <!-- Submit button -->
             <input type="submit" class="btn btn-primary btn-block mb-4" value="submit minting request"></input>
@@ -139,8 +139,14 @@
           <% } %>
           <% if(userCategory=='validator' && mintingRequest.minting_status.dataValues.status != 'In Review'){%>
             <!-- Unplastify can assign to validator whenever -->
-            <form action="<%= `/validator/validate/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
+            <form action="<%= `/validator/vote/Approved/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
               <input type="submit" class="btn btn-primary btn-block mb-4" value="Validate"></input>
+            </form>
+            <form action="<%= `/validator/vote/Rejected/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
+              <input type="submit" class="btn btn-danger btn-block mb-4" value="Reject"></input>
+            </form>
+            <form action="<%= `/validator/cancelAssigment/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
+              <input type="submit" class="btn btn-warning btn-block mb-4" value="Cancel Assigment"></input>
             </form>
           <% } %>
         </div>
