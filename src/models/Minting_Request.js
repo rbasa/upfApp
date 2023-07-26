@@ -105,8 +105,14 @@ const Minting_request = {
         validation_tracking d
       on
         d.minting_request_id = a.minting_request_id
+      inner join
+        validation_status e
+      on
+        e.validation_status_id = d.validation_status_id
       where
         d.user_id = ?
+      and
+        e.status not in ('Canceled', 'Approved') 
       ;`,
       { replacements: [validator_id], type: db.Sequelize.QueryTypes.SELECT });
   },
