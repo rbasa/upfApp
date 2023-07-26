@@ -7,7 +7,7 @@ const notRegistered = require('../middlewares/userNotRegistered');
 const editPermision = require('../middlewares/mintingRequestEdit');
 
 router.get('/home/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.dashboard);
-router.get('/pendingRequest/:id/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.pendingRegistrations);
+router.get('/pendingRequest/:id/:api?', userNotLoggedAsCategory('unplastify'), unplastifyController.pendingRegistration);
 router.put('/approveUser/:id/:api?', userNotLoggedAsCategory('unplastify'), notRegistered, unplastifyController.aproveUser);
 router.put('/standByUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req, res) => res.send('Proximamente'));
 router.put('/declineUser/:id/:api?', userNotLoggedAsCategory('unplastify'), (req, res) => res.send('Proximamente'));
