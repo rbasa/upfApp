@@ -110,6 +110,8 @@ const Validator = {
         b.validation_status_id = a.validation_status_id
       WHERE
         minting_request_id = :mintingRequestId
+      AND 
+        status NOT IN ('Canceled')
       `,
       {
         replacements: { mintingRequestId: minting_request_id }
