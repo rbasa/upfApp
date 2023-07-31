@@ -32,7 +32,9 @@ const controller = {
   },
   processEnterpriseDetails: async (req, res) => {
     const api = req.params.api || false;
-    await Users.submitDetails(req.params.id, req.body);
+    const decodedToken = User.captureAuth(req);
+    const user = decodedToken.userId
+    await Users.submitDetails(user, req.body);
     if (!api) {
       return res.redirect('/enterprise/home');
     }
