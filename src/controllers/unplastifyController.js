@@ -25,7 +25,7 @@ const controller = {
     const userCategory = user?.[0]?.user_category;
     switch (userCategory) {
       case 'enterprise':
-        const enterprise = await Users.getFullEnterpriseDetails(user.user_id)
+        const enterprise = await Users.getFullEnterpriseDetails(req.params.id);
         if (!api) {
           return res.render('unplastify/upfEnterprisePendingRegistrations', { user, enterprise });
         }
