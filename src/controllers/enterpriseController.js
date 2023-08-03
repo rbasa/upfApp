@@ -96,9 +96,9 @@ const controller = {
     const api = req.params.api || false;
     await Unplastified_item.submit(req);
     if (!api) {
-      return res.redirect(`/enterprise/mintingRequest/${req.session.minting_request_id}`);
+      return res.redirect(`/enterprise/mintingRequest/${req.params.idMintingRequest}`);
     }
-    return res.redirect(`/enterprise/mintingRequest/${req.session.minting_request_id}/api`);
+    return res.redirect(`/enterprise/mintingRequest/${req.params.idMintingRequest}/api`);
   },
   addNewUnplastifiedItem: async (req, res) => {
     const api = req.params.api || false;
@@ -107,7 +107,7 @@ const controller = {
     const productMeasurementUnit = await Unplastified_item.listProductMeasurementUnit();
     const impactApproach = await Unplastified_item.listImpactApproach();
     if (!api) {
-      return res.render('enterprise/unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach });
+      return res.render('enterprise/unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach, minting_request_id: req.params.idMintingRequest });
     }
     return res.json([plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach]);
   },

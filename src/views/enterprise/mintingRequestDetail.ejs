@@ -96,7 +96,7 @@
           <% } %> 
             <br>
             <% if (mintingRequest.minting_status.dataValues.status === 'Created') { %>
-              <form action="/enterprise/addUnplastifiedItem" method="GET">
+              <form action="<%= `/enterprise/addUnplastifiedItem/${mintingRequest.minting_request_id}` %>" method="GET">
                 <!-- Add an unplastified item -->
                 <input type="submit" class="btn btn-primary btn-block mb-4" value="Add new unplastified item"></input>
               </form>

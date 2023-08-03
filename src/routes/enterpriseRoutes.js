@@ -10,14 +10,14 @@ const namingMintingRequest = require('../middlewares/namingMintingRequest');
 // hay que hacer un midleware para que solo se pueda renderizar si la mintingRequest es del user_id
 
 router.get('/home/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.dashboard);
-//two different routes with same controller method: check
 router.get('/details/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.details);
-router.put('/details/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.details);
 router.post('/details/:id/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.processEnterpriseDetails);
+// create method to override details
+router.put('/details/:id/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.details);
 router.post('/newMintingRequest/:api?', userNotLoggedAsCategory('enterprise'), namingMintingRequest, enterpriseController.newMintingRequest);
 router.get('/mintingRequest/:idMintingRequest/:api?', userNotLogged, enterpriseController.mintingRequestDetail);
-router.get('/addUnplastifiedItem/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.addNewUnplastifiedItem);
-router.post('/newUnplastifiedItem/:api?', userNotLoggedAsCategory('enterprise'), upload.any('before_pic', 'after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.uploadUnplastifiedItem);
+router.get('/addUnplastifiedItem/:idMintingRequest/:api?', userNotLoggedAsCategory('enterprise'), enterpriseController.addNewUnplastifiedItem);
+router.post('/newUnplastifiedItem/:idMintingRequest/:api?', userNotLoggedAsCategory('enterprise'), upload.any('before_pic', 'after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.uploadUnplastifiedItem);
 router.put('/editUnplastifiedItem/:idUnplastifiedItem/:api?', userNotLogged, editPermision, upload.any('before_pic', 'after_pic', 'video', 'technical_file', 'additional_pics'), enterpriseController.editUnplastifiedItem);
 router.delete('/deleteUnplastifiedItem/:idUnplastifiedItem/:api?', userNotLoggedAsCategory('enterprise'), editPermision, editPermision, upload.any('additional_documents'), enterpriseController.deleteUnplastifiedItem);
 router.put('/changeMintingRequestName/:minting_request_id/:api?', userNotLoggedAsCategory('enterprise'), editPermision, enterpriseController.changeMintingRequestName);
