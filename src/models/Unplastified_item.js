@@ -21,7 +21,7 @@ const Unplastified_item = {
   },
   submit: async function (req) {
     await db.unplastified_item.create({
-      minting_request_id: req.session.minting_request_id,
+      minting_request_id: req.params.idMintingRequest,
       before_pic: this.getFileArray('before_pic', req),
       after_pic: this.getFileArray('after_pic', req),
       video: this.getFileArray('video', req),
