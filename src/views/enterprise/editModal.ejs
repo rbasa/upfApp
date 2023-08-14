@@ -223,7 +223,7 @@
               </div>
               <label class="form-label" for="customFileLang">Upload additional documentation if further documentation its requested</label>
             <% } %>
-            <% if (userCategory == 2) { %>
+            <% if (userCategory == 'enterprise') { %>
               <div class="modal-footer">
                 <% if (mintingRequest.dataValues.minting_status.dataValues.status == 'Further documentation requested') { %>
                     <button type="submit" class="btn btn-primary">Add further information</button>
