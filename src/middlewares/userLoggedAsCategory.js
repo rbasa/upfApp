@@ -2,11 +2,11 @@ const jwt = require('jsonwebtoken');
 
 function userMiddleware(requiredUserCategory) {
   return function (req, res, next) {
-    const token = req.cookies && req.cookies.token;
+  const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
 
-    if (token) {
-      try {
-        const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
+if (token) {
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
         if (decodedToken.userCategory === requiredUserCategory) {
           req.session.userLogged = {
             user_id: decodedToken.userId,
@@ -14,7 +14,6 @@ function userMiddleware(requiredUserCategory) {
             address: decodedToken.address,
             user_category: decodedToken.user_category
           };
-
           return next();
         } else {
           // Redirect user since the required user_category doesn't match

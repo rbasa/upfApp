@@ -13,7 +13,8 @@ const controller = {
   },
   redirectUser: (req, res) => {
     const api = req.params.api || false;
-    if (req.cookies && req.cookies.token) {
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
+    if (token) {
       const decodedToken = jwt.verify(req.cookies.token, process.env.SECRET_KEY_JWT);
       switch (decodedToken.userCategory) {
         case 'validator':
@@ -145,7 +146,7 @@ const controller = {
   captureAuth: (req) => {
     const api = req.params.api || false;
     // Extract the token from the cookies
-    const token = req.cookies.token;
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
     // Verify and decode the token
     return jwt.verify(token, process.env.SECRET_KEY_JWT);
   }

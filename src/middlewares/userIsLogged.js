@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const guestMiddleware = (req, res, next) => {
-  const token = req.cookies && req.cookies.token;
+  const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
   // Check if the token exists
   if (token) {
     try {

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const controller = {
   dashboard: async (req, res) => {
     const api = req.params.api || false;
-    const token = req.cookies.token; // Extract the token from the cookies
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
     // Verify and decode the token
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const users = await Users.unregisteredList();

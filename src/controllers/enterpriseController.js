@@ -58,7 +58,7 @@ const controller = {
   },
   mintingRequestDetail: async (req, res) => {
     const api = req.params.api || false;
-    const token = req.cookies.token; // Extract the token from the cookies
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const userCategory = decodedToken.userCategory
     let mintingRequestId;
@@ -113,7 +113,7 @@ const controller = {
   },
   editUnplastifiedItem: async (req, res) => {
     const api = req.params.api || false;
-    const token = req.cookies.token; // Extract the token from the cookies
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const userType = decodedToken.userCategory;
     switch (userType) {

@@ -3,7 +3,7 @@ const Minting_request = require('../models/Minting_Request');
 const jwt = require('jsonwebtoken');
 
 async function editPermision(req, res, next) {
-  const token = req.cookies && req.cookies.token;
+  const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
   const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
   // Unplastify can allways edit Minting Request
   if (decodedToken.userCategory == 'unplastify') {

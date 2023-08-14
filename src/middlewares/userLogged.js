@@ -3,18 +3,14 @@ const jwt = require('jsonwebtoken');
 
 const userLoggedMiddleware = async (req, res, next) => {
   res.locals.isLogged = false;
-
   // Check if the token exists in cookies
-  const token = req.cookies && req.cookies.token;
-
+  const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
   try {
     if (token) {
       // Verify and decode the token
       const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
-
       // Find the user based on the decoded token information
       const user = await User.findByPk(decodedToken.userId);
-
       if (user) {
         // Set the user as logged in
         req.session.userLogged = {
@@ -23,12 +19,10 @@ const userLoggedMiddleware = async (req, res, next) => {
           address: user.address,
           user_category: user.user_category
         };
-
         res.locals.isLogged = true;
         res.locals.userLogged = req.session.userLogged;
       }
     }
-
     next();
   } catch (error) {
     // If there's an error with the token or user not found, clear the session

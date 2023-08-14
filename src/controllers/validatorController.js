@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const controller = {
   home: async (req, res) => {
     const api = req.params.api || false;
-    const token = req.cookies.token; // Extract the token from the cookies
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const userCategory = decodedToken.userCategory;
     const openMintingRequests = await Minting_request.findByValidator(decodedToken.userId);
@@ -18,7 +18,7 @@ const controller = {
   },
   validate: async (req, res) => {
     const api = req.params.api || false;
-    const token = req.cookies.token; // Extract the token from the cookies
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const userCategory = decodedToken.userCategory;
     const vote = req.params.vote;
@@ -49,9 +49,8 @@ const controller = {
   },
   cancelAssigment: async (req, res) => {
     const api = req.params.api || false;
-    const token = req.cookies.token; // Extract the token from the cookies
+    const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
-    const userCategory = decodedToken.userCategory;
     try {
       // update validation_tracking table
       await Validator.changeStatus(req.params.minting_request_id, decodedToken.userId, 'Canceled');
