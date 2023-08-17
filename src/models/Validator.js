@@ -63,14 +63,14 @@ const Validator = {
     await db.sequelize.query(
       `
       INSERT INTO validation_tracking (minting_request_id, user_id, validation_status_id)
-      VALUES (?, ?, (
-        SELECT
-          validation_status_id
-        FROM
-          validation_status
-        WHERE
-          status = 'Assigned'
-      ));
+        VALUES (?, ?, (
+          SELECT
+            validation_status_id
+          FROM
+            validation_status
+          WHERE
+            status = 'Assigned'
+        ));
       `,
       { replacements: [minting_request_id, user_id] }
     );
