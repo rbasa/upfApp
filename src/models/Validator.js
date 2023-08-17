@@ -64,9 +64,12 @@ const Validator = {
       `
       INSERT INTO validation_tracking (minting_request_id, user_id, validation_status_id)
       VALUES (?, ?, (
-        SELECT validation_status_id
-        FROM validation_status
-        WHERE status = 'Assigned'
+        SELECT
+          validation_status_id
+        FROM
+          validation_status
+        WHERE
+          status = 'Assigned'
       ));
       `,
       { replacements: [minting_request_id, user_id] }
@@ -120,7 +123,6 @@ const Validator = {
   },
   assignValidators: async function (minting_request_id, q) {
     const selectedValidators = await this.selectValidators(q);
-    console.log(selectedValidators);
     selectedValidators.forEach(async user_id => {
       await this.assignValidator(minting_request_id, user_id);
     });
