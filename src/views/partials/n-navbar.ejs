@@ -1,0 +1,17 @@
+<div class='flex items-center justify-between px-4 w-full h-24 z-10 bg-[#2a2835] text-white'>
+    <div class='flex w-fit mx-6 cursor-pointer w-fit'>
+      <img class="h-10" src="/images/upfc+logo+text.png" alt="unplastify logo">
+    </div>
+    <div class='hidden md:flex gap-x-24 md:mr-12 font-extralight text-lg'>
+      <button class='hover:text-upfc-lime'>UPFC</button>
+      <button class='whitespace-nowrap hover:text-upfc-lime'>Quienes Somos</button>
+      <button class='hover:text-upfc-lime'>
+        <% if (locals.isLogged) { %>
+          <div><a href="/users/redirectUser"><%= locals.userLogged.name %> </a></div>
+          <div><a href="/users/logout">Ingresar</a></div>
+        <% } else { %>
+            <div><a href="/users/login">Cerrar Sesion</a></div>
+        <% } %>
+      </button>
+    </div>
+  </div>
