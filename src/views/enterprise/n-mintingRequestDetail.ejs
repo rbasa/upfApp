@@ -1,0 +1,54 @@
+<%- include("./../partials/head") %>
+<%- include("./../partials/n-navbar")%>
+
+<!-- <div class="flex flex-col items-center justify-between bg-white"> -->
+
+<div class='flex w-full min-h-[calc(100vh-6rem)] flex-col items-center bg-upfc-blue text-white'>
+    <!-- <Navbar /> -->
+    <div class='flex flex-col items-center w-full h-full mt-10'>
+        <div class="flex flex-col w-1/3">
+            <span class="font-thin text-xs tracking-widest">TODO LISTO PARA APLICAR POR TU CERTIFICACIÓN UPFC.</span>
+            <span class="font-medium mb-2">CARGUE SUS PRODUCTOS DESPLASTIFICADOS</span>
+            <div class='flex flex-col gap-y-8 w-full bg-upfc-gray rounded-lg px-12 py-8 items-center'>
+                <span class="text-upfc-blue font-semibold text-lg">BANDEJAS</span>
+                <div class='flex flex-col w-full gap-y-2'>
+                    <button
+                        class="bg-upfc-blue2 font-normal rounded-lg text-black p-1.5">
+                        Cambiar Nombre
+                    </button>
+                    <!-- <input class='p-1.5 rounded-lg bg-input-gray focus:outline-none placeholder:font-light placeholder:text-gray-100 text-black ' placeholder='Name' type="text" /> -->
+                    <!-- {/* <button class="bg-white bg-opacity-80 font-normal rounded-lg text-black p-1.5">Cambiar Nombre</button> */} -->
+                    <!-- {
+                        articulos.map((x: any, i: number) => (
+                            <div key={x.id} class="flex ext-center bg-white bg-opacity-80 font-normal rounded-lg text-black py-1.5 px-2">
+                                <span class="t w-full">Articulo {x.id}</span>
+                                <BiEdit onClick={() => setOpenModal(x.id)} size={20} class="cursor-pointer" />
+                            </div>
+                        ))
+                    } -->
+
+                    <button
+                        class="bg-upfc-blue2 font-normal rounded-lg text-black p-1.5">
+                        Agregar un nuevo articulo desplastificado
+                    </button>
+                </div>
+                <div class="flex flex-col w-full items-center">
+                    <span class="text-sm">ESTADO</span>
+                    <div class="w-full p-1.5 h-5 bg-white bg-opacity-20 rounded-full">
+                        <div class="w-1/12 h-full bg-upfc-lime rounded-full"></div>
+                    </div>
+                    <div class="flex text-sm w-full justify-between">
+                        <span>Creado</span>
+                        <span>10%</span>
+                    </div>
+                </div>
+                <button class='bg-upfc-lime rounded-lg text-black py-1.5 w-full'>Postula el Caso a Certificar</button>
+            </div>
+        </div>
+        <div class="flex flex-col absolute bottom-12 left-16 cursor-pointer">
+            <span class="text-3xl font-medium">CHAT ROOM</span>
+            <span>Sera utilizado entre validadores, empresas, y upfc.</span>
+        </div>
+    </div>
+</div>
+<!-- </div> -->

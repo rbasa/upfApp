@@ -17,7 +17,8 @@ module.exports = {
         'upfc-blue2': '#38b6ff',
         'upfc-gray': '#5a5863',
         'upfc-red': '#F24822',
-        'upfc-yellow': '#FBFF47'
+        'upfc-yellow': '#FBFF47',
+        'input-gray': '#8b8b8f'
       }
     },
     fontFamily: {

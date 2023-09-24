@@ -1,0 +1,36 @@
+<%- include("../partials/head") %> 
+<!-- Section: Design Block -->
+<%- include("../partials/n-navbar") %>
+<main class="flex min-h-[calc(100vh-6rem)] flex-col items-center justify-between bg-upfc-blue">
+    <div class='flex items-center w-full h-full'>
+    <div class='flex px-24 mx-32 h-3/4 w-1/2'>
+        <div class='flex flex-col gap-y-8 w-2/3'>
+        <span class='text-3xl font-medium text-white'>REGISTRATE</span>
+        <div class='flex flex-col gap-y-3'>
+            <input onChange={null} name='name' class='p-1.5 rounded bg-upfc-gray placeholder:font-light text-white' placeholder='Ingrese su nombre' type="text" /> 
+            <input onChange={null} name='email' class='p-1.5 rounded bg-upfc-gray placeholder:font-light text-white' placeholder='Ingrese su email' type="text" />
+            <select onChange={null} class='p-1.5 rounded bg-upfc-gray placeholder:font-light text-white' name="type" id="">
+            <option value='0'>Tipo de usuario...</option>
+                <% for(i = 0; i < userCategory.length; i++) {%>
+                    <option value="<%= userCategory[i].id %>">
+                    <%= userCategory[i].user_category %>
+                    </option>
+                <% } %>
+            </select>
+            <input onChange={null} name='eth' class='p-1.5 rounded bg-upfc-gray placeholder:font-light text-white' placeholder='Ingrese su direccion ETH' type="text" />
+            <input onChange={null} name='password' class='p-1.5 rounded bg-upfc-gray placeholder:font-light text-white' placeholder='Ingrese su contraseña' type="password" />
+            <input class='p-1.5 rounded bg-upfc-gray placeholder:font-light text-white' placeholder='Confirme su contraseña' type="password" />
+        </div>
+        <button class='bg-upfc-lime text-black rounded py-1.5 bg-opacity-90'>Registrarme</button>
+        <div class='text-lg font-thin'>
+            <span>¿Ya tenés una cuenta?</span>
+            <a href="/users/login" class='mx-2 text-upfc-lime'>Ingresa</a>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class='hidden md:block absolute right-0 bottom-0 top-24 overflow-hidden'>
+    <UpfcLogoAlt />
+    </div>
+</main>
+<!-- <%- include("../partials/footer") %> -->

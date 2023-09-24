@@ -26,7 +26,7 @@ const controller = {
     const user = decodedToken.user_id
     const submitedDetails = await Users.getDetails(user);
     if (!api) {
-      return res.render('enterprise/details', { user, submitedDetails });
+      return res.render('enterprise/n-details', { user, submitedDetails });
     }
     return res.json([user, submitedDetails]);
   },
@@ -59,6 +59,7 @@ const controller = {
   mintingRequestDetail: async (req, res) => {
     const api = req.params.api || false;
     const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
+    console.log('jiji', token)
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const userCategory = decodedToken.userCategory
     let mintingRequestId;
@@ -82,6 +83,7 @@ const controller = {
           impactApproach
         });
     }
+    console.log('jjejeje')
     return res.json([
       unplastifiedItems,
       mintingRequest,
@@ -107,7 +109,7 @@ const controller = {
     const productMeasurementUnit = await Unplastified_item.listProductMeasurementUnit();
     const impactApproach = await Unplastified_item.listImpactApproach();
     if (!api) {
-      return res.render('enterprise/unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach, minting_request_id: req.params.idMintingRequest });
+      return res.render('enterprise/n-unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach, minting_request_id: req.params.idMintingRequest });
     }
     return res.json([plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach]);
   },

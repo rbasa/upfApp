@@ -7,9 +7,9 @@ const controller = {
   login: (req, res) => {
     const api = req.params.api || false;
     if (!api) {
-      return res.render('users/login');
+      return res.render('users/n-login');
     }
-    return res.render('users/login');
+    return res.render('users/n-login');
   },
   redirectUser: (req, res) => {
     const api = req.params.api || false;
@@ -113,7 +113,7 @@ const controller = {
     const api = req.params.api || false;
     const userCategory = await Users.listCategory();
     if (!api) {
-      return res.render('users/register', { userCategory });
+      return res.render('users/n-register', { userCategory });
     }
     return res.json([userCategory]);
 
@@ -124,7 +124,7 @@ const controller = {
     if (userInDB) {
       const userCategory = await Users.listCategory();
       if (!api) {
-        return res.render('users/register', {
+        return res.render('users/n-register', {
           userCategory,
           errors: {
             email: {
