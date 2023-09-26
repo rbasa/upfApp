@@ -1,74 +1,72 @@
 <%- include("./../partials/head") %>
-<body>
+<!-- <body> -->
 <%- include("./../partials/navbar")%>
-  <main>
+  <div class="min-h-[calc(100vh-6rem)] bg-upfc-blue p-12">
   <% if (!enterpriseLogged.registered) { %>
-        <!-- Success Alert -->
-        <div class="alert alert-success alert-dismissible fade show">
+      <div class="flex flex-col w-full items-center">
+        <!-- <div class="w-full">
           <strong>Account properly registered.</strong>You are all set to start minting UPF!
-        </div>
-        <div class="card-body py-5 px-md-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-lg-8">
-              <form action="/enterprise/newMintingRequest" method="POST">
-                <div class="form-outline mb-4">
-                  <% if (errorMessages && errorMessages.length > 0) { %>
-                    <div class="alert alert-danger">
-                      <p><%= errorMessages[0].name.msg %></p>
-                    </div>
-                  <% } %>
-                  <input name="name" type="text" class="form-control" />
-                  <label class="form-label" for="sku">New minting request name</label>
-                </div>
-                <input type="submit" class="btn btn-outline-dark flex-shrink-0" value="Start you minting request aplication"></input>
-              </form>
+        </div> -->
+
+        <form action="/enterprise/newMintingRequest" method="POST" class='flex flex-col gap-y-8 w-1/3 bg-black bg-opacity-25 rounded-xl px-12 py-8'>
+          <!-- {/* <span class='text-3xl font-medium'>Gracias por registrarse. Todo listo para aplicar a certificar UPFC</span> */} -->
+          <div class='flex flex-col w-full items-center'>
+            <span class='text-xl mb-4 text-white'>Nueva Aplicacion de Certificacion UPFC</span>
+            <input name="name" type="text" class='p-1.5 rounded-xl bg-input-gray placeholder:font-light placeholder:text-black text-white focus:outline-none w-full' placeholder='Name' />
+          </div>
+          <% if (errorMessages && errorMessages.length > 0) { %>
+            <div class="text-sm text-red-600 font-thin">
+              <p><%= errorMessages[0].name.msg %></p>
+            </div>
+          <% } %>
+          <button type="submit" class='bg-upfc-lime rounded-xl text-black py-1.5'>Postula el Caso a Certificar</button>
+        </form>
+      </div>
+      
+      <% if (userCategory == 2) { %>
+          <span class="text-3xl font-medium">Your minting requests</span>
+        <% } else{%>
+          <span class="text-3xl font-medium">Minting requests</span>
+      <% } %>
+      <div class='flex grid grid-cols-4 gap-x-12 mt-4 gap-y-12'>
+        <% if(openMintingRequests.length>0) { %>
+          <%-  include("./requests") %>
+        <% } %>
+      </div>
+
+      <% } else if(!submitedDetails){ %>
+        <div class="flex gap-x-12 text-white">
+          <div class="flex flex-col w-1/2 justify-center items-center">
+            <div class='flex flex-col gap-y-8 w-[58%] mb-16'>
+              <span class='text-4xl font-medium'>¡GRACIAS POR REGISTRARTE!</span>
+              <span class="font-thin tracking-wider">
+                YA ESTÁS MÁS CERCA DE TU CERTIFICACIÓN.
+                AHORA TENÉS QUE COMPLETAR EL REGISTRO DE TU EMPRESA
+              </span>
+              <a href="/enterprise/details" class='text-lg text-black bg-upfc-lime rounded py-1.5 text-center'>Completar registro</a>
             </div>
           </div>
-        </div>
-      <% } else if(!submitedDetails){ %>
-        <!-- Error Alert -->
-        <div class="alert alert-danger alert-dismissible fade show">
-          <strong>Account details missing.</strong> Please complete you enterprise information <a href="/enterprise/details">here</a>
+          <div class="w-1/2 overflow-hidden max-h-[calc(100vh-6rem)]">
+            <img class="-mr-48 -mb-48 mt-24" src="/images/upfc-bg-logo.png" alt="Sample image">
+          </div>
         </div>
       <% } else { %>
-        <!-- Info Alert -->
-        <div class="alert alert-info alert-dismissible fade show">
-          <strong>Account details submited!</strong> Please wait untill unplastify process your data
+        <div class="flex gap-x-12 text-white">
+          <div class="flex flex-col w-1/2 justify-center items-center">
+            <div class='flex flex-col gap-y-8 w-[58%] mb-16'>
+              <span class='text-4xl font-medium'>¡GRACIAS POR REGISTRARTE!</span>
+              <span class="font-thin tracking-wider">
+                RECIBIRAS UN MAIL CONFIRMANDO LA APROBACIÓN DE TU CUENTA
+              </span>
+            </div>
+          </div>
+          <div class="w-1/2 overflow-hidden max-h-[calc(100vh-6rem)]">
+            <img class="-mr-48 -mb-48 mt-24" src="/images/upfc-bg-logo.png" alt="Sample image">
+          </div>
         </div>
     <% } %>
-  <!-- Related items section-->
-  <% if(openMintingRequests.length>0) { %>
-    <%-  include("./requests") %>
-  <% } %>
-<!-- Product section-->
-  <section class="py-5">
-    <div class="container px-4 px-lg-5 my-5">
-      <div class="row gx-4 gx-lg-5 align-items-center">
-        <div class="col-md-6">
-        <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
-      </div>
-        <div class="col-md-6">
-          <div class="small mb-1">SKU: BST-498</div>
-          <h1 class="display-5 fw-bolder">Shop item template</h1>
-          <div class="fs-5 mb-5">
-            <span class="text-decoration-line-through">$45.00</span>
-            <span>$40.00</span>
-          </div>
-          <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-          <div class="d-flex">
-            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-              <i class="bi-cart-fill me-1"></i>
-              Add to cart
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+</div>
 
-  </main>
-
-  <%-include("./../partials/footer")%>
-</body>
-</html>
+  <!-- <%-include("./../partials/footer")%> -->
+<!-- </body> -->
+<!-- </html> -->

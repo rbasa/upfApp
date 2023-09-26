@@ -1,26 +1,42 @@
 <%- include("../partials/head") %>
 <%- include("../partials/navbar") %>
 <!-- Section: Design Block -->
-<section class="text-center">
+<section class="flex items-center justify-center text-center bg-upfc-blue">
+  <script>
+    function goBack() {
+      window.history.back(); // This will go back one step in the browser history
+    }
+  </script>
   <!-- Background image -->
-  <div class="p-5 bg-image" style="
-    background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
-    height: 300px;
-    ">
-  </div>
-  <!-- Background image -->
-
-  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
-    margin-top: -100px;
-    background: hsla(0, 0%, 100%, 0.8);
-    backdrop-filter: blur(30px);
-  ">
-    <div class="card-body py-5 px-md-5">
+  <div class="flex flex-col w-1/2 mb-16 mt-6">
+    <button onclick="goBack()" class="self-start text-white">< volver</button>
+    <div class="card-body py-5 px-md-5 bg-black bg-opacity-25 rounded">
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
-          <h2 class="fw-bold mb-5">Submit pertinent documentation to probe you've done an unplastify process</h2>
+          <h1></h1>
+          <h2 class="text-2xl text-white">Nuevo artículo desplastificado</h2>
+          <h2 class="text-base font-thin text-white mb-6">Cargue la documentacion correspondiente</h2>
           <form action="/enterprise/newUnplastifiedItem/<%= minting_request_id %>" method="POST" enctype="multipart/form-data">
             
+
+            <!-- Plastic Item -->
+            <div class="form-outline mb-4">
+              <input name ="plastic_item" type="text" class="form-control" placeholder="Nombre del producto desplastificado" />
+              <!-- <label class="form-label" for="plastic_item">Nombre del artículo plástico</label> -->
+            </div>
+            
+            <!-- Sku -->
+            <div class="form-outline mb-4">
+              <input name ="sku" type="text" class="form-control" placeholder="SKU/EAN" />
+              <!-- <label class="form-label" for="sku">SKU/EAN</label> -->
+            </div>
+
+            <!-- Implemented Change -->
+            <div class="form-outline mb-4">
+              <input name ="implemented_change" type="text" class="form-control" placeholder="Describa el cambio implementado" />
+              <!-- <label class="form-label" for="plastic_item">Describe the implemented change</label> -->
+            </div>
+
             <!-- Before pic inpmut -->
             <div class="input-group">
               <div class="input-group-prepend">
@@ -29,10 +45,10 @@
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
                 aria-describedby="inputGroupFileAddon01" name="before_pic" multiple >
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
-            <label class="form-label" for="customFileLang">Upload a picture showing the before situation</label>
+            <label class="form-label" for="customFileLang">Suba una imágen mostrando la situación previa</label>
 
             <!-- After pic inpmut -->
             <div class="input-group">
@@ -42,10 +58,10 @@
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
                 aria-describedby="inputGroupFileAddon01" name="after_pic" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
-            <label class="form-label" for="customFileLang">Upload a picture showing the after situation</label>
+            <label class="form-label" for="customFileLang">Suba una imágen mostrando la situación posterior</label>
 
             <!-- Video inpmut -->
             <div class="input-group">
@@ -55,10 +71,10 @@
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
                 aria-describedby="inputGroupFileAddon01" name="video" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
-            <label class="form-label" for="customFileLang">Upload a video showing the unplastify process</label>
+            <label class="form-label" for="customFileLang">Suba un video mostrando su proceso de desplastificación</label>
 
             <!-- Technical inpmut -->
             <div class="input-group">
@@ -68,10 +84,10 @@
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
                 aria-describedby="inputGroupFileAddon01" name="technical_file" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
-            <label class="form-label" for="customFileLang">Upload the technical file</label>
+            <label class="form-label" for="customFileLang">Suba la ficha técnica</label>
 
             <!-- Additional Documents inpmut -->
             <div class="input-group">
@@ -81,88 +97,70 @@
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
                 aria-describedby="inputGroupFileAddon01" name="additional_documents" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
-            <label class="form-label" for="customFileLang">Upload additional pics if necesary</label>
-            
-            <!-- Sku -->
-            <div class="form-outline mb-4">
-              <input name ="sku" type="text" class="form-control" />
-              <label class="form-label" for="sku">SKU/EAN</label>
-            </div>
-
-            <!-- Plastic Item -->
-            <div class="form-outline mb-4">
-              <input name ="plastic_item" type="text" class="form-control" />
-              <label class="form-label" for="plastic_item">Plastic Item</label>
-            </div>
-
-            <!-- Implemented Change -->
-            <div class="form-outline mb-4">
-              <input name ="implemented_change" type="text" class="form-control" />
-              <label class="form-label" for="plastic_item">Describe the implemented change</label>
-            </div>
+            <label class="form-label" for="customFileLang">Suba archivos adicionales si es necesario</label>
 
             <!-- Implementation date -->
-            <div class="form-outline mb-4">
+            <div class="form-outline">
               <input name ="implementation_date" type="date" class="form-control" />
-              <label class="form-label" for="implementation_date">Implementation date</label>
             </div>
+            <label class="form-label mb-4" for="implementation_date">Fecha de implementación</label>
 
             <!-- Before Plastic item -->
-            <select name ="id_plastic_item_before" class="form-select mb-4" aria-label="Default select example">
+            <select name ="id_plastic_item_before" class="form-select" aria-label="Default select example">
               <% plasticItem.forEach( e => { %>
                 <option value="<%= e.id_plastic_item %>">
                   <%= e.plastic_item %> 
                 </option>
               <% }) %>
             </select>
-            <label class="form-label" for="plastic-item-before">Select the previous plastic item</label>
+            <label class="form-label" for="plastic-item-before mb-4">Selecciona el plástico previo</label>
             
             <!-- Alternative plastic item -->
-            <select name ="id_plastic_item_after" class="form-select mb-4" aria-label="Default select example">
+            <select name ="id_plastic_item_after" class="form-select" aria-label="Default select example">
               <% alternativePlasticItem.forEach( e => { %>
                 <option value="<%= e.id_alternative_plastic_item %>">
                   <%= e.alternative_plastic_item %> 
                 </option>
               <% }) %>
             </select>
-            <label class="form-label" for="plastic_item_before">Select the alternative plastic item chosen</label>
+            <label class="form-label" for="plastic_item_before mb-4">Selecciona la alternativa elegida</label>
 
             <!-- Impact approach -->
-            <select name ="impact_approach" class="form-select mb-4" aria-label="Default select example">
+            <select name ="impact_approach" class="form-select" aria-label="Default select example">
               <% impactApproach.forEach( e => { %>
                 <option value="<%= e.id_impact_approach %>">
                   <%= e.impact_approach %> 
                 </option>
               <% }) %>
             </select>
-            <label class="form-label" for="plastic-item-before">Select the impact approach</label>
+            <label class="form-label" for="plastic-item-before mb-4">Selecciona el area de impacto</label>
 
             <!-- Product measurement unit -->
-            <select name ="id_product_measurement_unit" class="form-select mb-4" aria-label="Default select example">
+            <select name ="id_product_measurement_unit" class="form-select" aria-label="Default select example">
               <% productMeasurementUnit.forEach( e => { %>
                 <option value="<%= e.id_product_measurement_unit %>">
                   <%= e.measurement_unit %> 
                 </option>
               <% }) %>
             </select>
-            <label class="form-label" for="plastic-item-before">Select product measurement</label>
+            <label class="form-label" for="plastic-item-before mb-4">Select la unidad de medida</label>
 
             <!-- Impact approach quantity -->
-            <div class="form-outline mb-4">
+            <div class="form-outline">
               <input name ="impact_approach_quantity" type="number" class="form-control" />
-              <label class="form-label" for="impact_approach_quantity">Impact approach quantity</label>
             </div>
+            <label class="form-label" for="impact_approach_quantity mb-4">Cantidad de impacto ??</label>
 
             <!-- Submit button -->
-            <input type="submit" class="btn btn-primary btn-block mb-4" value="submit">Submit</input>
+            <button type="submit" class="bg-upfc-lime rounded py-2 text-black w-full mt-8" value="submit">Submit</button>
           
           </form>
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </section>
-<%- include("../partials/footer") %>
+<!-- <%- include("../partials/footer") %> -->

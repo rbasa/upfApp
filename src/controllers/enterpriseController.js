@@ -26,7 +26,7 @@ const controller = {
     const user = decodedToken.user_id
     const submitedDetails = await Users.getDetails(user);
     if (!api) {
-      return res.render('enterprise/n-details', { user, submitedDetails });
+      return res.render('enterprise/details', { user, submitedDetails });
     }
     return res.json([user, submitedDetails]);
   },
@@ -109,7 +109,7 @@ const controller = {
     const productMeasurementUnit = await Unplastified_item.listProductMeasurementUnit();
     const impactApproach = await Unplastified_item.listImpactApproach();
     if (!api) {
-      return res.render('enterprise/n-unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach, minting_request_id: req.params.idMintingRequest });
+      return res.render('enterprise/unplastifiedItem', { plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach, minting_request_id: req.params.idMintingRequest });
     }
     return res.json([plasticItem, productMeasurementUnit, alternativePlasticItem, impactApproach]);
   },
