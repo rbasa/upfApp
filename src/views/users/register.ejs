@@ -1,93 +1,75 @@
 <%- include("../partials/head") %> <%- include("../partials/navbar") %>
-<!-- Section: Design Block -->
-<section class="text-center">
-  <!-- Background image -->
-  <div
-    class="p-5 bg-image"
-    style="
-      background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
-      height: 300px;
-    "
-  ></div>
-  <!-- Background image -->
+  <div class="flex min-h-[calc(100vh-6rem)] bg-upfc-blue">
+    <div class="flex flex-col w-1/2 items-center justify-center mb-12">
+      <!-- <div class="row d-flex justify-content-center"> -->
+        <div class="w-1/2">
+          <h2 class="mb-4 text-white">REGISTRATE</h2>
+          <form class="flex flex-col gap-y-3" method="POST" action="/users/register">
 
-  <div
-    class="card mx-4 mx-md-5 shadow-5-strong"
-    style="
-      margin-top: -100px;
-      background: hsla(0, 0%, 100%, 0.8);
-      backdrop-filter: blur(30px);
-    "
-  >
-    <div class="card-body py-5 px-md-5">
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-8">
-          <h2 class="fw-bold mb-5">Sign up now</h2>
-          <form method="POST" action="/users/register">
             <!-- Name inpmut -->
-            <div class="form-outline mb-4">
+            <!-- <div class=""> -->
               <input
                 name="name"
                 type="text"
                 id="form3Example1"
-                class="form-control"
+                class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
+                placeholder="Nombre"
               />
-              <label class="form-label" for="form3Example1">Name</label>
-            </div>
+            <!-- </div> -->
             <% if (locals.errors && errors.email) { %>
             <div class="error"><%= errors.email.msg %></div>
             <% } %>
+
             <!-- Email input -->
-            <div class="form-outline mb-4">
+            <!-- <div class=""> -->
               <input
                 name="email"
                 type="email"
                 id="form3Example3"
-                class="form-control"
+                class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
+                placeholder="Email"
               />
-              <label class="form-label" for="form3Example3"
-                >Email address</label
-              >
-            </div>
+            <!-- </div> -->
 
             <!-- ETH Address input -->
-            <div class="form-outline mb-4">
+            <!-- <div class=""> -->
               <input
                 type="text"
                 name="address"
                 id="form3Example1"
-                class="form-control"
+                class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
+                placeholder="ETH address"
               />
-              <label class="form-label" for="form3Example1">ETH Address</label>
-            </div>
+            <!-- </div> -->
 
             <!-- Select User Category-->
             <select
               name="category"
-              class="form-select mb-4"
+              class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
+              placeholder="Tipo de usuario"
               aria-label="Default select example"
             >
+              <option value='0'>Tipo de usuario...</option>
               <% for(i = 0; i < userCategory.length; i++) {%>
               <option value="<%= userCategory[i].id %>">
                 <%= userCategory[i].user_category %>
               </option>
               <% } %>
             </select>
-            <label class="form-label" for="form3Example3">Condition</label>
 
             <!-- Password input -->
-            <div class="form-outline mb-4">
+            <!-- <div class=""> -->
               <input
                 name="password"
                 type="password"
                 id="form3Example4"
-                class="form-control"
+                class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
+                placeholder="contraseña"
               />
-              <label class="form-label" for="form3Example4">Password</label>
-            </div>
+            <!-- </div> -->
 
             <!-- Newsletter Checkbox -->
-            <div class="form-check d-flex justify-content-center mb-4">
+            <!-- <div class="form-check d-flex justify-content-center mb-4">
               <input
                 name="suscription"
                 class="form-check-input me-2"
@@ -98,20 +80,22 @@
               <label class="form-check-label" for="form2Example33">
                 Subscribe to our newsletter
               </label>
-            </div>
+            </div> -->
 
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4">
-              Sign up
+            <button type="submit" class="bg-upfc-lime rounded py-2 text-black w-full my-3">
+              Registrarme
             </button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">
-              Already member?
-              <a href="/users/login" class="link-danger">Log in</a>
+            <p class="text-sm text-white">
+              ¿Ya tenés una cuenta?
+              <a href="/users/login" class="text-upfc-lime font-light">Ingresá</a>
             </p>
           </form>
         </div>
-      </div>
+      <!-- </div> -->
+    </div>
+    <div class="w-1/2 overflow-hidden max-h-[calc(100vh-6rem)]">
+      <img class="-mr-48 -mb-48 mt-24" src="/images/upfc-bg-logo.png" alt="Sample image">
     </div>
   </div>
-</section>
-<%- include("../partials/footer") %>
+<!-- <%- include("../partials/footer") %> -->

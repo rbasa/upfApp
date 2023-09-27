@@ -1,36 +1,17 @@
-<nav class="navbar navbar-expand-lg">
-  <div class="container px-4 px-lg-5">
-    <a class="navbar-brand" href="/">
-      <img class="logo-principal" src="/images/upfc+logo+text.png" alt="unplastify logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/users/redirectUser">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#!">About</a>
-        </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="">Popular Items</a></li>
-            <li><a class="dropdown-item" href="">New Arrivals</a></li>
-          </ul>
-        </li> -->
-
-      </ul>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 d-flex">
-        <% if (locals.isLogged) { %>
-          <li><a class="nav-link" href="/users/redirectUser"><%= locals.userLogged.name %> </a></li>
-          <li><a class="nav-link" href="/users/logout">Log out</a></li>
-      <% } else { %>
-          <li><a class="nav-link" href="/users/login">Log in</a></li>
+<div class='flex items-center justify-between px-4 w-full h-[6rem] z-10 bg-upfc-blue text-white'>
+  <a href="/users/redirectUser" class='flex w-fit mx-6 cursor-pointer w-fit'>
+    <img class="h-10" src="/images/upfc+logo+text.png" alt="unplastify logo">
+  </a>
+  <div class='hidden md:flex gap-x-24 md:mr-12 font-extralight text-lg'>
+    <button class='hover:text-upfc-lime'>UPFC</button>
+    <button class='whitespace-nowrap hover:text-upfc-lime'>Quienes Somos</button>
+    <button class='hover:text-upfc-lime'>
+      <% if (locals.isLogged) { %>
+        <div><a href="/users/redirectUser"><%= locals.userLogged.name %> </a></div>
+        <div><a href="/users/logout">Cerrar Sesion</a></div>
+        <% } else { %>
+          <div><a href="/users/login">Ingresar</a></div>
       <% } %>
-      </ul>
-    </div>
+    </button>
   </div>
-</nav>
+</div>

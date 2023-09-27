@@ -1,7 +1,8 @@
 let secrets;
 
 try {
-  secrets = process.env.REMOTEDB ? require('../../secrets.json') : require('../../localDb.json');
+  // secrets = process.env.REMOTEDB ? require('../../secrets.json') : require('../../localDb.json');
+  secrets = true ? require('../../secrets.json') : require('../../localDb.json');
 } catch (error) {
   secrets = {};
 }
