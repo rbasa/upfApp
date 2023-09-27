@@ -2,14 +2,9 @@
 <%- include("../partials/navbar") %>
 <!-- Section: Design Block -->
 <section class="flex items-center justify-center text-center bg-upfc-blue">
-  <script>
-    function goBack() {
-      window.history.back(); // This will go back one step in the browser history
-    }
-  </script>
   <!-- Background image -->
   <div class="flex flex-col w-1/2 mb-16 mt-6">
-    <button onclick="goBack()" class="self-start text-white">< volver</button>
+    <a href="<%= `/enterprise/mintingRequest/${minting_request_id}` %>" class="self-start text-white">< volver</a>
     <div class="card-body py-5 px-md-5 bg-black bg-opacity-25 rounded">
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
