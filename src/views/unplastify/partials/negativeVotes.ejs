@@ -1,0 +1,40 @@
+<div class="col-xl-12 col-lg-12">
+  <div class="card shadow mb-4">
+    <!-- Card Header - Dropdown -->
+    <div
+      class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+      <h6 class="m-0 font-weight-bold text-primary">Negative Validation Votes</h6>      
+    </div>
+    <!-- Card Body -->
+
+      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
+          
+            <% if(negativeVotes.length==0){ %>
+              <td>
+                <%= 'There are no Negative Votes' %> 
+              </td>
+            <% } else {%>
+              <thead>
+                <tr>
+                  <th scope="col">Enterprise</th>
+                  <th scope="col">Minting Request</th>
+                  <th scope="col">Negative Votes</th>
+                  <th scope="col">Positive Votes</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% negativeVotes.forEach(e => {%> 
+                <tr>
+                  <td><%= e.enterprise %></td>
+                  <td><a href="/enterprise/mintingRequest/<%= e.minting_request_id %>"><%= e.minting_request %></a></td>
+                  <td><%= e.negative_votes %></td>
+                  <td><%= e.approved_votes %></td>
+                </tr>
+              <%}); %> 
+            </tbody>
+            <% } %>
+        </table>
+      </div>
+  </div>
+</div>
