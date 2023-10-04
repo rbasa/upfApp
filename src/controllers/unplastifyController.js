@@ -55,31 +55,6 @@ const controller = {
     }
     return res.redirect('/unplastify/home/api');
   },
-  selectRandomValidators: async (count) => {
-    const api = req.params.api || false;
-    const allValidators = await Users.listUserByCategory('validator')
-    const totalValidators = allValidators.length;
-    const selectedValidators = [];
-
-    if (count >= totalValidators) {
-      // Add all validators to the selected list
-      allValidators.forEach(validator => {
-        selectedValidators.push(validator.user_id);
-      });
-    } else {
-      // Randomly select 'count' number of validators
-      while (selectedValidators.length < count) {
-        const randomIndex = Math.floor(Math.random() * totalValidators);
-        const randomValidator = allValidators[randomIndex];
-
-        if (!selectedValidators.includes(randomValidator.user_id)) {
-          selectedValidators.push(randomValidator.user_id);
-        }
-      }
-    }
-    //unfinished method
-    return selectedValidators;
-  },
   assignMintingRequestToValidator: async (req, res) => {
     const api = req.params.api || false;
     // randomly assign validator
