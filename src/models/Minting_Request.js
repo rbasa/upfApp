@@ -224,6 +224,8 @@ const Minting_request = {
   listNegativeVotes: async () => {
     const query = `
       SELECT
+        a.name minting_request,
+        u.name enterprise,
         rejects.minting_request_id,
         COUNT(rejects.minting_request_id) AS negative_votes,
         COUNT(approves.minting_request_id) AS approved_votes
@@ -260,9 +262,17 @@ const Minting_request = {
             )
         ) AS approves
       ON
-          approves.minting_request_id = rejects.minting_request_id
+        approves.minting_request_id = rejects.minting_request_id
+      INNER JOIN
+        minting_request a
+      ON
+        rejects.minting_request_id = a.minting_request_id
+      INNER JOIN
+        user u
+      on
+        u.user_id = a.user_id
       GROUP BY
-          rejects.minting_request_id;
+        rejects.minting_request_id;
     `;
     return await db.sequelize.query(query);
   }
