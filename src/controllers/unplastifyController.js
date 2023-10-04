@@ -13,9 +13,10 @@ const controller = {
     const users = await Users.unregisteredList();
     const openMintingRequests = await Minting_request.findAllMintingRequest();
     const openMintingRequestsWithDetails = await Minting_request.findAllWithDetails();
+    const [ negativeVotes ] = await Minting_request.listNegativeVotes();
     const userCategory = decodedToken.userCategory;
     if (!api) {
-      return res.render('unplastify/upfDashboard', { users, openMintingRequests, openMintingRequestsWithDetails, userCategory });
+      return res.render('unplastify/upfDashboard', { users, openMintingRequests, openMintingRequestsWithDetails, userCategory, negativeVotes });
     }
     return res.json([users, openMintingRequests, openMintingRequestsWithDetails, userCategory]);
   },
