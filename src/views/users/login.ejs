@@ -2,47 +2,28 @@
 <body>
 <%-include("./../partials/navbar")%>
   <main class="min-h-[calc(100vh-6rem)] bg-upfc-blue">
-        <div class="flex flex-row-reverse gap-x-12">
-          <div class="w-1/2 overflow-hidden max-h-[calc(100vh-6rem)]">
-            <img class="-mr-48 -mb-48 mt-24" src="/images/upfc-bg-logo.png" alt="Sample image">
-          </div>
+        <div class="flex gap-x-12">
           <div class="flex w-1/2 items-center justify-center mb-24">
             <form class="flex flex-col gap-y-3 w-1/2" method="POST" action="/users/login">
-              <span class="self-start text-2xl text-white mb-2">INGRESÁ</span>
+              <span class="self-start text-2xl text-white mb-2">Ingresá</span>
               <% if (locals.errors && errors.login) { %>
                 <div class="error"><%= errors.login.msg %> </div>
               <% } %>
-              <!-- Email input -->
-              <!-- <div class=""> -->
-                <input type="email" id="form3Example3" class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
+                <input type="email" id="form3Example3" class="w-full focus:outline-none p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
                   placeholder="Ingrese su mail" name="email"/>
-                <!-- <label class="form-label" for="form3Example3">Email address</label> -->
-              <!-- </div> -->
-              
-              <!-- Password input -->
-              <!-- <div> -->
-                <input type="password" id="form3Example4" class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
+                <input type="password" id="form3Example4" class="w-full focus:outline-none p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
                   placeholder="Ingrese su contraseña" name="password"/>
-                <!-- <label class="form-label" for="form3Example4">Password</label> -->
-              <!-- </div> -->
-              <!-- <div class="d-flex justify-content-between align-items-center"> -->
-
-                <!-- Checkbox -->
-                <!-- <div class="form-check mb-0">
-                  <input name ="remember" class="form-check-input me-2" type="checkbox" value="on" id="form2Example3" />
-                  <label class="form-check-label" for="form2Example3">
-                    Remember me
-                  </label>
-                </div> -->
-
-                <!-- <a href="#!" class="text-sm text-white">Forgot password?</a> -->
-              <!-- </div> -->
               <div class="mt-3">
                 <button type="button submit" class="bg-upfc-lime rounded py-2 text-black w-full">Ingresar</button>
                 <p class="text-sm mt-3 text-white">¿Todavía no tenés una cuenta? <a href="/users/register"
                     class="text-upfc-lime">Registrate</a></p>
               </div>
             </form>
+        </div>
+        <div class="w-1/2 overflow-hidden max-h-[calc(100vh-6rem)]">
+          <div class="mt-12 -mr-24">
+            <img class="w-full" src="/images/upfc-bg-logo.png" alt="UPFC logo image">
+          </div>
         </div>
       </div>
   </main>

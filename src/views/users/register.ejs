@@ -1,13 +1,11 @@
 <%- include("../partials/head") %> <%- include("../partials/navbar") %>
   <div class="flex min-h-[calc(100vh-6rem)] bg-upfc-blue">
     <div class="flex flex-col w-1/2 items-center justify-center mb-12">
-      <!-- <div class="row d-flex justify-content-center"> -->
         <div class="w-1/2">
           <h2 class="mb-4 text-white">REGISTRATE</h2>
           <form class="flex flex-col gap-y-3" method="POST" action="/users/register">
 
             <!-- Name inpmut -->
-            <!-- <div class=""> -->
               <input
                 name="name"
                 type="text"
@@ -15,13 +13,11 @@
                 class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
                 placeholder="Nombre"
               />
-            <!-- </div> -->
             <% if (locals.errors && errors.email) { %>
             <div class="error"><%= errors.email.msg %></div>
             <% } %>
 
             <!-- Email input -->
-            <!-- <div class=""> -->
               <input
                 name="email"
                 type="email"
@@ -29,10 +25,8 @@
                 class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
                 placeholder="Email"
               />
-            <!-- </div> -->
 
             <!-- ETH Address input -->
-            <!-- <div class=""> -->
               <input
                 type="text"
                 name="address"
@@ -40,7 +34,6 @@
                 class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
                 placeholder="ETH address"
               />
-            <!-- </div> -->
 
             <!-- Select User Category-->
             <select
@@ -58,7 +51,6 @@
             </select>
 
             <!-- Password input -->
-            <!-- <div class=""> -->
               <input
                 name="password"
                 type="password"
@@ -66,7 +58,6 @@
                 class="w-full p-2 rounded bg-upfc-gray placeholder:font-light placeholder:text-base tracking-wider text-white"
                 placeholder="contraseña"
               />
-            <!-- </div> -->
 
             <!-- Newsletter Checkbox -->
             <!-- <div class="form-check d-flex justify-content-center mb-4">
@@ -92,10 +83,11 @@
             </p>
           </form>
         </div>
-      <!-- </div> -->
     </div>
     <div class="w-1/2 overflow-hidden max-h-[calc(100vh-6rem)]">
-      <img class="-mr-48 -mb-48 mt-24" src="/images/upfc-bg-logo.png" alt="Sample image">
+      <div class="mt-12 -mr-24">
+        <img class="w-full" src="/images/upfc-bg-logo.png" alt="UPFC logo image">
+      </div>
     </div>
   </div>
 <!-- <%- include("../partials/footer") %> -->

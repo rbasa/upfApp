@@ -59,7 +59,6 @@ const controller = {
   mintingRequestDetail: async (req, res) => {
     const api = req.params.api || false;
     const token = req.cookies?.token || req.headers?.authorization?.replace('Bearer ', ''); // Extract the token from the cookies
-    console.log('jiji', token)
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY_JWT);
     const userCategory = decodedToken.userCategory
     let mintingRequestId;
@@ -83,7 +82,6 @@ const controller = {
           impactApproach
         });
     }
-    console.log('jjejeje')
     return res.json([
       unplastifiedItems,
       mintingRequest,

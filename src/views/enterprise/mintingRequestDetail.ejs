@@ -1,171 +1,14 @@
 <%- include("../partials/head") %>
 <%- include("../partials/navbar") %>
-<!-- Section: Design Block -->
+
 <section class="flex items-center justify-center min-h-[calc(100vh-6rem)] bg-upfc-blue">
-  <!-- Background image -->
-  <!-- Background image -->
-  <% let progresion; %>
-<% switch (mintingRequest.minting_status.dataValues.status) {
-  case 'Created':
-    progresion = 10;
-    break;
-  case 'Submited':
-    progresion = 30;
-    break;
-  case 'Approved':
-    progresion = 60;
-    break;
-  case 'In Review':
-    progresion = 70;
-    break;
-  case 'Assign To Validator':
-    progresion = 80;
-    break;
-  case 'Completed':
-    progresion = 100;
-    break;
-  default:
-    progresion = 0;
-} %>
-  <!-- <div class="card mx-4 mx-md-5 shadow-5-strong" style="
-    margin-top: -100px;
-    background: hsla(0, 0%, 100%, 0.8);
-    backdrop-filter: blur(30px);
-  "> -->
-    <!-- <div class="flex items-center justify-center"> -->
-      <div class="w-1/3 mb-16">
-      <a href="/enterprise/home" class="text-white">< volverr</a>
-      <div class="flex flex-col w-full rounded-xl bg-black bg-opacity-25 text-white p-12 items-center">
-
-        <div class="flex flex-col items-center w-5/6">
-          <!-- <div class="col-lg-8"> -->
-            <h3 class="text-3xl font-medium">
-              <%= mintingRequest.name  %>
-            </h3>
-            <form class="w-full mt-2" action="<%=`/enterprise/changeMintingRequestName/${mintingRequest.minting_request_id}?_method=PUT`%>" method="POST">
-              <!-- <label class="text-sm">Change minting request name</label> -->
-              <div class="flex flex-col w-full items-center gap-y-2 mt-2">
-                <input name="newName" type="text" class="p-1 rounded focus:outline-none text-black w-full" placeholder="new name..." />
-                <input type="submit" class="btn btn-secondary btn-block mb-4" value="Change name"></input>
-              </div>
-            </form>
-            <% if(unplastifiedItems.length>0){ %>
-              <!-- <div class="table-wrapper-scroll-y my-custom-scrollbar"> -->
-                <!-- <table class="table table-bordered table-striped mb-0"> -->
-                  <!-- <thead> -->
-                    <!-- <tr>
-                      <th scope="col">Plastic Item</th>
-                      <th>SKU</th>
-                      <th>Details</th>
-                      <% if (userCategory !== 'validator' && mintingRequest.minting_status.dataValues.status !== 'Submited' && mintingRequest.minting_status.dataValues.status !== 'In Review') { %>
-                        <th>Edit</th>
-                      <% } %>
-                    </tr> -->
-                  <!-- </thead> -->
-                  <!-- <tbody> -->
-                    <div class="flex flex-col w-full justify-between gap-x-4   mb-3 p-2 rounded border">
-                      <% unplastifiedItems.forEach(e=>{ %>
-                        <!-- <tr> -->
-                          <div class="flex justify-between">
-                            <span class="w-1/3">
-                              <% if (e.dataValues.plastic_item.length > 14) { %>
-                                <%= e.dataValues.plastic_item.slice(0, 12) + '...' %>
-                              <% } else { %>
-                                <%= e.dataValues.plastic_item %>
-                              <% } %>
-                            </span>
-                            <span class="w-1/4">
-                              <%= e.dataValues.sku %>
-                            </span>
-                            <!-- <div> -->
-                              <button type="button" class="w-1/8 hover:text-upfc-lime" data-toggle="modal" data-target="<%= `.editmodal-${e.dataValues.unplastified_item_id}`%>">
-                                Details
-                              </button>
-                            <!-- </div> -->
-                            <% if (userCategory !== 'validator' && mintingRequest.minting_status.dataValues.status !== 'Submited'&& mintingRequest.minting_status.dataValues.status !== 'In Review') { %>
-                              <!-- <div> -->
-                                <button type="button" class="w-1/8 hover:text-upfc-lime" data-toggle="modal" data-target="<%= `.editmodal-${e.dataValues.unplastified_item_id}`%>">
-                                  Edit
-                                </button>
-                              <!-- </div> -->
-                              <% } %>
-                          </div>
-                        <!-- </tr> -->
-                      <% }) %> 
-                    </div>
-                <!-- </tbody> -->
-                <!-- </table> -->
-              <!-- </div> -->
-            <% } else {%>
-              <!-- Please add unplastified items to continue  -->
-            <% } %> 
-              <!-- <br> -->
-              <% if (mintingRequest.minting_status.dataValues.status === 'Created') { %>
-                <form class="w-full" action="<%= `/enterprise/addUnplastifiedItem/${mintingRequest.minting_request_id}` %>" method="GET">
-                  <!-- Add an unplastified item -->
-                  <input type="submit" class="btn btn-secondary btn-block mb-4" value="Agrega un nuevo articulo desplastificado"></input>
-                </form>
-              <% } %>
-            <!-- Project Card Example -->
-            <div class="flex flex-col items-center w-full">
-              <!-- <div class="card-header py-3"> -->
-                <h6 class="font-light text-lg">Estado</h6>
-              <!-- </div> -->
-              <div class="w-full">
-                <!-- <h4 class="small font-weight-bold"> -->
-                  <%= mintingRequest.minting_status.dataValues.status %>
-                  <span class="float-right">
-                    <%= progresion %>
-                  </span>
-                <!-- </h4> -->
-                <div class="progress mb-4">
-                  <!-- <div class="progress-bar bg-danger" role="progressbar" style="width: <%= progresion %>%"
-                      aria-valuenow="<%= progresion %>" aria-valuemin="0" aria-valuemax="100">
-                  </div> -->
-                </div>
-              </div>
-          </div>
-
-          <% if(!['Submited', 'Assign To Validator', 'Approved'].includes(mintingRequest.minting_status.dataValues.status)){%>
-            <form class="w-full" action="<%= `/enterprise/submitMintingRequest/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST" enctype="multipart/form-data">
-              <!-- Submit button -->
-              <input type="submit" class="bg-upfc-lime rounded-xl mt-3 py-2 text-black w-full" value="Postula el Caso a Certificar"></input>
-            </form>
-          <% } %>
-          <% if(userCategory=='unplastify' && mintingRequest.minting_status.dataValues.status != 'Assigned'){%>
-            <!-- Unplastify can assign to validator whenever -->
-              <input type="submit" class="btn btn-primary btn-block mb-4" data-toggle="modal" data-target=".modal-esteTarget" value="assign to validator">
-              </input>
-            <% } %>
-            <% if(userCategory=='unplastify' && mintingRequest.minting_status.dataValues.status != 'In Review'){%>
-              <!-- Unplastify can assign to validator whenever -->
-              <form action="<%= `/enterprise/inReview/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
-                <input type="submit" class="btn btn-primary btn-block mb-4" value="In Review"></input>
-              </form>
-            <% } %>
-            <% if(userCategory=='validator' && mintingRequest.minting_status.dataValues.status != 'In Review'){%>
-              <!-- Unplastify can assign to validator whenever -->
-              <div class="flex w-full justify-between gap-x-1">
-                <form action="<%= `/validator/cancelAssigment/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
-                  <input type="submit" class="btn btn-warning btn-block mb-4" value="Cancel Assigment"></input>
-                </form>
-                <form action="<%= `/validator/vote/Rejected/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
-                  <input type="submit" class="btn btn-danger btn-block mb-4" value="Reject"></input>
-                </form>
-                <form action="<%= `/validator/vote/Approved/${mintingRequest.minting_request_id}?_method=PUT` %>" method="POST">
-                  <input type="submit" class="btn btn-primary btn-block mb-4" value="Validate"></input>
-                </form>
-              </div>
-            <% } %>
-          <!-- </div> -->
-        </div>
-        </div>
-    <!-- </div> -->
-  </div>
+  <% if(unplastifiedItems.length > 0){ %>
+    <%- include("./mintingRequestLarge")%>
+  <% } else { %>
+    <%- include("./mintingRequestSmall")%>
+  <% } %>
 </section>
 
-
- 
 <div class="w-1/2 flex flex-col bg-upfc-blue text-white hidden">
   <h5>
     Enter the amount of validator this minting request should be assign to
@@ -178,9 +21,7 @@
   </form>  
 </div>
 
-
-
-<!-- <%- include("../partials/chatRoom")%> -->
+<%- include("../partials/chatRoom")%>
 <%- include("./modals")%>
 <%- include("./editModal")%>
-<!-- <%- include("../partials/footer") %> -->
+<%- include("../partials/footer") %>

@@ -1,19 +1,23 @@
 <%- include("../partials/head") %>
 <%- include("../partials/navbar") %>
 <!-- Section: Design Block -->
-<section class="flex items-center justify-center text-center bg-upfc-blue">
-  <!-- Background image -->
-  <div class="flex flex-col w-1/2 mb-16 mt-6">
-    <a href="<%= `/enterprise/mintingRequest/${minting_request_id}` %>" class="self-start text-white">< volver</a>
+<body>
+  <section class="flex items-center justify-center text-center bg-upfc-blue">
+    <!-- Background image -->
+    <div class="flex flex-col w-1/2 mb-16 mt-6">
+      <a href="<%= `/enterprise/mintingRequest/${minting_request_id}` %>" class="flex gap-x-1 hover:text-black hover:no-underline items-center self-start text-white">
+        <%- include("../../public/svgs/back-arrow.svg") %>
+      <span class="mb-0.5 font-thin">Atrás</span>
+    </a>
     <div class="card-body py-5 px-md-5 bg-black bg-opacity-25 rounded">
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
           <h1></h1>
           <h2 class="text-2xl text-white">Nuevo artículo desplastificado</h2>
-          <h2 class="text-base font-thin text-white mb-6">Cargue la documentacion correspondiente</h2>
+          <h2 class="text-base font-thin text-white mb-6">Cargue la documentación correspondiente</h2>
           <form action="/enterprise/newUnplastifiedItem/<%= minting_request_id %>" method="POST" enctype="multipart/form-data">
             
-
+            
             <!-- Plastic Item -->
             <div class="form-outline mb-4">
               <input name ="plastic_item" type="text" class="form-control" placeholder="Nombre del producto desplastificado" />
@@ -25,7 +29,7 @@
               <input name ="sku" type="text" class="form-control" placeholder="SKU/EAN" />
               <!-- <label class="form-label" for="sku">SKU/EAN</label> -->
             </div>
-
+            
             <!-- Implemented Change -->
             <div class="form-outline mb-4">
               <input name ="implemented_change" type="text" class="form-control" placeholder="Describa el cambio implementado" />
@@ -39,12 +43,12 @@
               </div>
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
-                aria-describedby="inputGroupFileAddon01" name="before_pic" multiple >
-                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                aria-describedby="inputGroupFileAddon01" name="before_pic" id="previous" multiple >
+                <label class="previous custom-file-label" for="previous">Seleccionar archivoo</label>
               </div>
             </div>
             <label class="form-label" for="customFileLang">Suba una imágen mostrando la situación previa</label>
-
+            
             <!-- After pic inpmut -->
             <div class="input-group">
               <div class="input-group-prepend">
@@ -52,12 +56,12 @@
               </div>
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
-                aria-describedby="inputGroupFileAddon01" name="after_pic" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                aria-describedby="inputGroupFileAddon01" name="after_pic" id="after" multiple>
+                <label class="after custom-file-label" for="after">Seleccionar archivo</label>
               </div>
             </div>
             <label class="form-label" for="customFileLang">Suba una imágen mostrando la situación posterior</label>
-
+            
             <!-- Video inpmut -->
             <div class="input-group">
               <div class="input-group-prepend">
@@ -65,12 +69,12 @@
               </div>
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
-                aria-describedby="inputGroupFileAddon01" name="video" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                aria-describedby="inputGroupFileAddon01" name="video" id="process" multiple>
+                <label class="custom-file-label process" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
             <label class="form-label" for="customFileLang">Suba un video mostrando su proceso de desplastificación</label>
-
+            
             <!-- Technical inpmut -->
             <div class="input-group">
               <div class="input-group-prepend">
@@ -78,12 +82,12 @@
               </div>
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
-                aria-describedby="inputGroupFileAddon01" name="technical_file" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                aria-describedby="inputGroupFileAddon01" name="technical_file" id="technicalFile" multiple>
+                <label class="custom-file-label technicalFile" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
             <label class="form-label" for="customFileLang">Suba la ficha técnica</label>
-
+            
             <!-- Additional Documents inpmut -->
             <div class="input-group">
               <div class="input-group-prepend">
@@ -91,71 +95,138 @@
               </div>
               <div class="custom-file">
                 <input type="file" class="custom-file-input"
-                aria-describedby="inputGroupFileAddon01" name="additional_documents" multiple>
-                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                aria-describedby="inputGroupFileAddon01" name="additional_documents" id="additional" multiple>
+                <label class="custom-file-label additional" for="inputGroupFile01">Seleccionar archivo</label>
               </div>
             </div>
             <label class="form-label" for="customFileLang">Suba archivos adicionales si es necesario</label>
-
+            
             <!-- Implementation date -->
             <div class="form-outline">
               <input name ="implementation_date" type="date" class="form-control" />
             </div>
             <label class="form-label mb-4" for="implementation_date">Fecha de implementación</label>
-
+            
             <!-- Before Plastic item -->
             <select name ="id_plastic_item_before" class="form-select" aria-label="Default select example">
               <% plasticItem.forEach( e => { %>
                 <option value="<%= e.id_plastic_item %>">
                   <%= e.plastic_item %> 
                 </option>
-              <% }) %>
-            </select>
-            <label class="form-label" for="plastic-item-before mb-4">Selecciona el plástico previo</label>
-            
-            <!-- Alternative plastic item -->
-            <select name ="id_plastic_item_after" class="form-select" aria-label="Default select example">
+                <% }) %>
+              </select>
+              <label class="form-label" for="plastic-item-before mb-4">Seleccione el plástico previo</label>
+              
+              <!-- Alternative plastic item -->
+              <select name ="id_plastic_item_after" class="form-select" aria-label="Default select example">
               <% alternativePlasticItem.forEach( e => { %>
                 <option value="<%= e.id_alternative_plastic_item %>">
                   <%= e.alternative_plastic_item %> 
                 </option>
               <% }) %>
             </select>
-            <label class="form-label" for="plastic_item_before mb-4">Selecciona la alternativa elegida</label>
-
+            <label class="form-label" for="plastic_item_before mb-4">Seleccione la alternativa elegida</label>
+            
             <!-- Impact approach -->
             <select name ="impact_approach" class="form-select" aria-label="Default select example">
               <% impactApproach.forEach( e => { %>
                 <option value="<%= e.id_impact_approach %>">
                   <%= e.impact_approach %> 
                 </option>
-              <% }) %>
-            </select>
-            <label class="form-label" for="plastic-item-before mb-4">Selecciona el area de impacto</label>
-
-            <!-- Product measurement unit -->
-            <select name ="id_product_measurement_unit" class="form-select" aria-label="Default select example">
-              <% productMeasurementUnit.forEach( e => { %>
-                <option value="<%= e.id_product_measurement_unit %>">
-                  <%= e.measurement_unit %> 
-                </option>
-              <% }) %>
-            </select>
-            <label class="form-label" for="plastic-item-before mb-4">Select la unidad de medida</label>
-
-            <!-- Impact approach quantity -->
-            <div class="form-outline">
-              <input name ="impact_approach_quantity" type="number" class="form-control" />
+                <% }) %>
+              </select>
+              <label class="form-label" for="plastic-item-before mb-4">Seleccione el area de impacto</label>
+              
+              <!-- Product measurement unit -->
+              <select name ="id_product_measurement_unit" class="form-select" aria-label="Default select example">
+                <% productMeasurementUnit.forEach( e => { %>
+                  <option value="<%= e.id_product_measurement_unit %>">
+                    <%= e.measurement_unit %> 
+                  </option>
+                  <% }) %>
+                </select>
+                <label class="form-label" for="plastic-item-before mb-4">Seleccione la unidad de medida</label>
+                
+                <!-- Impact approach quantity -->
+                <div class="form-outline">
+                  <input name ="impact_approach_quantity" type="number" class="form-control" />
+                </div>
+                <label class="form-label" for="impact_approach_quantity mb-4">Cantidad de impacto ??</label>
+                
+                <!-- Submit button -->
+                <button type="submit" class="bg-upfc-lime rounded py-2 text-black w-full mt-8" value="submit">Submit</button>
+                
+              </form>
             </div>
-            <label class="form-label" for="impact_approach_quantity mb-4">Cantidad de impacto ??</label>
+          </div>
+    </div>
+    </div>
+  </section>
+</body>
 
-            <!-- Submit button -->
-            <button type="submit" class="bg-upfc-lime rounded py-2 text-black w-full mt-8" value="submit">Submit</button>
-          
-          </form>
-        </div>
-      </div>
-    </div>
-    </div>
-</section>
-<!-- <%- include("../partials/footer") %> -->
+
+<script>
+  // script para que se actualice el nombre del archivo en el label 
+  const fileInput = document.getElementById("previous");
+  const fileInput2 = document.getElementById("after");
+  const fileInput3 = document.getElementById("process");
+  const fileInput4 = document.getElementById("technicalFile");
+  const fileInput5 = document.getElementById("additional");
+
+  fileInput.addEventListener("change", function () {
+    const label = document.querySelector(".previous");
+    const files = this.files;
+    if (files.length > 0) {
+      label.textContent = files[0].name;
+    } else {
+      label.textContent = "Seleccionar archivo";
+    }
+  });
+
+  fileInput2.addEventListener("change", function () {
+    const label = document.querySelector(".after");
+    const files = this.files;
+
+    if (files.length > 0) {
+      label.textContent = files[0].name;
+    } else {
+      label.textContent = "Seleccionar archivo";
+    }
+  });
+
+  fileInput3.addEventListener("change", function () {
+    const label = document.querySelector(".process");
+    const files = this.files;
+
+    if (files.length > 0) {
+      label.textContent = files[0].name;
+    } else {
+      label.textContent = "Seleccionar archivo";
+    }
+  });
+
+  fileInput4.addEventListener("change", function () {
+    const label = document.querySelector(".technicalFile");
+    const files = this.files;
+
+    if (files.length > 0) {
+      label.textContent = files[0].name;
+    } else {
+      label.textContent = "Seleccionar archivo";
+    }
+  });
+
+  fileInput5.addEventListener("change", function () {
+    const label = document.querySelector(".additional");
+    const files = this.files;
+
+    if (files.length > 0) {
+      label.textContent = files[0].name;
+    } else {
+      label.textContent = "Seleccionar archivo";
+    }
+  });
+</script>
+
+  <%- include("../partials/footer") %>
+  
