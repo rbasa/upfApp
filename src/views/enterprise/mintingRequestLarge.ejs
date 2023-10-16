@@ -28,7 +28,6 @@
     <span class="mb-0.5 font-thin">Atrás</span>
   </a>
   <div class="flex flex-col w-full rounded-xl text-white p-12 items-center">
-
     <div class="flex flex-col items-center w-5/6">
         <h3 class="text-3xl font-medium">
           <%= mintingRequest.name  %>
@@ -40,46 +39,46 @@
           </div>
         </form>
         <% if(unplastifiedItems.length>0){ %>
-                <div class="flex flex-col w-full justify-between bg-upfc-gray mb-3 p-4 rounded-xl mt-2">
-                    <div class="flex w-full justify-between text-black mb-2">
-                        <span class="w-1/3">Articulo Desplastificado</span>
-                        <span class="w-1/4">SKU</span>
-                        <span class="w-1/5 text-right">Detalles</span>
-                        <span class="w-1/5 text-right">Editar</span>
-                    </div>
-                  <% unplastifiedItems.forEach(e=>{ %>
-                      <div class="flex justify-between w-full border-b border-gray-300 py-1.5">
-                        <span class="w-1/3">
-                          <% if (e.dataValues.plastic_item.length > 14) { %>
-                            <%= e.dataValues.plastic_item.slice(0, 12) + '...' %>
-                          <% } else { %>
-                            <%= e.dataValues.plastic_item %>
-                          <% } %>
-                        </span>
-                        <span class="w-1/4">
-                          <%= e.dataValues.sku %>
-                        </span>
-                        <div class="w-1/5 flex justify-end">
-                          <button type="button" class="px-2 py-0.5 rounded-lg text-black hover:text-upfc-lime bg-yellow-300" data-toggle="modal" data-target="<%= `.modal-${e.dataValues.unplastified_item_id}`%>">
-                            Detalles
-                          </button>
-                        </div>
-                        <% if (userCategory !== 'validator' && mintingRequest.minting_status.dataValues.status !== 'Submited'&& mintingRequest.minting_status.dataValues.status !== 'In Review') { %>
-                            <div class="w-1/5 flex justify-end">
-                                <button type="button" class="px-2 py-0.5 rounded-lg text-black hover:text-upfc-lime bg-upfc-blue2" data-toggle="modal" data-target="<%= `.editmodal-${e.dataValues.unplastified_item_id}`%>">
-                                    Editar
-                                </button>
-                          </div>
-                          <% } else { %>
-                            <div class="w-1/5 flex justify-end">
-                                <div class="px-2 py-0.5 cursor-default rounded-lg text-gray-400 opacity-50 hover:text-upfc-lime bg-gray-100" data-toggle="modal">
-                                    Editar
-                                </div>
-                            </div>
-                          <% } %>
-                      </div>
-                  <% }) %> 
+          <div class="flex flex-col w-full justify-between bg-upfc-gray mb-3 p-4 rounded-xl mt-2">
+            <div class="flex w-full justify-between text-black mb-2">
+              <span class="w-1/3">Articulo Desplastificado</span>
+              <span class="w-1/4">SKU</span>
+              <span class="w-1/5 text-right">Detalles</span>
+              <span class="w-1/5 text-right">Editar</span>
+            </div>
+            <% unplastifiedItems.forEach(e=>{ %>
+              <div class="flex justify-between w-full border-b border-gray-300 py-1.5">
+                <span class="w-1/3">
+                  <% if (e.dataValues.plastic_item.length > 14) { %>
+                    <%= e.dataValues.plastic_item.slice(0, 12) + '...' %>
+                  <% } else { %>
+                    <%= e.dataValues.plastic_item %>
+                  <% } %>
+                </span>
+                <span class="w-1/4">
+                  <%= e.dataValues.sku %>
+                </span>
+                <div class="w-1/5 flex justify-end">
+                  <button type="button" class="px-2 py-0.5 rounded-lg text-black hover:text-upfc-lime bg-yellow-300" data-toggle="modal" data-target="<%= `.modal-${e.dataValues.unplastified_item_id}`%>">
+                    Detalles
+                  </button>
                 </div>
+                <% if (userCategory !== 'validator' && mintingRequest.minting_status.dataValues.status !== 'Submited'&& mintingRequest.minting_status.dataValues.status !== 'In Review') { %>
+                  <div class="w-1/5 flex justify-end">
+                    <button type="button" class="px-2 py-0.5 rounded-lg text-black hover:text-upfc-lime bg-upfc-blue2" data-toggle="modal" data-target="<%= `.editmodal-${e.dataValues.unplastified_item_id}`%>">
+                      Editar
+                    </button>
+                  </div>
+                  <% } else { %>
+                    <div class="w-1/5 flex justify-end">
+                      <div class="px-2 py-0.5 cursor-default rounded-lg text-gray-400 opacity-50 hover:text-upfc-lime bg-gray-100" data-toggle="modal">
+                        Editar
+                      </div>
+                    </div>
+                  <% } %>
+              </div>
+            <% }) %> 
+          </div>
         <% } else {%>
           <!-- Please add unplastified items to continue  -->
         <% } %> 
@@ -91,15 +90,15 @@
           <% } %>
         <!-- Project Card Example -->
         <div class="flex flex-col items-center w-full mt-6">
-            <h6 class="font-light text-lg -mb-4">Estado</h6>
+          <h6 class="font-light text-lg -mb-4">Estado</h6>
           <div class="w-full">
-              <%= mintingRequest.minting_status.dataValues.status %>
-              <span class="float-right">
-                <%= progresion %>%
-              </span>
+            <%= mintingRequest.minting_status.dataValues.status %>
+            <span class="float-right">
+              <%= progresion %>%
+            </span>
             <div class="progress mb-4">
               <div class="bg-upfc-blue2" role="progressbar" style="width: <%= progresion %>%"
-                  aria-valuenow="<%= progresion %>" aria-valuemin="0" aria-valuemax="100">
+                aria-valuenow="<%= progresion %>" aria-valuemin="0" aria-valuemax="100">
               </div>
             </div>
           </div>
@@ -137,5 +136,5 @@
           </div>
         <% } %>
     </div>
-    </div>
+  </div>
 </div>
