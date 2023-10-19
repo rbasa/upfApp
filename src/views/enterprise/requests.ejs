@@ -8,7 +8,7 @@
                 <h4 class="text-sm mt-2"><%= e.enterpriseName %></h4>
             <% } %>
             <span class='text-xl font-medium mt-1'><%= e.name %></span>
-            <span class='font-medium text-sm bg-[#FBFF47] mt-2 p-1 rounded-lg text-black'><%= e.status %></span>
+            <span class='font-medium text-sm bg-[#FBFF47] mt-2 p-1 rounded-lg text-black'><%= e.status || e.status_id %></span>
             <a 
                 href="<%= `/enterprise/mintingRequest/${e.minting_request_id}` %>"
                 class='text-center hover:no-underline p-2 bg-upfc-lime rounded-lg mt-2 text-black w-full font-normal'>
