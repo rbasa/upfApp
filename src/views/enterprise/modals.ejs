@@ -1,11 +1,10 @@
 <!-- Modal -->
 <% unplastifiedItems.forEach(e=>{ %> 
-  <div class="modal bd-example-modal-lg <%= `modal-${e.dataValues.unplastified_item_id}`%>" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content p-8">
+      <div class="flex justify-center items-center fixed top-0 left-0 z-[1055] hidden w-full h-full overflow-x-hidden overflow-y-auto outline-0 mb-12 <%= `modal-${e.dataValues.unplastified_item_id}`%>">
+        <div class="flex flex-col gap-y-4 bg-upfc-gray rounded absolute w-[40%] left-[29%] m-4 p-8 top-0 text-white">
         <div class="modal-header">
           <h5 class="flex gap-x-1 gap-x-1">
-            <span>Plastic item:</span>
+            <span>Item Plástico:</span>
             <p class="font-light"><%= e.dataValues.plastic_item %></p>
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -13,36 +12,36 @@
           </button>
         </div>
         <div class="modal-body">
-          <h5 class="flex gap-x-1">
-            <label class="form-label" for="implemented_change">Implemented Change:</label>
+          <h6 class="flex gap-x-1">
+            <label class="form-label" for="implemented_change">Cambio implementado:</label>
             <p class="font-light"><%= e.dataValues.implemented_change %></p>
-          </h5>
-          <h5 class="flex gap-x-1">
-            <label class="form-label" for="sku">Sku:</label>
+          </h6>
+          <h6 class="flex gap-x-1">
+            <label class="form-label" for="sku">SKU:</label>
             <p class="font-light"><%= e.dataValues.sku %></p>
-          </h5>
-          <h5 class="flex gap-x-1">
-            <label class="form-label" for="implemented_change">Implementation date:</label>
+          </h6>
+          <h6 class="flex gap-x-1">
+            <label class="form-label" for="implemented_change">Fecha de implementación:</label>
             <p class="font-light"><%= e.dataValues.implementation_date %></p>
-          </h5>
-          <h5 class="flex gap-x-1">
-            <label class="form-label" for="implemented_change">Impact Approach:</label>
+          </h6>
+          <h6 class="flex gap-x-1">
+            <label class="form-label" for="implemented_change">Impacto deseado:</label>
             <p class="font-light"><%= e.dataValues.impact_approach.dataValues.impact_approach %></p>
-          </h5>
-          <h5 class="flex gap-x-1">
-            <label class="form-label" for="implemented_change">Measurement unit:</label>
+          </h6>
+          <h6 class="flex gap-x-1">
+            <label class="form-label" for="implemented_change">Unidad de medida:</label>
             <p class="font-light"><%= e.dataValues.id_product_measurement_unit %></p>
-          </h5>
-          <h5 class="flex gap-x-1">
-            <label class="form-label" for="implemented_change">Quantity:</label>
-            <p class="font-light"><%= e.dataValues.impact_approach_quantity %></p>
-          </h5>
+          </h6>
+          <h6 class="flex gap-x-1">
+            <label class="form-label" for="implemented_change">Cantidad:</label>
+            <p class="font-light"><%= parseInt(e.dataValues.impact_approach_quantity) %></p>
+          </h6>
         </div>
         <%
           const beforePicArray = JSON.parse(e.dataValues.before_pic);
           if (beforePicArray.length > 0) {
         %>
-          <h4>Before pics</h4>
+          <h6>Before pics</h6>
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <% if (beforePicArray.length > 1) { %>
               <ol class="carousel-indicators">
@@ -74,7 +73,7 @@
           const afterPicArray = JSON.parse(e.dataValues.after_pic);
           if (afterPicArray.length > 0) {
         %>
-          <h4>After pics</h4>
+          <h6>After pics</h6>
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <% if (afterPicArray.length > 1) { %>
               <ol class="carousel-indicators">
@@ -106,12 +105,12 @@
           const videoArray = JSON.parse(e.dataValues.video);
           if (videoArray.length > 0) {
         %>
-          <h4>Videos</h4>
+          <h6>Videos</h6>
           <div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Videos</h5>
+                  <h6 class="modal-title">Videos</h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -148,7 +147,7 @@
           const additionalDocs = JSON.parse(e.dataValues.additional_documents);
           if (additionalDocs.length > 0) {
         %>
-          <h4>Additional Documents</h4>
+          <h6>Additional Documents</h6>
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <% if (additionalDocs.length > 1) { %>
               <ol class="carousel-indicators">
@@ -201,7 +200,6 @@
               </form>
             </div>
         <% } %>
+        </div>
       </div>
-    </div>
-  </div>
 <% }) %>
