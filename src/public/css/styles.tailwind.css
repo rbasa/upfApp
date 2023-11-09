@@ -723,6 +723,12 @@ video {
 .w-full {
   width: 100%;
 }
+.w-24 {
+  width: 6rem;
+}
+.w-32 {
+  width: 8rem;
+}
 .cursor-default {
   cursor: default;
 }
@@ -790,6 +796,9 @@ video {
 }
 .gap-y-8 {
   row-gap: 2rem;
+}
+.gap-y-6 {
+  row-gap: 1.5rem;
 }
 .place-self-start {
   place-self: start;
@@ -984,6 +993,10 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 .pb-2 {
   padding-bottom: 0.5rem;

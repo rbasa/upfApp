@@ -1,8 +1,17 @@
 <%- include("../partials/head") %>
 <%-include("./../partials/navbar")%>
-<!-- hay que pasarle los minting request abiertos -->
-<%-//include("./../enterprise/mintingRequestDetail")%>
-<%-//include("./../enterprise/requests")%>
-<%- include("../enterprise/requests") %>
-<br>
+<div class="min-h-[calc(100vh-6rem)] bg-upfc-blue">
+    <div class="flex flex-col w-full items-center px-12 py-6 gap-y-6">
+        <span class="text-2xl tracking-wider">TABLERO VALIDADORES</span>
+        <div class="flex flex-col w-full gap-y-6">
+            <span class="text-white text-xl">CASOS ASIGNADOS</span>
+            <!-- hay que pasarle los minting request abiertos -->
+            <div class='flex grid grid-cols-4 gap-x-12 gap-y-12 w-full'>
+                <% if(openMintingRequests.length>0) { %>
+                    <%- include("../enterprise/requests") %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
 <%-include("./../partials/footer")%>
