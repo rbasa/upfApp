@@ -59,7 +59,7 @@ const Validator = {
         return result.map(validator => validator.user_id);
     }
   },
-  assignValidator: async function (minting_request_id, user_id) {
+  assignValidator: async function (minting_request_id, user) {
     await db.sequelize.query(
       `
       INSERT INTO validation_tracking (minting_request_id, user_id, validation_status_id)
@@ -72,8 +72,14 @@ const Validator = {
             status = 'Assigned'
         ));
       `,
-      { replacements: [minting_request_id, user_id] }
+      { replacements: [minting_request_id, user.user_id] }
     );
+    console.log('el error paso2')
+    console.log('el error paso2')
+    console.log('el error paso2')
+    console.log('el error paso2')
+    console.log('el error paso2')
+    console.log('el error paso2')
   },
   changeStatus: async function (minting_request_id, user_id, status) {
     await db.sequelize.query(
