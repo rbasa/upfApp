@@ -53,6 +53,7 @@ const Minting_request = {
       `
       select
         a.*,
+        b.status,
         c.name enterpriseName
       from
         minting_request a
