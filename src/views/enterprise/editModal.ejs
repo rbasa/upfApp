@@ -1,82 +1,84 @@
 <!-- Modal -->
 <% unplastifiedItems.forEach(e=>{ %> 
-  <div class="modal bd-example-modal-lg <%= `editmodal-${e.dataValues.unplastified_item_id}`%>" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <form action="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT`%>" method="POST" enctype="multipart/form-data">
-            <div class="modal-header">
-              <h5 class="modal-title">
-                <label class="form-label" for="plastic_item">Plastic Item</label>
-                <input type="text" name="plastic_item" value="<%= e.dataValues.plastic_item %>">
-              </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <h5>
-                <label class="form-label" for="implemented_change">Implemented Change</label>
-                <input type="text" name="implemented_change" value="<%= e.dataValues.implemented_change %>">
-              </h5>
-              <h5>
-                <label class="form-label" for="sku">Sku</label>
-                <input type="text" name="sku" value="<%= e.dataValues.sku %>">
-              </h5>
-              <h5>
-                <label class="form-label" for="implemented_date">Implementation date</label>
-                <input type="date" name="implementation_date" value="<%= e.dataValues.implementation_date %>">
-              </h5>
-              <h5>
-                <label class="form-label" for="plastic-item-before">Select the previous plastic item</label>
-                <select name ="id_plastic_item_before" class="form-select mb-4" aria-label="Default select example">
+      <div class="flex justify-center items-center fixed top-0 left-0 z-[1055] hidden w-full h-full overflow-x-hidden overflow-y-auto outline-0 mb-12 <%= `editmodal-${e.dataValues.unplastified_item_id}`%>">
+        <form
+          action="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT`%>" 
+          method="POST" 
+          enctype="multipart/form-data"
+          class="flex flex-col gap-y-4 bg-upfc-gray rounded absolute w-[40%] left-[29%] m-4 p-8"
+        >
+        <button type="button" class="close self-end -mb-4" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              <div class="flex flex-col w-full gap-x-2">
+                <div class="text-white font-light" for="plastic_item">Item Plástico:</div>
+                <input class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" type="text" name="plastic_item" value="<%= e.dataValues.plastic_item %>">
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
+                <div class="text-white font-light" for="implemented_change">Cambio implementado:</div>
+                <input class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" type="text" name="implemented_change" value="<%= e.dataValues.implemented_change %>">
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
+                <div class="text-white font-light" for="sku">Sku:</div>
+                <input class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" type="text" name="sku" value="<%= e.dataValues.sku %>">
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
+                <div class="text-white font-light" for="implemented_date">Fecha de implementación:</div>
+                <input class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" type="date" name="implementation_date" value="<%= e.dataValues.implementation_date %>">
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
+                <div class="text-white font-light" for="plastic-item-before">Objeto plástico anterior:</div>
+                <select name ="id_plastic_item_before" class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" aria-label="Default select example">
                   <% plasticItem.forEach( plasticItem => { %>
                     <option value="<%= plasticItem.id_plastic_item %>" <%= plasticItem.id_plastic_item == e.dataValues.id_plastic_item_before ? `selected="true"` : false %>>
                       <%= plasticItem.plastic_item %> 
                     </option>
                   <% }) %>
                 </select>
-              </h5>
-              <h5>
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
                 <!-- Alternative plastic item -->
-                <label class="form-label" for="plastic_item_before">Select the alternative plastic item chosen</label>
-                <select name ="id_plastic_item_after" class="form-select mb-4" aria-label="Default select example">
+                <div class="text-white font-light mb-1" for="plastic_item_before">Objeto alternativo:</div>
+                <select name ="id_plastic_item_after" class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" aria-label="Default select example">
                   <% alternativePlasticItem.forEach( alternativePlasticItem => { %>
                     <option value="<%= alternativePlasticItem.id_alternative_plastic_item %>" <%= alternativePlasticItem.id_alternative_plastic_item == e.dataValues.id_alternative_plastic_item ? `selected="true"` : false %>>
                       <%= alternativePlasticItem.alternative_plastic_item %> 
                     </option>
                   <% }) %>
                 </select>
-              </h5>
-              <h5>
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
                 <!-- Impact approach -->
-                <label class="form-label" for="plastic-item-before">Select the impact approach</label>
-                <select name ="impact_approach" class="form-select mb-4" aria-label="Default select example">
+                <div class="text-white font-light mb-1" for="plastic-item-before">Impacto deseado:</div>
+                <select name ="impact_approach" class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" aria-label="Default select example">
                   <% impactApproach.forEach( imapctApproach => { %>
                     <option value="<%= imapctApproach.id_impact_approach %>" <%=  imapctApproach.id_impact_approach == e.dataValues.impact_approach.dataValues.id_impact_approach ? `selected="true"` : false %> >
                       <%= imapctApproach.impact_approach %> 
                     </option>
                   <% }) %>
                 </select>
-              </h5>
-              <h5>
-                <label class="form-label" for="plastic-item-before">Select product measurement</label>
-                <select name ="id_product_measurement_unit" class="form-select mb-4" aria-label="Default select example">
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
+                <div class="text-white font-light mb-1" for="plastic-item-before">Unidad de medida:</div>
+                <select name ="id_product_measurement_unit" class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" aria-label="Default select example">
                   <% productMeasurementUnit.forEach( productMeasurementUnit => { %>
                     <option value="<%= productMeasurementUnit.id_product_measurement_unit %>"<%= productMeasurementUnit.id_product_measurement_unit == e.dataValues.id_product_measurement_unit ? `selected="true"` : false %> >
                       <%= productMeasurementUnit.measurement_unit %> 
                     </option>
                   <% }) %>
                 </select>
-              </h5>
-              <h5>
-                <label class="form-label" for="impact_approach_quantity">Quantity</label>
-                <input type="text" name="impact_approach_quantity" value="<%= e.dataValues.impact_approach_quantity %>">
-              </h5>
+              </div>
+              <div class="flex flex-col w-full gap-x-2">
+                <div class="text-white font-light" for="impact_approach_quantity">Cantidad:</div>
+                <input class="w-full py-1 px-2 bg-gray-600 w-fit py-0 rounded-lg focus:outline-none text-white" type="text" name="impact_approach_quantity" value="<%= parseInt(e.dataValues.impact_approach_quantity) %>">
+
+
+              </div>
               <%
                 const beforePicArray = JSON.parse(e.dataValues.before_pic);
                 if (beforePicArray.length > 0) {
               %>
-              <h4>Before pics</h4>
+              <h4>Fotos anteriores</h4>
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <% if (beforePicArray.length > 1) { %>
                   <ol class="carousel-indicators">
@@ -108,7 +110,7 @@
               const afterPicArray = JSON.parse(e.dataValues.after_pic);
               if (afterPicArray.length > 0) {
             %>
-              <h4>After pics</h4>
+              <h4>Fotos posteriores</h4>
               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <% if (afterPicArray.length > 1) { %>
                   <ol class="carousel-indicators">
@@ -229,7 +231,7 @@
                     <button type="submit" class="btn btn-primary">Add further information</button>
                   <% } %>
                   <% if (mintingRequest.dataValues.minting_status.dataValues.status == 'Created') { %>
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                   <% } %>
                   <% if (mintingRequest.dataValues.minting_status.dataValues.status == 'Created' || mintingRequest.dataValues.minting_status.dataValues.status == 'Further documentation requested' ) { %>
                     <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
@@ -241,7 +243,7 @@
             <% } %>
             <% if (userCategory == 'unplastify') { %>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" formaction="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT` %>" formmethod="POST">Edit</button>
+                  <button type="submit" class="btn btn-primary" formaction="<%= `/enterprise/editUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=PUT` %>" formmethod="POST">Guardar</button>
                   <button type="submit" class="btn btn-danger" formaction="<%= `/enterprise/deleteUnplastifiedItem/${e.dataValues.unplastified_item_id}?_method=DELETE` %>" formmethod="POST">
                     Delete Unplastified item
                   </button>
@@ -262,11 +264,8 @@
                   </form>
                 </div>
             <% } %>
-            </div>
         </form>
       </div>
-    </div>
-  </div>
 <% }) %>
   
 <!-- Modal imports -->

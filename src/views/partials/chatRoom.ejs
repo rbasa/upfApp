@@ -1,61 +1,61 @@
-<section>
-  <div class="container py-5">
-    <div class="row">
-      <div class="">
-        <ul class="list-unstyled">
-          <h2>Chat Room</h2>
-          <p>This will be used for validators Q&A</p>
-          <div class="container py-5" style="height: 400px; overflow: auto;">
-          <% mintingRequest.chatRooms.forEach(chat => { %>
-            <% 
-              const timestamp = new Date(chat.dataValues.createdAt);
-              const formattedDate = timestamp.toLocaleDateString('en-US', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-              });
-              const formattedTime = timestamp.toLocaleTimeString('en-US');
+<section class="flex w-full items-center justify-center bg-upfc-blue">
+        <div class="flex flex-col w-2/3 mb-12">
+          <h2 class="text-white">Chat Room</h2>
+          <p class="text-white">This will be used for validators Q&A</p>
+          <div class="bg-upfc-gray rounded-xl p-6">
+            <div class="flex flex-col text-white">
+              <% mintingRequest.chatRooms.forEach(chat => { %>
+                <% 
+                  const timestamp = new Date(chat.dataValues.createdAt);
+                  const formattedDate = timestamp.toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                  });
+                  const formattedTime = timestamp.toLocaleTimeString('en-US');
 
-              const formattedTimestamp = `${formattedDate} ${formattedTime}`;
-              %>
-            <li class="d-flex justify-content-between mb-4">
-              <div class="card w-100">
-                <div class="card-header d-flex justify-content-between p-3">
-                  <p class="fw-bold mb-0">
-                    <% if(chat.dataValues.user_category_id == userCategory+ 1){ %>
-                      you
-                    <% } else if(chat.dataValues.user_category_id==1){ %>
-                      Validator
-                    <% } else if(chat.dataValues.user_category_id==2){ %>
-                      <%= mintingRequest.dataValues.user_request.dataValues.name %>
-                    <% } else if(chat.dataValues.user_category_id==3){ %>
-                      Unplastify
-                    <% } %>
-
-                  </p>
-                  <p class="text-muted small mb-0"><i class="far fa-clock"></i><%= formattedTimestamp %></p>
-                </div>
-                <div class="card-body">
-                  <p class="mb-0">
-                    <%= chat.dataValues.msg %>
-                  </p>
-                </div>
-              </div>
-            </li>
-          <% }); %>
-        </div>
-          <form method="POST" action="/chat">
-            <li class="bg-white mb-3">
-              <div class="form-outline">
-                <textarea name="newMsg" class="form-control" id="textAreaExample2" rows="4"></textarea>
-              </div>
-            </li>
-            <button type="submit" class="btn btn-info btn-rounded float-end">Send</button>
+                  const formattedTimestamp = `${formattedDate} ${formattedTime}`;
+                  %>
+                  <div class="flex flex-col mb-3 w-full border-b border-gray-400">
+                    <div class="flex justify-between">
+                      <p class="font-bold">
+                        <% if(chat.dataValues.user_category_id == userCategory+ 1){ %>
+                          you
+                        <% } else if(chat.dataValues.user_category_id==1){ %>
+                          Validator
+                        <% } else if(chat.dataValues.user_category_id==2){ %>
+                          <%= mintingRequest.dataValues.user_request.dataValues.name %>
+                        <% } else if(chat.dataValues.user_category_id==3){ %>
+                          Unplastify
+                        <% } %>
+  
+                      </p>
+                      <p class="text-xs font-thin opacity-75"><i class="far fa-clock"></i><%= formattedTimestamp %></p>
+                    </div>
+                    <div class="">
+                      <p class="">
+                        <%= chat.dataValues.msg %>
+                      </p>
+                    </div>
+                  </div>
+              <% }); %>
+            </div>
+          </div>
+          <form class="flex flex-col items-center justify-center mt-6" method="POST" action="/chat">
+            <div class="relative w-full h-full">
+              <input
+                type="text "
+                name="newMsg" 
+                class="bg-upfc-gray rounded-xl h-full focus:outline-none text-white p-3 w-full" 
+                id="textAreaExample2" 
+                rows="4"
+                placeholder="Mensaje..."
+              >
+              </input>
+              <button type="submit" class="bg-upfc-blue2 text-white rounded-lg p-2 absolute bottom-1.5 right-2">Enviar</button>
+            </div>
           </form>
-        </ul>
-      </div>
-    </div>
-  </div>
+        </div>
   </section>
 
 
