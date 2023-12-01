@@ -13,9 +13,10 @@ const controller = {
     const users = await Users.unregisteredList();
     const openMintingRequests = await Minting_request.findAllMintingRequest();
     const openMintingRequestsWithDetails = await Minting_request.findAllWithDetails();
+    const [ negativeVotes ] = await Minting_request.listNegativeVotes();
     const userCategory = decodedToken.userCategory;
     if (!api) {
-      return res.render('unplastify/upfDashboard', { users, openMintingRequests, openMintingRequestsWithDetails, userCategory });
+      return res.render('unplastify/upfDashboard', { users, openMintingRequests, openMintingRequestsWithDetails, userCategory, negativeVotes });
     }
     return res.json([users, openMintingRequests, openMintingRequestsWithDetails, userCategory]);
   },
@@ -54,31 +55,6 @@ const controller = {
       return res.redirect('/unplastify/home');
     }
     return res.redirect('/unplastify/home/api');
-  },
-  selectRandomValidators: async (count) => {
-    const api = req.params.api || false;
-    const allValidators = await Users.listUserByCategory('validator')
-    const totalValidators = allValidators.length;
-    const selectedValidators = [];
-
-    if (count >= totalValidators) {
-      // Add all validators to the selected list
-      allValidators.forEach(validator => {
-        selectedValidators.push(validator.user_id);
-      });
-    } else {
-      // Randomly select 'count' number of validators
-      while (selectedValidators.length < count) {
-        const randomIndex = Math.floor(Math.random() * totalValidators);
-        const randomValidator = allValidators[randomIndex];
-
-        if (!selectedValidators.includes(randomValidator.user_id)) {
-          selectedValidators.push(randomValidator.user_id);
-        }
-      }
-    }
-    //unfinished method
-    return selectedValidators;
   },
   assignMintingRequestToValidator: async (req, res) => {
     const api = req.params.api || false;

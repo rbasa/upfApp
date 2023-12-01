@@ -53,6 +53,7 @@ const Minting_request = {
       `
       select
         a.*,
+        b.status,
         c.name enterpriseName
       from
         minting_request a
@@ -221,6 +222,61 @@ const Minting_request = {
     const replacements = { status, id };
     return await db.sequelize.query(query, { replacements });
   },
+  listNegativeVotes: async () => {
+    const query = `
+      SELECT
+        a.name minting_request,
+        u.name enterprise,
+        rejects.minting_request_id,
+        COUNT(rejects.minting_request_id) AS negative_votes,
+        COUNT(approves.minting_request_id) AS approved_votes
+      FROM
+        (
+          SELECT
+            minting_request_id
+          FROM
+            validation_tracking
+          WHERE
+            validation_status_id = (
+              SELECT
+                validation_status_id
+              FROM
+                validation_status
+              WHERE
+                status = 'Rejected'
+            )
+        ) AS rejects
+      LEFT JOIN
+        (
+          SELECT
+            minting_request_id
+          FROM
+            validation_tracking
+          WHERE
+            validation_status_id = (
+              SELECT
+                validation_status_id
+              FROM
+                validation_status
+              WHERE
+                status = 'Approved'
+            )
+        ) AS approves
+      ON
+        approves.minting_request_id = rejects.minting_request_id
+      INNER JOIN
+        minting_request a
+      ON
+        rejects.minting_request_id = a.minting_request_id
+      INNER JOIN
+        user u
+      on
+        u.user_id = a.user_id
+      GROUP BY
+        rejects.minting_request_id;
+    `;
+    return await db.sequelize.query(query);
+  }
 };
 
 module.exports = Minting_request;

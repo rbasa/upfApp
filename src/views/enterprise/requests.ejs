@@ -1,16 +1,45 @@
-<% openMintingRequests.forEach(e=>{ %>
-    <div class='bg-upfc-gray rounded-lg p-3 text-white'>
-        <div class='flex flex-col items-start'>
-            <% if (userCategory == 'unplastify') { %>
-                <h4 class="text-sm mt-2"><%= e.enterpriseName %></h4>
-            <% } %>
-            <span class='text-xl font-medium mt-1'><%= e.name %></span>
-            <span class='font-medium text-sm bg-[#FBFF47] mt-2 p-1 rounded-lg text-black'><%= e.status || e.status_id %></span>
-            <a 
-                href="<%= `/enterprise/mintingRequest/${e.minting_request_id}` %>"
-                class='text-center hover:no-underline p-2 bg-upfc-lime rounded-lg mt-2 text-black w-full font-normal'>
-                Ver más
-            </a>
+
+<section class="py-5 bg-light">
+  <div class="container px-4 px-lg-5 mt-5">
+    <% if (userCategory == 2) { %>
+      <h5 class="fw-bolder">
+        <h2 class="fw-bolder mb-4">Your minting requests</h2>
+      </h5>
+      <% } else{%>
+        <h2 class="fw-bolder mb-4">Minting requests</h2>
+    <% } %>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <% openMintingRequests.forEach(e=>{ %>
+        <div class="col mb-5">
+          <div class="card h-100">
+              <!-- Product image-->
+              <!-- <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
+              <!-- Product details-->
+              <div class="card-body p-4">
+                  <div class="text-center">
+                      <!-- Enterprise name for Unplastify views -->
+                      <% if (userCategory == 'unplastify') { %>
+                        <h4 class="">
+                          <%= e.enterpriseName %>
+                        </h4>
+                      <% } %>
+                      <!-- Product name-->
+                      <h5 class="fw-bolder"><%= e.name %></h5>
+                      <!-- Product price-->
+                      <span class="text-muted">
+                        <%= e.status %>
+                      </span>
+                  </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="<%= `/enterprise/mintingRequest/${e.minting_request_id}` %>">
+                      Details
+                    </a>
+                  </div>
+              </div>
+          </div>
         </div>
     </div>
 <% }) %>

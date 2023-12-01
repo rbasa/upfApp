@@ -55,15 +55,15 @@ const controller = {
       // update validation_tracking table
       await Validator.changeStatus(req.params.minting_request_id, decodedToken.userId, 'Canceled');
     } catch (error) {
-      console.log(error)
-      if (!api) {
-        return res.redirect('/validator/home');
-      }
+        console.log(error)
+        if (!api) {
+          return res.redirect('/validator/home');
+        }
       return res.status(400).json({ message: `Minting Request assignation coudn't be Canceled` });
     }
     try {
-      // Should re assign its place to other validator
-      //
+      // Should re assign its place to other validator (if)
+      await Validator.replaceValidator(req.params.minting_request_id, decodedToken.userId);
       } catch (error) {
       console.log(error)
     }
@@ -71,7 +71,7 @@ const controller = {
     if (!api) {
       return res.redirect('/validator/home');
     }
-    return res.status(200).json({ message: `Validation updated as ${vote}` });
+    return res.status(200).json({ message: `Validation assigment canceled` });
   }
 };
 module.exports = controller;
